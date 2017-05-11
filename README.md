@@ -1,74 +1,82 @@
-# Diseño UI: BattleShip
-##
-# Introducción:
-En este proyecto se plantea implementar una variante del tradicional juego “Hundir la flota”. Su dinámica básica es similar a la del juego de siempre y se describe brevemente a continuación:
-- Tanto el jugador como el ordenador disponen de una flota formada por 10 barcos de distintos tipos: 1 portaaviones (cuya longitud es 4), 2 submarinos (de longitud 3), 3 destructores (de longitud 2) y 4 fragatas (de longitud 1).
-- El jugador dispone de dos tableros de tamaño 10x10. En uno de ellos, al que llamaremos “flota jugador” colocará los barcos de su flota en las posiciones que considere adecuadas, teniendo en cuenta las siguientes reglas:
-	- Las posiciones del tablero en las que no hay barcos, son agua.
-	- Los barcos pueden colocarse tanto en posición horizontal como vertical, pero nunca
-pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
-- Su oponente, que en este proyecto es el ordenador, también dispondrá de dos tableros y colocará sobre su tablero “flota ordenador”, los barcos de su flota. Las posiciones en las que ordenador sitúa cada barco se obtendrán de forma aleatoria, respetando siempre las dos reglas previamente expuestas.
--Una vez colocados los barcos, puede comenzar la batalla en la que cada flota tratará de hundir los barcos del adversario. La flota que consiga dejar sin barcos a su oponente será la ganadora. Para ello, cada flota dispone de armamento de diferentes tipos y de dinero para comprar más armamento o reparar los barcos dañados en el combate. Se consideran, al menos, los siguientes tipos de armamento:
-	- Radar: inicialmente se sitúa en una posición del tablero elegida de form aleatoria. Su función es indicar la posición de un barco enemigo que esté colocado en las posiciones que rodean al radar. Cuenta con un número de consultas posibles que se decrementa cada vez que se utiliza. Es posible moverlo durante el transcurso de la batalla. Una vez finalizadas las consultas que se le pueden hacer, desaparece:
-	- Bombas: destruyen únicamente la posición del barco sobre la que caen.
-	- Misiles: destruyen el barco que contiene la posición sobre la que impactan.
-	- Misiles dirigidos: pueden lanzarse en dirección norte-sur (NS), en dirección este-oeste (EO) o en todas direcciones (BOOM). Los primeros destruyen todos los barcos del enemigo que se encuentren en la horizontal de la posición sobre la que impactan, los segundos acaban con todos los que estén en la vertical y los terceros eliminan los que se encuentran tanto en la horizontal como en la vertical de la posición del impacto.  Escudos: recubren al barco, impidiendo que se dañe por el impacto de una bomba o un misil. El escudo se destruye cuando sobre él impacta un misil o cuando es alcanzado en dos ocasiones por una bomba.
-- El juego también cuenta con un almacén en el que las flotas pueden comprar armamento. Inicialmente el almacén dispondrá de unidades preestablecidas de cada tipo de armamento, que se irán decrementando a medida que las flotas hacen compras. El material del almacén no puede reponerse.
-- Al comienzo del combate, las flotas disponen de una cantidad predeterminada de armamento y de dinero (ambas flotas poseen lo mismo).
-- El juego se desarrolla por turnos, comenzando siempre el jugador. Si la flota de jugador dispone de radar, puede consultar si hay barcos enemigos en alguna posición al alcance de su radar. Para ello, la aplicación debe acceder al tablero “flota ordenador” que contiene los barcos de ordenador y comprobar si en las posiciones alrededor del radar de jugador hay algún barco. En caso afirmativo, devolverá una posición del barco detectado. A continuación jugador realizará un disparo con una unidad de su armamento dirigiéndolo a la posición que desee de la “flota ordenador”. El jugador marcará en su segundo tablero, al que llamaremos “flota adversario”, el disparo realizado y el resultado de su impacto sobre la flota enemiga (agua, tocado, hundido, escudo).
-- Tras un disparo, la flota adversaria (ordenador) decide si desea gastar dinero en comprar armamento o en reparar alguno de sus barcos dañados. Cada tipo de armamento, así como la reparación de un barco tienen un coste preestablecido, que se restará del dinero de la flota que lo compre el armamento o solicite el arreglo. 
-- A continuación, el turno pasa al ordenador, repitiéndose el proceso: ordenador podrá consultar su radar y disparar con su armamento sobre alguna posición de la flota del jugador. Para ello, ordenador debe disponer de algún método de ataque que determine cuál es el armamento y la posición adecuados para hacer el disparo.
-- Es necesario implementar adecuadamente métodos para determinar las propiedades de los disparos que van realizando tanto ordenador como jugador durante la partida, además de mantener actualizados los tableros de “flota adversario” con la información del estado de la “flota jugador” y de la “flota ordenador”.
-Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
-# Primer Sprint
-	# HU1: Inicializar el juego
-		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
-		sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos
-		especificados en el enunciado general.
-		- Colocar los barcos de “flota ordenador” en posiciones obtenidas aleatoriamente. Es necesario que las
-		posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
-		- Asociar a ambas flotas el armamento y el dinero inicial.
-		- Establecer el número de consultas del radar.		
-		- Inicializar la información de “flota adversario” del jugador y del ordenador.
-		- Inicializar el almacén con los distintos tipos de armamento que tiene, las unidades disponibles y
-		su precio unitario.
-		- Establecer el precio de las reparaciones de los barcos.
-	# HU2: Activar escudo jugador
-		- Si el jugador dispone de algún escudo, se activa sobre el barco que indique el jugador.
-	# HU3: Activar escudo ordenador
-		- Si el ordenador dispone de algún escudo, se activa sobre el barco que indique el ordenador.
-# Segundo Sprint
-	# HU4: Consultar radar jugador
-		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
-		que rodean al radar de jugador. En caso afirmativo, devolverá una posición del barco detectado. Antes de
-		hacer la consulta puede desplazar el radar a otra posición del tablero.
-	# HU5: Consultar radar ordenador
-		- El ordenador consulta su radar para comprobar si hay algún barco de la “flota jugador” en las posiciones
-		que rodean al radar de ordenador. En caso afirmativo, devolverá una posición del barco detectado. Antes de
-		hacer la consulta puede desplazar el radar a otra posición del tablero.
-	# HU6: Disparar el jugador
-		- El jugador indica las coordenadas sobre las que desea disparar y el armamento que desea utilizar; el ges-
-		tor	del juego determina el efecto del disparo sobre la “flota del ordenador”. Además muestra en pantalla 
-		su resultado.
-	# HU7: Disparar el ordenador
-		- El ordenador decide las coordenadas sobre las que va disparar y el armamento que desea utilizar; el gestor
-		del	juego determina el efecto del disparo sobre la “flota del jugador”. Además se muestra en pantalla su 
-		resultado. En una primera versión del juego, es posible establecer que el ordenador elige aleatoriamente 
-		las posiciones sobre las que realiza el disparo. Después se puede ir refinando esta estrategia de juego para 
-		añadirle algún tipo de conocimiento y razonamiento sobre estrategias de juego.
-# Tercer Sprint 
-	# HU8: Reparar barco jugador
-		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo
-		la cantidad de dinero del jugador.
-	# HU9: Reparar barco ordenador
-		- Si el ordenador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminu-
-		yendo la cantidad de dinero del ordenador.
-	# HU10: Comprar armamento jugador
-		- Si el jugador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento 
-		comprado disminuyendo la cantidad de dinero del jugador.
-	# HU11: Comprar armamento ordenador
-		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento 
-		comprado disminuyendo la cantidad de dinero del ordenador.
+[![Build Status](https://travis-ci.com/txusyk/gradle-is-battleship.svg?token=dryu6zQsjtcB9hDhpSk7&branch=master)](https://travis-ci.com/txusyk/gradle-is-battleship)
+
+# Diseño UI
+
+## Idea inicial
+![logo_sketch](http://i.imgur.com/El7k7Wg.png)
+
+## Evolucion de UIs
+
+### UI 1.0
+![logo_preview](http://i.imgur.com/R0ipCfv.png)
+
+### UI actual 1.0
+![logo_preview](https://i.imgur.com/P9xwH3h.png)
+
+### UI actual 2.0
+![logo_preview](http://i.imgur.com/RUmELvl.png)
+![logo_preview](http://i.imgur.com/6Mwnoup.png)
+
+## UI final
+### Ventana de login
+![Imgur](http://i.imgur.com/GYHycz3.png)
+### Ventana de juego
+![Imgur](http://i.imgur.com/m8XKqAl.png)
+![Imgur](http://i.imgur.com/DFAa4DJ.png)
+
+# Primer Sprint - Battleship
+
+## Tecnologías empleadas
+
+- **Github**: Todo el código, los diagramas y la documentación se encuentra en Github. Así mismo, es la única herramienta que utilizamos para compartir código, errores o fechas de entrega. Gracias a su integración con *IntelliJ* y con *Telegram* logramos por un lado, gestionar el código del respositorio de una forma fácil y por otro lado, recibir las notificaciones de cada cambio.
+- **Github Gh-pages**: Disponemos de una página web desde donde se puede seguir la evolución del proyecto y desde donde siempre esta disponible la descarga del código del mismo.
+- **IntelliJ**: Utilizamos esta herramienta de Jetbrains gracias a la cuenta premium que nos ha provisto la UPV/EHU.
+- **TestNG**: En lugar de utilizar *JUnit* para los test unitarios, hemos decidido emplear este framework para las pruebas ya que comparte la sintaxis con *JUnit* pero es capaz de aportar nuevas funcionalidades.
+- **Markdown**: Toda la documentación, tanto en las entregas a vosotros los profesores como lo que hay en Github está escrito integramente en este lenguaje que es 100% compatible con Github y aporta muchísima sencillez a la edición de documentos.
+- **Visual Paradigm**: Gracias a la licencia que provee la Escuela, hemos decidido que todos los diagramas serán realizados con esta herramienta, siguiendo unas normas y estándares.
+- **XML**: Tanto para generar el TestSuite de *TestNG* como para cargar los datos de la inicialización del juego, hemos decidio externalizar los datos para que sea mas fácil acceder a los mismos y modificarlos en caso de ser necesario. De esta forma tambien reducimos los cambios a realizar en caso de que el cliente modifique las especificaciones de la inicialización.
+- **TravisCI**: Utilizamos travis para asegurar el correcto funcionamiento del repositorio y del código que este almacena con cada commit. Para ello, hemos implementado el proyecto con gradle y lo ejecutamos sincronizado con el servidor de TravisCI.
+
+## Precondiciones de funcionamiento del juego
+
+- El número de armas de las que dispone el Modelo.Almacen al inicializarse al comienzo de una partida, variará en función de la dificultad de la misma
+- El precio de las reparaciones de los barcos y el dinero inicial con el que comienza una partida también se verá afectado por dicho factor
+- Los barcos se colocarán teniendo en cuenta su cabeza (0,0) y de la siguiente forma:
+	- *Horizontalmente* -> Hacia la derecha unicamente
+	- *Verticalmente* -> Hacia abajo
+
+ Al establecer dichos ajustes de esta forma, nos es mas fácil gestionar el posicionamiento de un barco.
+
+- Los jugadores podrán acceder en todo momento a ambos tableros (con distintas propiedades en función de cual sea cada uno) y dispondrán de una flota posicionada sobre uno de los mismos
+- Cuando el jugador impacte sobre una casilla de la flota rival, obtendrá una bonificación economica que se verá incrementada de forma inversamente proporcional al tamaño del barco impactado una vez sea destruido.
+
+## Ajustes iniciales del juego
 
 
+### Tabla cantidades armas
 
+|         | facil | medio | dificil |
+|---------|-------|-------|---------|
+|  Modelo.Bomba  |  ∞    |   ∞   |    ∞    |
+| Misil	  | 15    |  10   |    4    |
+| Misil Dirig | 8 |  6    |   2     |
+| Radar   | 10    |  7    |   3     |
+| Modelo.Escudo  | 10    |  7    |   3     |
+
+### Tabla precio armas
+
+|         | facil | medio | dificil |
+|---------|-------|-------|---------|
+|  Modelo.Bomba  |  free | free  |  free   |
+| Misil	  | 2500  |  3500 |  5000   |
+| Misil Dirig | 8000 |  10000 | 15000|
+| Radar   | 5000  |  7500 |  12000  |
+| Modelo.Escudo  | 5000  |  7500 |  12000  |
+
+### Tabla dinero
+
+|         | facil | medio | dificil |
+|---------|-------|-------|---------|
+| Dinero Inicial |  15000 | 13000 | 5000 |
+| Precio Reparacion | 2500 | 4000 | 7000 |
+| Precio Impacto | 500 |  400 | 250  |
