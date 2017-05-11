@@ -22,12 +22,16 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
 # Primer Sprint
 	# HU1: Inicializar el juego
-		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
-		- Colocar los barcos de “flota ordenador” en posiciones obtenidas aleatoriamente. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
+		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
+		sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos
+		especificados en el enunciado general.
+		- Colocar los barcos de “flota ordenador” en posiciones obtenidas aleatoriamente. Es necesario que las
+		posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
 		- Asociar a ambas flotas el armamento y el dinero inicial.
 		- Establecer el número de consultas del radar.		
 		- Inicializar la información de “flota adversario” del jugador y del ordenador.
-		- Inicializar el almacén con los distintos tipos de armamento que tiene, las unidades disponibles y su precio unitario.
+		- Inicializar el almacén con los distintos tipos de armamento que tiene, las unidades disponibles y su
+		precio unitario.
 		- Establecer el precio de las reparaciones de los barcos.
 	# HU2: Activar escudo jugador
 		- Si el jugador dispone de algún escudo, se activa sobre el barco que indique el jugador.
