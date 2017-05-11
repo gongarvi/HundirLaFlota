@@ -1,30 +1,14 @@
 # Diseño UI: BattleShip
 ##Introducción:
-En este proyecto se plantea implementar una variante del tradicional juego “Hundir la flota”. Su
-dinámica básica es similar a la del juego de siempre y se describe brevemente a continuación:
-1. Tanto el jugador como el ordenador disponen de una flota formada por 10 barcos de distintos
-tipos: 1 portaaviones (cuya longitud es 4), 2 submarinos (de longitud 3), 3 destructores (de
-longitud 2) y 4 fragatas (de longitud 1).
-2. El jugador dispone de dos tableros de tamaño 10x10. En uno de ellos, al que llamaremos
-“flota jugador” colocará los barcos de su flota en las posiciones que considere adecuadas,
-teniendo en cuenta las siguientes reglas:
-a. Las posiciones del tablero en las que no hay barcos, son agua.
-b. Los barcos pueden colocarse tanto en posición horizontal como vertical, pero nunca
+En este proyecto se plantea implementar una variante del tradicional juego “Hundir la flota”. Su dinámica básica es similar a la del juego de siempre y se describe brevemente a continuación:
+1. Tanto el jugador como el ordenador disponen de una flota formada por 10 barcos de distintos tipos: 1 portaaviones (cuya longitud es 4), 2 submarinos (de longitud 3), 3 destructores (de longitud 2) y 4 fragatas (de longitud 1).
+2. El jugador dispone de dos tableros de tamaño 10x10. En uno de ellos, al que llamaremos “flota jugador” colocará los barcos de su flota en las posiciones que considere adecuadas, teniendo en cuenta las siguientes reglas:
+-- Las posiciones del tablero en las que no hay barcos, son agua.
+-- Los barcos pueden colocarse tanto en posición horizontal como vertical, pero nunca
 pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
-3. Su oponente, que en este proyecto es el ordenador, también dispondrá de dos tableros y
-colocará sobre su tablero “flota ordenador”, los barcos de su flota. Las posiciones en las que
-ordenador sitúa cada barco se obtendrán de forma aleatoria, respetando siempre las dos
-reglas previamente expuestas.
-4. Una vez colocados los barcos, puede comenzar la batalla en la que cada flota tratará de hundir
-los barcos del adversario. La flota que consiga dejar sin barcos a su oponente será la
-ganadora. Para ello, cada flota dispone de armamento de diferentes tipos y de dinero para
-comprar más armamento o reparar los barcos dañados en el combate. Se consideran, al
-menos, los siguientes tipos de armamento:
- Radar: inicialmente se sitúa en una posición del tablero elegida de forma aleatoria. Su
-función es indicar la posición de un barco enemigo que esté colocado en las posiciones que
-rodean al radar. Cuenta con un número de consultas posibles que se decrementa cada vez
-que se utiliza. Es posible moverlo durante el transcurso de la batalla. Una vez finalizadas las
-consultas que se le pueden hacer, desaparece.
+3. Su oponente, que en este proyecto es el ordenador, también dispondrá de dos tableros y colocará sobre su tablero “flota ordenador”, los barcos de su flota. Las posiciones en las que ordenador sitúa cada barco se obtendrán de forma aleatoria, respetando siempre las dos reglas previamente expuestas.
+4. Una vez colocados los barcos, puede comenzar la batalla en la que cada flota tratará de hundir los barcos del adversario. La flota que consiga dejar sin barcos a su oponente será la ganadora. Para ello, cada flota dispone de armamento de diferentes tipos y de dinero para comprar más armamento o reparar los barcos dañados en el combate. Se consideran, al menos, los siguientes tipos de armamento:
+-- Radar: inicialmente se sitúa en una posición del tablero elegida de forma aleatoria. Su función es indicar la posición de un barco enemigo que esté colocado en las posiciones que rodean al radar. Cuenta con un número de consultas posibles que se decrementa cada vez que se utiliza. Es posible moverlo durante el transcurso de la batalla. Una vez finalizadas las consultas que se le pueden hacer, desaparece:
 -- Bombas: destruyen únicamente la posición del barco sobre la que caen.
 -- Misiles: destruyen el barco que contiene la posición sobre la que impactan.
 -- Misiles dirigidos: pueden lanzarse en dirección norte-sur (NS), en dirección este-oeste (EO) o en todas direcciones (BOOM). Los primeros destruyen todos los barcos del enemigo que se encuentren en la horizontal de la posición sobre la que impactan, los segundos acaban con todos los que estén en la vertical y los terceros eliminan los que se encuentran tanto en la horizontal como en la vertical de la posición del impacto.  Escudos: recubren al barco, impidiendo que se dañe por el impacto de una bomba o un misil. El escudo se destruye cuando sobre él impacta un misil o cuando es alcanzado en dos ocasiones por una bomba.
