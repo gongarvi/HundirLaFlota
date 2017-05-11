@@ -39,22 +39,35 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 		- Si el ordenador dispone de algún escudo, se activa sobre el barco que indique el ordenador.
 # Segundo Sprint
 	# HU4: Consultar radar jugador
-		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones que rodean al radar de jugador. En caso afirmativo, devolverá una posición del barco detectado. Antes de hacer la consulta puede desplazar el radar a otra posición del tablero.
+		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
+		que rodean al radar de jugador. En caso afirmativo, devolverá una posición del barco detectado. Antes de
+		hacer la consulta puede desplazar el radar a otra posición del tablero.
 	# HU5: Consultar radar ordenador
-		- El ordenador consulta su radar para comprobar si hay algún barco de la “flota jugador” en las posiciones que rodean al radar de ordenador. En caso afirmativo, devolverá una posición del barco detectado. Antes de hacer la consulta puede desplazar el radar a otra posición del tablero.
+		- El ordenador consulta su radar para comprobar si hay algún barco de la “flota jugador” en las posiciones
+		que rodean al radar de ordenador. En caso afirmativo, devolverá una posición del barco detectado. Antes de
+		hacer la consulta puede desplazar el radar a otra posición del tablero.
 	# HU6: Disparar el jugador
-		- El jugador indica las coordenadas sobre las que desea disparar y el armamento que desea utilizar; el gestor del juego determina el efecto del disparo sobre la “flota del ordenador”. Además muestra en pantalla su resultado.
+		- El jugador indica las coordenadas sobre las que desea disparar y el armamento que desea utilizar; el gestor
+		del juego determina el efecto del disparo sobre la “flota del ordenador”. Además muestra en pantalla su resultado.
 	# HU7: Disparar el ordenador
-		- El ordenador decide las coordenadas sobre las que va disparar y el armamento que desea utilizar; el gestor del juego determina el efecto del disparo sobre la “flota del jugador”. Además se muestra en pantalla su resultado. En una primera versión del juego, es posible establecer que el ordenador elige aleatoriamente las posiciones sobre las que realiza el disparo. Después se puede ir refinando esta estrategia de juego para añadirle algún tipo de conocimiento y razonamiento sobre estrategias de juego.
+		- El ordenador decide las coordenadas sobre las que va disparar y el armamento que desea utilizar; el gestor del
+		juego determina el efecto del disparo sobre la “flota del jugador”. Además se muestra en pantalla su resultado. En
+		una primera versión del juego, es posible establecer que el ordenador elige aleatoriamente las posiciones sobre las 
+		que realiza el disparo. Después se puede ir refinando esta estrategia de juego para añadirle algún tipo de conoci-
+		miento y razonamiento sobre estrategias de juego.
 # Tercer Sprint 
 	# HU8: Reparar barco jugador
-		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la cantidad de dinero del jugador.
+		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la can-
+		tidad de dinero del jugador.
 	# HU9: Reparar barco ordenador
-		- Si el ordenador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la cantidad de dinero del ordenador.
+		- Si el ordenador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la can-
+		tidad de dinero del ordenador.
 	# HU10: Comprar armamento jugador
-		- Si el jugador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado disminuyendo la cantidad de dinero del jugador.
+		- Si el jugador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado
+		disminuyendo la cantidad de dinero del jugador.
 	# HU11: Comprar armamento ordenador
-		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado disminuyendo la cantidad de dinero del ordenador.
+		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado
+		disminuyendo la cantidad de dinero del ordenador.
 
 
 
