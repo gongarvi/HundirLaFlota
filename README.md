@@ -4,7 +4,6 @@
 En este proyecto se plantea implementar una variante del tradicional juego “Hundir la flota”. Su dinámica básica es similar a la del juego de siempre y se describe brevemente a continuación:
 - Tanto el jugador como el ordenador disponen de una flota formada por 10 barcos de distintos tipos: 1 portaaviones (cuya longitud es 4), 2 submarinos (de longitud 3), 3 destructores (de longitud 2) y 4 fragatas (de longitud 1).
 - El jugador dispone de dos tableros de tamaño 10x10. En uno de ellos, al que llamaremos “flota jugador” colocará los barcos de su flota en las posiciones que considere adecuadas, teniendo en cuenta las siguientes reglas:
-
 	- Las posiciones del tablero en las que no hay barcos, son agua.
 	- Los barcos pueden colocarse tanto en posición horizontal como vertical, pero nunca
 pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
@@ -22,36 +21,36 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 - Es necesario implementar adecuadamente métodos para determinar las propiedades de los disparos que van realizando tanto ordenador como jugador durante la partida, además de mantener actualizados los tableros de “flota adversario” con la información del estado de la “flota jugador” y de la “flota ordenador”.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
 # Primer Sprint
-- # HU1: Inicializar el juego
-	- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
-	- Colocar los barcos de “flota ordenador” en posiciones obtenidas aleatoriamente. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
-	- Asociar a ambas flotas el armamento y el dinero inicial.
-	- Establecer el número de consultas del radar.		
-	- Inicializar la información de “flota adversario” del jugador y del ordenador.
-	- Inicializar el almacén con los distintos tipos de armamento que tiene, las unidades disponibles y su precio unitario.
-	- Establecer el precio de las reparaciones de los barcos.
-- # HU2: Activar escudo jugador
-	- Si el jugador dispone de algún escudo, se activa sobre el barco que indique el jugador.
-- # HU3: Activar escudo ordenador
-	- Si el ordenador dispone de algún escudo, se activa sobre el barco que indique el ordenador.
+	- # HU1: Inicializar el juego
+		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
+		- Colocar los barcos de “flota ordenador” en posiciones obtenidas aleatoriamente. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos especificados en el enunciado general.
+		- Asociar a ambas flotas el armamento y el dinero inicial.
+		- Establecer el número de consultas del radar.		
+		- Inicializar la información de “flota adversario” del jugador y del ordenador.
+		- Inicializar el almacén con los distintos tipos de armamento que tiene, las unidades disponibles y su precio unitario.
+		- Establecer el precio de las reparaciones de los barcos.
+	- # HU2: Activar escudo jugador
+		- Si el jugador dispone de algún escudo, se activa sobre el barco que indique el jugador.
+	- # HU3: Activar escudo ordenador
+		- Si el ordenador dispone de algún escudo, se activa sobre el barco que indique el ordenador.
 # Segundo Sprint
-- # HU4: Consultar radar jugador
-	- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones que rodean al radar de jugador. En caso afirmativo, devolverá una posición del barco detectado. Antes de hacer la consulta puede desplazar el radar a otra posición del tablero.
-- # HU5: Consultar radar ordenador
-	- El ordenador consulta su radar para comprobar si hay algún barco de la “flota jugador” en las posiciones que rodean al radar de ordenador. En caso afirmativo, devolverá una posición del barco detectado. Antes de hacer la consulta puede desplazar el radar a otra posición del tablero.
-- # HU6: Disparar el jugador
-	- El jugador indica las coordenadas sobre las que desea disparar y el armamento que desea utilizar; el gestor del juego determina el efecto del disparo sobre la “flota del ordenador”. Además muestra en pantalla su resultado.
-- # HU7: Disparar el ordenador
-	- El ordenador decide las coordenadas sobre las que va disparar y el armamento que desea utilizar; el gestor del juego determina el efecto del disparo sobre la “flota del jugador”. Además se muestra en pantalla su resultado. En una primera versión del juego, es posible establecer que el ordenador elige aleatoriamente las posiciones sobre las que realiza el disparo. Después se puede ir refinando esta estrategia de juego para añadirle algún tipo de conocimiento y razonamiento sobre estrategias de juego.
+	- # HU4: Consultar radar jugador
+		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones que rodean al radar de jugador. En caso afirmativo, devolverá una posición del barco detectado. Antes de hacer la consulta puede desplazar el radar a otra posición del tablero.
+	- # HU5: Consultar radar ordenador
+		- El ordenador consulta su radar para comprobar si hay algún barco de la “flota jugador” en las posiciones que rodean al radar de ordenador. En caso afirmativo, devolverá una posición del barco detectado. Antes de hacer la consulta puede desplazar el radar a otra posición del tablero.
+	- # HU6: Disparar el jugador
+		- El jugador indica las coordenadas sobre las que desea disparar y el armamento que desea utilizar; el gestor del juego determina el efecto del disparo sobre la “flota del ordenador”. Además muestra en pantalla su resultado.
+	- # HU7: Disparar el ordenador
+		- El ordenador decide las coordenadas sobre las que va disparar y el armamento que desea utilizar; el gestor del juego determina el efecto del disparo sobre la “flota del jugador”. Además se muestra en pantalla su resultado. En una primera versión del juego, es posible establecer que el ordenador elige aleatoriamente las posiciones sobre las que realiza el disparo. Después se puede ir refinando esta estrategia de juego para añadirle algún tipo de conocimiento y razonamiento sobre estrategias de juego.
 # Tercer Sprint 
-- # HU8: Reparar barco jugador
-	- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la cantidad de dinero del jugador.
-- # HU9: Reparar barco ordenador
-	- Si el ordenador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la cantidad de dinero del ordenador.
-- # HU10: Comprar armamento jugador
-	- Si el jugador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado disminuyendo la cantidad de dinero del jugador.
-- # HU11: Comprar armamento ordenador
-	- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado disminuyendo la cantidad de dinero del ordenador.
+	- # HU8: Reparar barco jugador
+		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la cantidad de dinero del jugador.
+	- # HU9: Reparar barco ordenador
+		- Si el ordenador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo la cantidad de dinero del ordenador.
+	- # HU10: Comprar armamento jugador
+		- Si el jugador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado disminuyendo la cantidad de dinero del jugador.
+	- # HU11: Comprar armamento ordenador
+		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento comprado disminuyendo la cantidad de dinero del ordenador.
 
 
 
