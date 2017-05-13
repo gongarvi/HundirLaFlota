@@ -9,6 +9,7 @@ public class Humano extends Jugador {
      */
     private String nombre;
 
+
     /**
      * contructora de humano , se actualiza el campo nombre con el especifico y se llama a la clase jugador que inicializara sus atributos
      * @param pNombre
@@ -78,9 +79,24 @@ public class Humano extends Jugador {
 
             String tablero ="";
             for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
-
-                String estado=Tablero.getMiTablero().estadoCampoAliado(new Posicion(i, j));
-                if(estado!=null){
+                Posicion act=new Posicion(i, j);
+                boolean esc =Tablero.getMiTablero().escudoAliado(act);
+                String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                if(estado!=null && esc) {
+                    if (estado.equals("normal")) {
+                        if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                            tablero += " BE ";
+                        } else {
+                            ControladorTablero.getController().setBotonAliado(i, j, "normalYescudo");
+                        }
+                    } else if (estado.equals("tocado")) {
+                        if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                            tablero += " TE ";
+                        } else {
+                            ControladorTablero.getController().setBotonAliado(i, j, "tocadoYescudo");
+                        }
+                    }
+                }else if(estado!=null && ! esc){
                     if (estado.equals("normal")) {
                         if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                            tablero += " B ";

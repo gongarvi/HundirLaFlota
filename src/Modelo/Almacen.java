@@ -1,4 +1,5 @@
 package Modelo;
+import Controlador.ControladorTablero;
 
 public class Almacen {
 
@@ -13,9 +14,9 @@ public class Almacen {
      * constructora privada para aplicar el patrón Singleton
      */
     private Almacen() {
-            existencias = new ListaArmas();
-             inicializarAlmacen();
-            System.out.println("inicializa almacen");
+        existencias = new ListaArmas();
+        inicializarAlmacen();
+        //System.out.println("inicializa almacen");
     }
 
     /**
@@ -23,27 +24,48 @@ public class Almacen {
      *
      */
     public void inicializarAlmacen() {
-        while (existencias.getSize("bomba") < Battleship.getMyBattleship().getnBombas()) {
-            existencias.añadirArma("bomba",ArmaFactory.getArmaFactory().crearArma("bomba"));
+        while (cuantasBombasHay() < Battleship.getMyBattleship().getnBombas()) {
+            existencias.añadirArma("bomba");
         }
 
-        while (existencias.getSize("misil")< Battleship.getMyBattleship().getnMisiles()) {
-            existencias.añadirArma("misil",ArmaFactory.getArmaFactory().crearArma("misil"));
+        while (cuantosMisilesHay()< Battleship.getMyBattleship().getnMisiles()) {
+            existencias.añadirArma("misil");
         }
 
-        while (existencias.getSize("misilNS") <Battleship.getMyBattleship().getnMisilesNS()) {
-            existencias.añadirArma("misilNS",ArmaFactory.getArmaFactory().crearArma("misilNS"));
+        while (cuantosMisilesNSHay() <Battleship.getMyBattleship().getnMisilesNS()) {
+            existencias.añadirArma("misilNS");
         }
 
-        while (existencias.getSize("misilBoom") <Battleship.getMyBattleship().getnMisilesBoom()) {
-            existencias.añadirArma("misilBoom",ArmaFactory.getArmaFactory().crearArma("misilBoom"));
+        while (cuantosMisilesBoomHay() <Battleship.getMyBattleship().getnMisilesBoom()) {
+            existencias.añadirArma("misilBoom");
         }
 
-        while (existencias.getSize("misilEO") <Battleship.getMyBattleship().getnMisilesEO()) {
-           existencias.añadirArma("misilEO",ArmaFactory.getArmaFactory().crearArma("misilEO"));
+        while (cuantosMisilesEOHay() <Battleship.getMyBattleship().getnMisilesEO()) {
+           existencias.añadirArma("misilEO");
         }
 
 
+    }
+
+    /**
+     * setea las opciones con el precio de cada arma
+     */
+    public void precioArmas(){
+        if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+            System.out.println(
+                    "bombas: " +Battleship.getMyBattleship(). getPrecioBomba() +
+                            "\nmisil: " +Battleship.getMyBattleship(). getPrecioMisil() +
+                            "\nmisilBoom: " + Battleship.getMyBattleship().getPrecioMisilBOOM()+
+                            "\nmisilNS: " +Battleship.getMyBattleship(). getPrecioMisilNS()+
+                            "\nmisilEO: " +Battleship.getMyBattleship(). getPrecioMisilEO()
+            );
+        }else{
+            ControladorTablero.getController().setOpcion("precioBomba", String.valueOf(Battleship.getMyBattleship().getPrecioBomba() ));
+            ControladorTablero.getController().setOpcion("precioMisil",String.valueOf( Battleship.getMyBattleship().getPrecioMisil()));
+            ControladorTablero.getController().setOpcion("precioMisilNS",String.valueOf( Battleship.getMyBattleship(). getPrecioMisilNS()));
+            ControladorTablero.getController().setOpcion("precioMisilesEO",String.valueOf(Battleship.getMyBattleship().getPrecioMisilEO()));
+            ControladorTablero.getController().setOpcion("precioMisilesBoom",String.valueOf(Battleship.getMyBattleship().getPrecioMisilBOOM()));
+        }
     }
 
     /**
@@ -71,23 +93,70 @@ public class Almacen {
     }
 
     /**
+     * método que devuelve el número de misilesBoom que quedan en el almacen
+     */
+    public int cuantosMisilesBoomHay(){
+       return existencias.getSize("misilBoom");
+    }
+
+    /**
+     * método que devuelve el número de misilesEO que quedan en el almacen
+     */
+    public int cuantosMisilesEOHay(){
+       return existencias.getSize("misilEO");
+    }
+
+    /**
+     * método que devuelve el número de misilesNS que quedan en el almacen
+     */
+    public int cuantosMisilesNSHay(){
+        return existencias.getSize("misilNS");
+    }
+
+    /**
+     * método que devuelve el número de misiles que quedan en el almacen
+     */
+    public int cuantosMisilesHay(){
+       return existencias.getSize("misil");
+    }
+
+    /**
+     * método que devuelve el número de bombas que quedan en el almacen
+     */
+    public int cuantasBombasHay(){
+       return existencias.getSize("bomba");
+    }
+    /**
+     * método que muestra el numero de armas que quedan de cada tipo (GUI interna/externa)
+     */
+    public void cuantasArmasHay(){
+        if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+            System.out.println(
+                    "bombas: " + existencias.getSize("bomba") +
+                            "\nmisil: " + existencias.getSize("misil") +
+                            "\nmisilBoom: " + existencias.getSize("misilBoom") +
+                            "\nmisilNS: " + existencias.getSize("misilNS") +
+                            "\nmisilEO: " + existencias.getSize("misilEO")
+            );
+        }else{
+            ControladorTablero.getController().setOpcion("bombasAlmacen", String.valueOf(cuantasBombasHay()));
+            ControladorTablero.getController().setOpcion("misilesAlmacen",String.valueOf( cuantosMisilesHay()));
+            ControladorTablero.getController().setOpcion("misilesNSAlmacen",String.valueOf(cuantosMisilesNSHay()));
+            ControladorTablero.getController().setOpcion("misilesEOAlmacen",String.valueOf(cuantosMisilesEOHay()));
+            ControladorTablero.getController().setOpcion("misilesBoomAlmacen",String.valueOf(cuantosMisilesBoomHay()));
+        }
+    }
+    /**
      * método que comprueba si todavia quedan armas de el tipo especificado
      * @param pArma
      * @return
      */
-    private boolean existeArma(String pArma) {
+    public boolean existeArma(String pArma) {
             return existencias.consultarArma(pArma) ;
 
         }
 
-    /**
-     * devuelve el precio del arma especificada
-     * @param pArma
-     * @return
-     */
-    public int getPrecioArma(String pArma) {
-            return this.existencias.getPrecioArma(pArma);
-        }
+
 
 }
 

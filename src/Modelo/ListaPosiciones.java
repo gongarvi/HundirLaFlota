@@ -24,7 +24,7 @@ public  class ListaPosiciones {
         posiciones=new ArrayList<>();
     }
     /**
-     * constructora de listas de posiciones con una longitud limitada (para barcos) por defecto a(-1,-1)
+     * constructora de listas de posiciones con una longitud limitada (para barcos) por defecto a(-1,-1) con estado de barco
      */
     public ListaPosiciones(String pTipo){
         posiciones=new ArrayList<>();
@@ -32,6 +32,7 @@ public  class ListaPosiciones {
             Posicion pPos=new Posicion(-1,-1);
             pPos.setState(new SNormal());
             posiciones.add(pPos);
+
         }
     }
 
@@ -192,8 +193,10 @@ public  class ListaPosiciones {
                 estado=act.getEstado();
                 if(estado instanceof STocado){
                     return "tocado";
-                }else{
+                }else if(estado instanceof SNormal){
                     return  "normal";
+                }else{
+                    return null;
                 }
 
             }

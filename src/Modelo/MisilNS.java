@@ -4,10 +4,9 @@ public class MisilNS extends Arma{
 
     /**
      * constructora de misil NS
-     * @param pPrecio
      */
-    public MisilNS(int pPrecio) {
-        super(pPrecio);
+    public MisilNS( ) {
+
     }
 
     /**
@@ -18,9 +17,9 @@ public class MisilNS extends Arma{
     public void disparar(Posicion pPos) {
         int[] pivote=new int[2];
         ListaPosiciones tmp=new ListaPosiciones();
-        for(int dy=0;dy<Battleship.getMyBattleship().maxCol();dy++) {
-            pivote[0]= pPos.getX();
-            pivote[1]= dy;
+        for(int dx=0;dx<Battleship.getMyBattleship().maxCol();dx++) {
+            pivote[0]=dx;
+            pivote[1]=pPos.getY();
             pPos.setPosicion(pivote);
             tmp.anadir(new Posicion(pivote[0],pivote[1]));
             Tablero.getMiTablero().hundir(pPos);

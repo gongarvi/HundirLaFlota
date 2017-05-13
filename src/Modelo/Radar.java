@@ -27,6 +27,10 @@ public class Radar {
         return (pI == pPos.getX() - 1 || pI == pPos.getX() || pI == pPos.getX() + 1) && (pJ == pPos.getY() - 1 || pJ == pPos.getY() || pJ == pPos.getY() + 1);
     }
 
+    /**
+     * método que coloca el radar en la posición dada como parámetro
+     * @param pPos
+     */
     public void colocarRadar(Posicion pPos){
         if(Battleship.getMyBattleship().turnoAct()==0){
             mostrarRadarJugador(pPos);
@@ -35,6 +39,10 @@ public class Radar {
         }
     }
 
+    /**
+     * muestra el area del campo enemigo al jugador
+     * @param pPos
+     */
     public void mostrarRadarJugador(Posicion pPos) {
         if (numUsos > 0) {
             if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
@@ -44,9 +52,25 @@ public class Radar {
             for (int i = 0; i < Battleship.getMyBattleship().maxFila(); i++) {
                 String tablero = "";
                 for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
-                    if (pretenecenAreaAccion(i, j, pPos) || Tablero.getMiTablero().barcoHundido(new Posicion(i, j))) {
-                        String estado = Tablero.getMiTablero().estadoCampoContrario(new Posicion(i, j));
-                        if (estado != null) {
+                    Posicion act=new Posicion(i, j);
+                    if (pretenecenAreaAccion(i, j, pPos) || Tablero.getMiTablero().barcoHundido(act)) {
+                        boolean esc =Tablero.getMiTablero().escudoAliado(act);
+                        String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                        if(estado!=null && esc) {
+                            if (estado.equals("normal")) {
+                                if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                                    tablero += " BE ";
+                                } else {
+                                    ControladorTablero.getController().setBotonAliado(i, j, "normalYescudo");
+                                }
+                            } else if (estado.equals("tocado")) {
+                                if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                                    tablero += " TE ";
+                                } else {
+                                    ControladorTablero.getController().setBotonAliado(i, j, "tocadoYescudo");
+                                }
+                            }
+                        }else if(estado!=null && ! esc){
                             if (estado.equals("normal")) {
                                 if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                                     tablero += " B ";
@@ -88,6 +112,10 @@ public class Radar {
         }
     }
 
+    /**
+     * registra la posicion avistada en la IA
+     * @param pPos
+     */
     public void registrarRadarIA(Posicion pPos) {
         if (numUsos > 0) {
             numUsos -= 1;

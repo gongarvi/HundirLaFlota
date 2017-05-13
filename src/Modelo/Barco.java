@@ -1,5 +1,7 @@
 package Modelo;
 
+import Controlador.ControladorTablero;
+
 public abstract class Barco {
     /**
      * atributos de barco
@@ -22,14 +24,6 @@ public abstract class Barco {
      * @return
      */
     public boolean hundido(){return hundido;}
-
-    /**
-     *
-     * @param pPosiciones
-     */
-    public void setPosiciones(ListaPosiciones pPosiciones){
-    	partesBarco=pPosiciones;
-    }
 
     /**
      * comprueba si el barco es colindante a la lista de posiciones que se deduce mediante los parametros dados
@@ -74,7 +68,15 @@ public abstract class Barco {
      * @param pPos
      */
     public void reparar(Posicion pPos){
-        partesBarco.reparar(pPos);
+        if(!hundido) {
+            partesBarco.reparar(pPos);
+        }else{
+            if(Battleship.getMyBattleship().getTipoVista().equals("consola")){
+                System.out.println("no puedes reparar un barco hundido");
+            }else{
+                ControladorTablero.getController().error("no puedes reparar un barco hundido");
+            }
+        }
     }
 
     /**

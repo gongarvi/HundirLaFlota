@@ -31,15 +31,15 @@ public class ArmaFactory {
     public Arma crearArma(String pTipoArma) {
         Arma a = null;
         if (pTipoArma.equalsIgnoreCase("bomba")) {
-            a = new Bomba(Battleship.getMyBattleship().getPrecioBomba());
+            a = new Bomba();
         } else if (pTipoArma.equalsIgnoreCase("misil")) {
-            a = new Misil(Battleship.getMyBattleship().getPrecioMisil());
+            a = new Misil();
         } else if (pTipoArma.equalsIgnoreCase("misilEO")) {
-            a = new MisilEO(Battleship.getMyBattleship().getPrecioMisilEO());
+            a = new MisilEO();
         } else if (pTipoArma.equalsIgnoreCase("misilNS")) {
-            a =  new MisilNS(Battleship.getMyBattleship().getPrecioMisilNS());
-        } else if (pTipoArma.equalsIgnoreCase("misilBOOM")) {
-            a = new MisilBoom(Battleship.getMyBattleship().getPrecioMisilBOOM());
+            a =  new MisilNS();
+        } else if (pTipoArma.equalsIgnoreCase("misilBoom")) {
+            a = new MisilBoom();
         }
         return a;
     }

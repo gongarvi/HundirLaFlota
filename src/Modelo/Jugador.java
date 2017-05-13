@@ -68,7 +68,7 @@ public abstract class Jugador {
             ControladorTablero.getController().setOpcion("misiles",String.valueOf( lArmas.getSize("misil")));
             ControladorTablero.getController().setOpcion("misilesNS",String.valueOf( lArmas.getSize("misilNS")));
             ControladorTablero.getController().setOpcion("misilesEO",String.valueOf(lArmas.getSize("misilEO")));
-            ControladorTablero.getController().setOpcion("misilesBOOM",String.valueOf(lArmas.getSize("misilBoom")));
+            ControladorTablero.getController().setOpcion("misilesBoom",String.valueOf(lArmas.getSize("misilBoom")));
         }
     }
 
@@ -90,17 +90,17 @@ public abstract class Jugador {
      * @param pArma
      */
     public void comprarArma(String pArma) {
-        if (decrementarDinero(Almacen.getMiAlmacen().getPrecioArma(pArma))) {
+        if (decrementarDinero(Battleship.getMyBattleship().getPrecioArma(pArma))) {
             Arma aComprar=Almacen.getMiAlmacen().comprarArma(pArma);
             if(aComprar!=null) {
-                lArmas.añadirArma(pArma,aComprar);
+                lArmas.añadirArma(pArma);
             }else{
                 if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
                     System.out.println("no quedan existencias en el almacen");
-                    Battleship.getMyBattleship().cancelarCompra(Almacen.getMiAlmacen().getPrecioArma(pArma));
+                    Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioArma(pArma));
                 }else{
                     ControladorTablero.getController().error("no quedan existencias en el almacen");
-                    Battleship.getMyBattleship().cancelarCompra(Almacen.getMiAlmacen().getPrecioArma(pArma));
+                    Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioArma(pArma));
                 }
             }
         }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
@@ -156,7 +156,6 @@ public abstract class Jugador {
         Arma aDisparar=lArmas.removeArma(pArma);
         if(aDisparar!=null){
             aDisparar.disparar(pPos);
-
         }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
             System.out.println("no tienes armas de ese tipo");
         }else{

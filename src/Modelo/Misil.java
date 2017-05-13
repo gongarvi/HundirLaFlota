@@ -4,10 +4,9 @@ public class Misil extends Arma {
 
     /**
      * constructora de misil
-     * @param pPrecio
      */
-    public Misil(int pPrecio) {
-        super(pPrecio);
+    public Misil( ) {
+
     }
 
     /**

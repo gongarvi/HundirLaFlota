@@ -3,12 +3,12 @@ package Modelo;
 
 public class Bomba extends Arma {
 
+
     /**
      * constructora de bomba
-     * @param pPrecio
      */
-    public Bomba(int pPrecio) {
-        super(pPrecio);
+    public Bomba() {
+
     }
 
     /**
@@ -26,5 +26,6 @@ public class Bomba extends Arma {
             registrarDisparoIA(tmp);
         }
     }
+
 
 }

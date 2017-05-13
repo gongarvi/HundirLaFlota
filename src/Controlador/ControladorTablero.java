@@ -18,7 +18,7 @@ public class ControladorTablero extends Observable implements ActionListener {
      * constructora del controlador de tablero
      */
     private ControladorTablero() {
-       addObserver(TableroVista.getTablero());
+        addObserver(TableroVista.getTablero());
     }
 
     /**
@@ -60,7 +60,7 @@ public class ControladorTablero extends Observable implements ActionListener {
      * @param pFase
      */
     public void fase(int pFase){
-       if(pFase==Battleship.getMyBattleship().getFaseRadar()){
+        if(pFase==Battleship.getMyBattleship().getFaseRadar()){
             TableroVista.getTablero().faseRadar();
         }else if(pFase==Battleship.getMyBattleship().getFaseCompraYEscudo()){
             TableroVista.getTablero().faseComprarYEScudo();
@@ -71,8 +71,8 @@ public class ControladorTablero extends Observable implements ActionListener {
         }else  if(pFase==Battleship.getMyBattleship().getFaseInicial()){
             TableroVista.getTablero().faseColocacion();
         }else  if(pFase==Battleship.getMyBattleship().getFaseTurnoIA()){
-           TableroVista.getTablero().faseTurnoIA();
-       }
+            TableroVista.getTablero().faseTurnoIA();
+        }
     }
 
     /**
@@ -190,15 +190,15 @@ public class ControladorTablero extends Observable implements ActionListener {
             if (tablero.equals("jugador")) {
                 //set Escudo o reparar
                 if(Battleship.getMyBattleship().getFaseAct()==0){
-                  posAct=clickada;
-                  ControladorTablero.getController().pedirDatos();
+                    posAct=clickada;
+                    ControladorTablero.getController().pedirDatos();
                 }else{
                     Battleship.getMyBattleship().gestionarCampoAliado(clickada);
                 }
             } else {
                 //set Disparar o colocarRadar
                 Battleship.getMyBattleship().gestionarCampoEnemigo(clickada);
-                }
             }
+        }
     }
 }

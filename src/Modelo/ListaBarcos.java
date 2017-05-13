@@ -27,6 +27,8 @@ public class ListaBarcos {
         return lb.iterator();
     }
 
+
+
     /**
      * devuelve true si el barco que contiene la posicion dada como parameto esta hundido
      * @param pPos
@@ -186,6 +188,19 @@ public class ListaBarcos {
         }
     }
 
+    /**
+     * devuelve true si el barco que contiene la posicion tiene escudo
+     * @param pPos
+     * @return
+     */
+    public boolean tieneEscudo(Posicion pPos){
+        Barco aImpactar=buscarPorPos(pPos);
+        if(aImpactar!=null){
+            return aImpactar.tieneEscudo();
+        }else {
+            return false;
+        }
+    }
     /**
      * devuelve el estado de una posicion dada como parametro
      * @param pPos

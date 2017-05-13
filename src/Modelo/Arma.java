@@ -3,26 +3,6 @@ package Modelo;
 import Controlador.ControladorTablero;
 
 public abstract class Arma {
-    /**
-     * atributos arma
-     */
-    private int precio;
-
-    /**
-     * contructora de arma
-     * @param pPrecio
-     */
-    public Arma(int pPrecio){
-        precio=pPrecio;
-    }
-
-    /**
-     * método que devuelve el precio del arma
-     * @return
-     */
-    public int getPrecio(){
-      return  precio;
-    }
 
     /**
      * metodo que muestra las casillas afectadas por el tipo de disparo (GUI interna /externa)
@@ -36,10 +16,25 @@ public abstract class Arma {
 
             String tablero ="";
             for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
-                Posicion tmp =new Posicion(i,j);
-                if ((pListaPos.pretenecenAreaAccion(tmp))|| Tablero.getMiTablero().barcoHundido(tmp)) {
-                    String estado = Tablero.getMiTablero().estadoCampoContrario(tmp);
-                    if (estado != null) {
+                Posicion act =new Posicion(i,j);
+                if ((pListaPos.pretenecenAreaAccion(act))|| Tablero.getMiTablero().barcoHundido(act)) {
+                    boolean esc =Tablero.getMiTablero().escudoAliado(act);
+                    String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                    if(estado!=null && esc) {
+                        if (estado.equals("normal")) {
+                            if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                                tablero += " BE ";
+                            } else {
+                                ControladorTablero.getController().setBotonAliado(i, j, "normalYescudo");
+                            }
+                        } else if (estado.equals("tocado")) {
+                            if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                                tablero += " TE ";
+                            } else {
+                                ControladorTablero.getController().setBotonAliado(i, j, "tocadoYescudo");
+                            }
+                        }
+                    }else if(estado!=null && ! esc){
                     if (estado .equals("normal")) {
                         if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                             tablero += " B ";

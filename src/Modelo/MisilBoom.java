@@ -4,10 +4,9 @@ package Modelo;
 public class MisilBoom extends Arma {
     /**
      * constructora de misil Boom
-     * @param pPrecio
      */
-    public MisilBoom(int pPrecio) {
-        super(pPrecio);
+    public MisilBoom( ) {
+
     }
 
     /**

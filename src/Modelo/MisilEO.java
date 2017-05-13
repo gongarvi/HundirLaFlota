@@ -5,10 +5,9 @@ public class MisilEO extends Arma{
 
     /**
      * constructora de misil EO
-     * @param pPrecio
      */
-    public MisilEO(int pPrecio) {
-        super(pPrecio);
+    public MisilEO() {
+
     }
 
     /**
@@ -19,9 +18,9 @@ public class MisilEO extends Arma{
     public void disparar(Posicion pPos) {
         int[] pivote=new int[2];
         ListaPosiciones tmp=new ListaPosiciones();
-        for(int dx=0;dx<Battleship.getMyBattleship().maxCol();dx++) {
-            pivote[0]=dx;
-            pivote[1]=pPos.getY();
+        for(int dy=0;dy<Battleship.getMyBattleship().maxCol();dy++) {
+            pivote[0]= pPos.getX();
+            pivote[1]= dy;
             pPos.setPosicion(pivote);
             tmp.anadir(new Posicion(pivote[0],pivote[1]));
             Tablero.getMiTablero().hundir(pPos);
@@ -31,5 +30,6 @@ public class MisilEO extends Arma{
         }else{
             registrarDisparoIA(tmp);
         }
+
     }
 }

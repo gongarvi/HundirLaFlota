@@ -5,7 +5,6 @@ import java.util.Stack;
 
 public class ListaArmas {
 
-
     /**
      * coleccion que guarda las armas
      */
@@ -26,17 +25,9 @@ public class ListaArmas {
      * @return
      */
     public boolean consultarArma(String pArma) {
-        return ls.get(pArma).peek()!=null;
+        return !ls.get(pArma).isEmpty();
     }
 
-    /**
-     * metodo que devuelve el precio del arma especificada
-     * @param pArma
-     * @return
-     */
-    public int getPrecioArma(String pArma) {
-        return ls.get(pArma).peek().getPrecio();
-    }
 
     /**
      * metodo que devuelve el número de armas que quedan para el tipo especificado
@@ -44,18 +35,15 @@ public class ListaArmas {
      * @return
      */
     public int getSize(String pArma) {
-        System.out.println(pArma);
-        System.out.println(ls.get(pArma).size());
         return ls.get(pArma).size();
     }
 
     /**
      * metodo que añade un arma al tipo de arma especificado
      * @param pTipo
-     * @param pArma
      */
-    public void añadirArma(String pTipo,Arma pArma) {
-            ls.get(pTipo).push(pArma);
+    public void añadirArma(String pTipo) {
+            ls.get(pTipo).push(ArmaFactory.getArmaFactory().crearArma(pTipo));
     }
 
     /**

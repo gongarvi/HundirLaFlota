@@ -21,7 +21,6 @@ public class TableroVista extends JFrame implements Observer {
     private JPanel east;
     private JPanel middle;
     private JPanel imput;
-    private JLabel turno;
     private JLabel dinero;
     private JLabel bombas;
     private JLabel misiles;
@@ -38,6 +37,8 @@ public class TableroVista extends JFrame implements Observer {
     private JLabel precioMisilNS;
     private JLabel precioMisilesEO;
     private JLabel precioMisilesBoom;
+    private JLabel precioEscudo;
+    private JLabel precioReparacion;
     private boolean skipHints;
     private String armaSeleccionada;
     private String orientacionleccionada;
@@ -255,11 +256,29 @@ public class TableroVista extends JFrame implements Observer {
     public void actualizarCampoAliado(int boton,String pEstado){
 
         if(pEstado.equals( "normal" )){
-            casillasMiddle.get( boton ).setText("N");
+            casillasMiddle.get( boton ).setBackground(Color.black);
         }else if(pEstado.equals( "tocado" )){
-            casillasMiddle.get( boton ).setText("T");
+            casillasMiddle.get( boton ).setBackground(Color.red);
+        }else if(pEstado.equals( "tocadoYescudo" )){
+            JPanel tmp=new JPanel();
+            JPanel esc=new JPanel();
+            JPanel toc=new JPanel();
+            tmp.add(esc,BorderLayout.NORTH);
+            tmp.add(toc,BorderLayout.SOUTH);
+            esc.setBackground(Color.CYAN);
+            toc.setBackground(Color.black);
+            casillasMiddle.get( boton ).add(tmp);
+        }else if(pEstado.equals( "normalYescudo" )){
+            JPanel tmp=new JPanel();
+            JPanel esc=new JPanel();
+            JPanel toc=new JPanel();
+            tmp.add(esc,BorderLayout.NORTH);
+            tmp.add(toc,BorderLayout.SOUTH);
+            esc.setBackground(Color.CYAN);
+            toc.setBackground(Color.red);
+            casillasMiddle.get( boton ).add(tmp);
         }else {
-            casillasMiddle.get( boton ).setText("A");
+            casillasMiddle.get( boton ).setBackground(Color.blue);
         }
     }
 
@@ -271,11 +290,29 @@ public class TableroVista extends JFrame implements Observer {
     public void actualizarCampoEnemigo(int boton,String pEstado){
 
             if (pEstado.equals("normal")) {
-                casillasEast.get(boton).setText("N");
+                casillasEast.get(boton).setBackground(Color.black);
+            }else if(pEstado.equals( "tocadoYescudo" )){
+                JPanel tmp=new JPanel();
+                JPanel esc=new JPanel();
+                JPanel toc=new JPanel();
+                tmp.add(esc,BorderLayout.NORTH);
+                tmp.add(toc,BorderLayout.SOUTH);
+                esc.setBackground(Color.CYAN);
+                toc.setBackground(Color.black);
+                casillasMiddle.get( boton ).add(tmp);
+            }else if(pEstado.equals( "normalYescudo" )){
+                JPanel tmp=new JPanel();
+                JPanel esc=new JPanel();
+                JPanel toc=new JPanel();
+                tmp.add(esc,BorderLayout.NORTH);
+                tmp.add(toc,BorderLayout.SOUTH);
+                esc.setBackground(Color.CYAN);
+                toc.setBackground(Color.red);
+                casillasMiddle.get( boton ).add(tmp);
             } else if (pEstado.equals("tocado")) {
-                casillasEast.get(boton).setText("T");
+                casillasEast.get(boton).setBackground(Color.red);
             } else if (pEstado.equals("agua")) {
-                casillasEast.get(boton).setText("A");
+                casillasEast.get(boton).setBackground(Color.blue);
             }
     }
 
@@ -285,9 +322,7 @@ public class TableroVista extends JFrame implements Observer {
      * @param pTexto
      */
     public void actualizarOpciones(String pOpcion,String pTexto){
-        if(pOpcion.equals("turno")) {
-            turno.setText(pTexto);
-        }else  if(pOpcion.equals("dinero")) {
+        if(pOpcion.equals("dinero")) {
             dinero.setText(pTexto);
         }else  if(pOpcion.equals("bombas")) {
             bombas.setText(pTexto);
@@ -297,8 +332,32 @@ public class TableroVista extends JFrame implements Observer {
             misilesNS.setText(pTexto);
         }else  if(pOpcion.equals("misilesEO")) {
             misilesEO.setText(pTexto);
-        }else  if(pOpcion.equals("misilesBOOM")) {
+        }else  if(pOpcion.equals("misilesBoom")) {
             misilesBOOM.setText(pTexto);
+        }else  if(pOpcion.equals("bombasAlmacen")) {
+            bombasAlmacen.setText(pTexto);
+        }else  if(pOpcion.equals("misilesAlmacen")) {
+            misilesAlmacen.setText(pTexto);
+        }else  if(pOpcion.equals("misilesNSAlmacen")) {
+            misilesNSAlmacen.setText(pTexto);
+        }else  if(pOpcion.equals("misilesEOAlmacen")) {
+            misilesEOAlmacen.setText(pTexto);
+        }else  if(pOpcion.equals("misilesBoomAlmacen")) {
+            misilesBoomAlmacen.setText(pTexto);
+        }else  if(pOpcion.equals("precioBomba")) {
+            precioBomba.setText(pTexto);
+        }else  if(pOpcion.equals("precioMisil")) {
+            precioMisil.setText(pTexto);
+        }else  if(pOpcion.equals("precioMisilNS")) {
+            precioMisilNS.setText(pTexto);
+        }else  if(pOpcion.equals("precioMisilesEO")) {
+            precioMisilesEO.setText(pTexto);
+        }else  if(pOpcion.equals("precioMisilesBoom")) {
+            precioMisilesBoom.setText(pTexto);
+        }else  if(pOpcion.equals("precioReparacion")) {
+            precioReparacion.setText(pTexto);
+        }else  if(pOpcion.equals("precioEscudo")) {
+            precioEscudo.setText(pTexto);
         }
     }
 
@@ -328,7 +387,7 @@ public class TableroVista extends JFrame implements Observer {
         skipHints=false;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("HundiLaFlota");
-        setBounds(50, 50, 1300, 422);
+        setBounds(10, 50, 1350, 500);
         middle = new JPanel();
         east= new JPanel();
         ventana = new JPanel();
@@ -440,7 +499,7 @@ public class TableroVista extends JFrame implements Observer {
         //inicializa botones
         for (int i = 0;i<maxCol*maxFila; i++) {
             JButton jButton=new JButton( );
-            jButton.setText("A");
+            jButton.setBackground(Color.blue);
             casillasMiddle.add( jButton );
             jButton.setSize( 20, 20);
             jButton.setVisible( true );
@@ -451,7 +510,7 @@ public class TableroVista extends JFrame implements Observer {
 
 
             JButton jButton1=new JButton( );
-            jButton1.setText("?");
+            jButton1.setBackground(Color.white);
             casillasEast.add( jButton1 );
             jButton1.setSize( 20, 20);
             jButton1.setVisible( true );
@@ -462,14 +521,15 @@ public class TableroVista extends JFrame implements Observer {
 
         }
 
-        opciones.add( new JLabel( "Turno") );
-        opciones.add( turno=new JLabel( "0" ));
-        opciones.add( new JLabel("") );
-        opciones.add( new JLabel( "" ));
+
         opciones.add( new Label( "Dinero") );
         opciones.add(  dinero=new JLabel( "0" ));
         opciones.add( new JLabel("") );
         opciones.add( new JLabel( "" ));
+        opciones.add( new JLabel( "Precio Escudo: ") );
+        opciones.add( precioEscudo=new JLabel( "0" ));
+        opciones.add( new JLabel("Precio Reparacion: ") );
+        opciones.add( precioReparacion=new JLabel( "0" ));
         opciones.add( new JLabel("") );
         opciones.add( new JLabel( "mis armas" ));
         opciones.add( new JLabel("almacén") );
@@ -491,12 +551,12 @@ public class TableroVista extends JFrame implements Observer {
         opciones.add( misilesEOAlmacen=new JLabel( "0" ) );
         opciones.add( precioMisilesEO=new JLabel( "0" ) );
         opciones.add( new Label( "misilesBOOM") );
-        opciones.add(  misilesBOOM=new JLabel( "0" ));
+        opciones.add( misilesBOOM=new JLabel( "0" ));
         opciones.add( misilesBoomAlmacen=new JLabel( "0" ) );
         opciones.add( precioMisilesBoom=new JLabel( "0" ) );
 
         setVisible( true );
-
+        ControladorTablero.getController().actualizarOpciones();
     }
 
     /**

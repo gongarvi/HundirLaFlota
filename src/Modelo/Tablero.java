@@ -176,4 +176,10 @@ public class Tablero {
         }
     }
 
+    /**
+     * devuelve true si el barco que contiene la posicion tiene escudo
+     * @param pPos
+     * @return
+     */
+    public boolean escudoAliado(Posicion pPos){return flotaHumano.tieneEscudo(pPos);}
 }

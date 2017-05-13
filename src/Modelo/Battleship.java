@@ -57,8 +57,9 @@ public class Battleship {
      * contructora privada para la clase Battleship (patrón Singleton)
      */
     private Battleship() {
-        turno=0;//0 es turno humano
+        //0 es turno humano
         fase=0;
+        turno=0;
     }
 
     /**
@@ -69,17 +70,63 @@ public class Battleship {
         Battleship.getMyBattleship().jugar();
     }
 
+    /**
+     *devuelve el valor de la fase inicial
+     * @return
+     */
     public int getFaseInicial(){return faseInicializacion;}
 
+    /**
+     *devuelve el valor de la fase radar
+     * @return
+     */
     public int getFaseRadar(){return faseRadar;}
 
+    /**
+     *
+     * @return
+     */
     public int getFaseCompraYEscudo(){return faseCompraYEscudo;}
 
+    /**
+     *devuelve el valor de la fase disparo
+     * @return
+     */
     public int getFaseDisparo(){return faseDisparo;}
 
+    /**
+     *devuelve el valor de la fase turno IA
+     * @return
+     */
     public int getFaseTurnoIA(){return faseTurnoIA;}
 
+    /**
+     *devuelve el valor de la fase reparacion
+     * @return
+     */
     public int getFaseReparacion(){return faseReparacion;}
+
+    /**
+     * devuelve el precio del arma especificada
+     * @param pArma
+     * @return
+     */
+    public int getPrecioArma(String pArma) {
+        if(pArma.equals("bomba")){
+            return getPrecioBomba();
+        }else if(pArma.equals("misil")){
+            return getPrecioMisil();
+        }else if(pArma.equals("misilEO")){
+            return getPrecioMisilEO();
+        }else if(pArma.equals("misilNS")){
+            return getPrecioMisilNS();
+        }else if(pArma.equals("misilBoom")){
+            return getPrecioMisilBOOM();
+        }else{
+            return 0;
+        }
+    }
+
     /**
      * método que devuelve el numero máximo de filas (global)
      * @return
@@ -191,7 +238,11 @@ public class Battleship {
      */
     public int getnMisilesNS(){return nMisilesNS;}
 
-
+    /**
+     * devuelve el numero máximo de barcos para el tipo especifico
+     * @param pTipo
+     * @return
+     */
     public int getMax(String pTipo){
         if(pTipo.equals("fragata")){
             return getMaxParaF();
@@ -400,15 +451,21 @@ public class Battleship {
     /**
      * método que pide el refresco del campo aliado (GUI externa)
      */
-    public void mostrarCampoAliado(){humano.mostrarFlotaJugador();}
+    public void mostrarCampoAliado(){
+        humano.mostrarFlotaJugador();
+    }
 
     /**
      * método que pide el refresco de las posiciones (GUI externa)
      */
     public void mostrarOpciones(){
         ControladorTablero.getController().setOpcion("turno",String.valueOf(turnoAct()));
+        ControladorTablero.getController().setOpcion("precioEscudo",String.valueOf(getPrecioEscudo()));
+        ControladorTablero.getController().setOpcion("precioReparacion",String.valueOf(getPrecioReparacion()));
         humano.cuantoDineroHay();
         humano.cuantasArmasHay();
+        Almacen.getMiAlmacen().cuantasArmasHay();
+        Almacen.getMiAlmacen().precioArmas();
     }
 
     /**
@@ -489,6 +546,7 @@ public class Battleship {
         Posicion pPos=convertirAPosicion(pBtnSeleccionado);
         if(fase==faseDisparo) {
             String arma=ControladorTablero.getController().getImputSelect();
+            System.out.println(arma);
             if(humano.existeArma(arma)) {
                 humano.dispararArma(arma, pPos);
                 ControladorTablero.getController().changed();
@@ -549,8 +607,16 @@ public class Battleship {
      */
     public void comprar(){
         if (fase==faseCompraYEscudo) {
-            humano.comprarArma(ControladorTablero.getController().getImputSelect());
-            ControladorTablero.getController().changed();
+            if(Almacen.getMiAlmacen().existeArma(ControladorTablero.getController().getImputSelect())){
+                humano.comprarArma(ControladorTablero.getController().getImputSelect());
+                ControladorTablero.getController().changed();
+            }else{
+                if(getTipoVista().equals("consola")){
+                    System.out.println("no quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                }else{
+                    ControladorTablero.getController().error("no quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                }
+            }
             //avisar que puede comprar mas hasta que pase fase
         }else{
             ControladorTablero.getController().error("en esta fase no se puede hacer eso");
