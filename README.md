@@ -185,3 +185,7 @@ Existe un método asociado a cada método anterior para facilitar el siguiente m
 fases :
 Existen fases para distinguir cada momento del juego
 ##
+##
+bugs :
+faltan algunos test , no se puede reiniciar el juego  y el juego por consola no está 100% terminado
+##
