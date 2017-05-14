@@ -20,14 +20,15 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 - A continuación, el turno pasa al ordenador, repitiéndose el proceso: ordenador podrá consultar su radar y disparar con su armamento sobre alguna posición de la flota del jugador. Para ello, ordenador debe disponer de algún método de ataque que determine cuál es el armamento y la posición adecuados para hacer el disparo.
 - Es necesario implementar adecuadamente métodos para determinar las propiedades de los disparos que van realizando tanto ordenador como jugador durante la partida, además de mantener actualizados los tableros de “flota adversario” con la información del estado de la “flota jugador” y de la “flota ordenador”.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
-##
-#Diagrama de clases
+
+#Diagrama de clases:
 ![logo_preview](http://i.imgur.com/loBCsOI.png)
 # Primer Sprint
 ![logo_preview](http://i.imgur.com/iZCc8tv.png)
 ![logo_preview](http://i.imgur.com/EHBvhJy.png)
 ![logo_preview](http://i.imgur.com/bZJjh9L.png)
 ##Activa escudos IA
+##
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
 		sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos
@@ -51,6 +52,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ![logo_preview](http://i.imgur.com/z0hBoYA.png)
 ![logo_preview](http://i.imgur.com/iZCc8tv.png)
 ![logo_preview](http://i.imgur.com/j4nB3P3.png)
+##
 	# HU4: Consultar radar jugador
 		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
 		que rodean al radar de jugador. En caso afirmativo, devolverá una posición del barco detectado. Antes de
@@ -76,6 +78,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ##Reparar escudos IA
 ![logo_preview](http://i.imgur.com/7m7rSvx.png)
 ![logo_preview](http://i.imgur.com/2e5LpYG.png)
+##
 	# HU8: Reparar barco jugador
 		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo
 		la cantidad de dinero del jugador.
