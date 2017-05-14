@@ -23,7 +23,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 # Primer Sprint
 ![logo_preview](http://imgur.com/ZDUjLuT)
 ![logo_preview](http://imgur.com/IFfaMue)
-![logo_preview](http://imgur.com/bZJjh9L)
+![logo_preview](http://i.imgur.com/bZJjh9L.png)
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
 		sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos
