@@ -28,8 +28,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ![logo_preview](http://i.imgur.com/iZCc8tv.png)
 ![logo_preview](http://i.imgur.com/EHBvhJy.png)
 ![logo_preview](http://i.imgur.com/bZJjh9L.png)
-
-##Activa escudos IA
+![logo_preview](http://i.imgur.com/i52UHKf.png)
 ##
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
@@ -77,7 +76,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 	
 # Tercer Sprint 
 ![logo_preview](http://i.imgur.com/CiW4Ag6.png)
-##Reparar escudos IA
+![logo_preview](http://i.imgur.com/945l6ZT.png)
 ![logo_preview](http://i.imgur.com/7m7rSvx.png)
 ![logo_preview](http://i.imgur.com/2e5LpYG.png)
 ##
