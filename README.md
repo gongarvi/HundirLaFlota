@@ -21,6 +21,9 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 - Es necesario implementar adecuadamente métodos para determinar las propiedades de los disparos que van realizando tanto ordenador como jugador durante la partida, además de mantener actualizados los tableros de “flota adversario” con la información del estado de la “flota jugador” y de la “flota ordenador”.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
 # Primer Sprint
+![logo_preview]http://imgur.com/ZDUjLuT(URLs)
+![logo_preview]http://imgur.com/IFfaMue(URLs)
+![logo_preview]http://imgur.com/bZJjh9L(URLs)
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
 		sus barcos. Es necesario que las posiciones en las que se sitúen los barcos respeten los dos requisitos
@@ -37,8 +40,8 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 		- Si el jugador dispone de algún escudo, se activa sobre el barco que indique el jugador.
 	# HU3: Activar escudo ordenador
 		- Si el ordenador dispone de algún escudo, se activa sobre el barco que indique el ordenador.
+##
 	
-	![logo_preview](URLs)
 # Segundo Sprint
 	# HU4: Consultar radar jugador
 		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
@@ -58,7 +61,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 		resultado. En una primera versión del juego, es posible establecer que el ordenador elige aleatoriamente 
 		las posiciones sobre las que realiza el disparo. Después se puede ir refinando esta estrategia de juego para 
 		añadirle algún tipo de conocimiento y razonamiento sobre estrategias de juego.
-	
+##
 	![logo_preview](URLs)
 # Tercer Sprint 
 	# HU8: Reparar barco jugador
@@ -73,6 +76,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 	# HU11: Comprar armamento ordenador
 		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento 
 		comprado disminuyendo la cantidad de dinero del ordenador.
+##
 	![logo_preview](URLs)
 
 
