@@ -21,13 +21,14 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 - Es necesario implementar adecuadamente métodos para determinar las propiedades de los disparos que van realizando tanto ordenador como jugador durante la partida, además de mantener actualizados los tableros de “flota adversario” con la información del estado de la “flota jugador” y de la “flota ordenador”.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
 
-#Diagrama de clases:
+# Diagrama de clases:
 ##
 ![logo_preview](http://i.imgur.com/loBCsOI.png)
 # Primer Sprint
 ![logo_preview](http://i.imgur.com/iZCc8tv.png)
 ![logo_preview](http://i.imgur.com/EHBvhJy.png)
 ![logo_preview](http://i.imgur.com/bZJjh9L.png)
+##
 ##Activa escudos IA
 ##
 	# HU1: Inicializar el juego
