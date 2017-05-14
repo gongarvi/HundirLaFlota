@@ -93,6 +93,95 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento 
 		comprado disminuyendo la cantidad de dinero del ordenador.
 ##
-	
+##	
+HU1: 
+La asociación del armamento dinero y radar se realiza a los jugadores 
+tanto humano como IA , cabe destacar que esta asociación tambien incluye 
+a la flota  de cada jugador (ambas contenidas en la clase Tablero) ,
+ estas flotas inicialmente contiene todos los barcos del juego pero sin 
+posición específica (-1,-1).
 
+El Almacén actúa a modo de estanteria pudiendo coger la cantidad de 
+armas que deseemos dentro del límite de provisiones , este almacen 
+lo comparten humano y ordenador.
 
+Sobre Battleship recae la responsabilidad de conocer todas las variables 
+de juego pudiendo acceder a ellas de forma sencilla (solo se pueden
+ modificar mediante la codificación) , de esta forma se convierte en 
+fuente de conocimiento de todas aquellas clases que interactúen con 
+información global.
+
+La interfaz gráfica concretamente el tablero adversario ( por consola es igual) 
+cuenta con un sistema de refresco que permite ver al usuario todo lo que ha visto 
+en el pasado pudiendo haber cambiado para el presente , esto se ve claro en las 
+interacciones de la Ia después de la fase de disparo del jugador humano ,
+de esta manera no tenemos porque almacenar posiciones avistadas para mostrarlas
+,la IA por su parte las guardara para realizar su proximo movimiento.
+
+El programa cuenta con un gestor de inicialización 
+,comprueba que no sea una posición colindante (no cuentan las esqunas)
+y además que la posición se encuentre en el tablero , posteriormente asignará 
+la posicion deseada a un barco de la flota que cumpla sus características
+,es decir,que sea del mismo tipo,para utilizar este gestor por interfaz gráfica bastará con seguir las
+instrucciones de las informaciones emergentes.
+
+*La flota ordenador se coloca automáticamente ,este método es aplicable 
+a la flota humnano cambiando unas lineas que están especificadas en la
+clase Battleship.
+##
+##
+HU2 y HU3: 
+Los escudos son stributos de los barcos y no se almacenan en ningún sitio, se
+instancian en el momento que se requiera colocarselo a algún barco,aquellos barcos
+que no tienen escudo lo tendrán a nulo ,los escudos  son capaces de recibir
+dos impactos de bomba o uno de misil y protegen todas las posiciones de barco por
+igual.
+
+el modo de interacción para la generación de escudos es igual para el jugador 
+y la IA , se selecciona una posición a la que colocar el escudo y se resuelve
+el barco deseado en función de dicha posición ,si no existe el barco no actúa 
+y lo avisará
+##
+##
+H4 y H5 :
+La clase radar tiene un número de usos limitado a tres , cuando se desea se le
+asigna una nueva posición que explorar , el método es igual para la Ia y el humano
+hasta la parte en la que la IA añade posiciones a sus revisadas y el humano las visualiza
+
+actualmente el radar muestra las posiciones de al rededor de la posición deseada , 
+esto podría modificarse por el uso de Listas de posiciones cuya formación corre 
+a cargo de la posición (es capaz de saber sus colindantes),posteriormente se 
+realiza un filtrado del Tablero mostrando unicamente aquellas posiciones que pertenezcan
+a la lista dada
+##
+##
+H6 y H7 :
+La clase Arma cuenta con un método abstracto disparar que se encarga de redefinirse
+para actuar de maneras diferentes en sus especializaciones (patrón Strategy) ,
+utiliza la misma idea que el radar para mostrar el campo o registrar posiciones a la IA
+utilizando listas de posiciones que se generan al disparar
+
+Cabe destacar que el disparo se realiza posición a posición y que existen método 
+diferentes de comportamiento de impacto para bombas y misiles , la cadena de ejecución de
+este método termina en el estado de los barcos (en caso de acierto) aplicandose aquí el 
+patrón State , en caso de fallar saltará un mensaje (solo por consola , 
+era muy engorroso en interfaz)
+##
+##
+H8 y H9 :
+El método de reparación se realiza en la IA y el humano por igual , se reparan barcos
+posición a posición , en caso de fallar se devuelve el dinero que se le ha retirado al jugador
+##
+##
+H10 y H11 :
+El método de comprar ses equivalente en ambos jugadores humano e IA , es posible comprar
+varios articulos en la misma fase , en esta fase tambien se colocar escudos a modo de producto
+##
+##
+IA :
+Existe un método asociado a cada método anterior para facilitar el siguiente movimiento a la IA
+##
+##
+fases :
+Existen fases para distinguir cada momento del juego
+##
