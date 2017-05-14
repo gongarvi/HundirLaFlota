@@ -87,13 +87,13 @@ public class Humano extends Jugador {
                         if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                             tablero += " BE ";
                         } else {
-                            ControladorTablero.getController().setBotonAliado(i, j, "normalYescudo");
+                            ControladorTablero.getController().setBotonAliado(i, j, "escudo");
                         }
                     } else if (estado.equals("tocado")) {
                         if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                             tablero += " TE ";
                         } else {
-                            ControladorTablero.getController().setBotonAliado(i, j, "tocadoYescudo");
+                            ControladorTablero.getController().setBotonAliado(i, j, "escudo");
                         }
                     }
                 }else if(estado!=null && ! esc){

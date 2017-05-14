@@ -18,20 +18,20 @@ public abstract class Arma {
             for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
                 Posicion act =new Posicion(i,j);
                 if ((pListaPos.pretenecenAreaAccion(act))|| Tablero.getMiTablero().barcoHundido(act)) {
-                    boolean esc =Tablero.getMiTablero().escudoAliado(act);
-                    String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                    boolean esc =Tablero.getMiTablero().escudoEnemigo(act);
+                    String estado=Tablero.getMiTablero().estadoCampoContrario(act);
                     if(estado!=null && esc) {
                         if (estado.equals("normal")) {
                             if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                                 tablero += " BE ";
                             } else {
-                                ControladorTablero.getController().setBotonAliado(i, j, "normalYescudo");
+                                ControladorTablero.getController().setBotonEnemigo(i, j, "escudo");
                             }
                         } else if (estado.equals("tocado")) {
                             if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                                 tablero += " TE ";
                             } else {
-                                ControladorTablero.getController().setBotonAliado(i, j, "tocadoYescudo");
+                                ControladorTablero.getController().setBotonEnemigo(i, j, "escudo");
                             }
                         }
                     }else if(estado!=null && ! esc){
@@ -56,8 +56,7 @@ public abstract class Arma {
                             ControladorTablero.getController().setBotonEnemigo(i,j,"agua");
                         }
                     }
-                }
-                else {
+                }else{
                     if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                         tablero += " ? ";
                     }

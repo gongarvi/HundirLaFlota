@@ -171,7 +171,7 @@ public class IA extends Jugador {
             int maxFila=Battleship.getMyBattleship().maxFila();
             if(pPos.getX()<((maxFila/2)+1) && pPos.getX()>((maxFila/2)-1) && pPos.getY()<((maxCol/2)+1) && pPos.getY()>((maxCol/2)-1) && existeArma("misilBoom")){
                 return "misilBoom";
-            }else if( existeArma("mmisilEO")){
+            }else if( existeArma("misilEO")){
                 return "misilEO";
             }else if( existeArma("misilNS")){
                 return "misilNS";
@@ -185,8 +185,10 @@ public class IA extends Jugador {
      */
     @Override
     public void usarRadar() {
-        Posicion pos=resolverSigPosRadar();
-        setPosicionRadar(pos);
+        if (usosRadar() != 0){
+            Posicion pos = resolverSigPosRadar();
+            setPosicionRadar(pos);
+      }
     }
 
     /**
@@ -207,15 +209,14 @@ public class IA extends Jugador {
                     while(!resueltaPos && j<maxCol){
                         Posicion act =new Posicion(i,j);
                         if(!revisadas.contiene(act)){
-                            if(act.getX()<((maxFila/2)+1) && act.getX()>((maxFila/2)-1) && act.getY()<((maxCol/2)+1) && act.getY()>((maxCol/2)-1) ){
+                            if(act.getX()<((maxFila/2)+1) && act.getX()>((maxFila/2)-1) && act.getY()<((maxCol/2)+1) && act.getY()>((maxCol/2)-1) && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilBoom"))){
                                 comprarArma("misilBoom");
                             }else {
-                                int select=(int)(Math.random()*3.0);
-                                if(select==0){
+                                int select=(int)(Math.random()*2.0);
+                                if(select==0 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilNS"))){
                                     comprarArma("misilNS");
-                                }if(select==1){
-                                    comprarArma("bomba");
-                                }if(select==2){
+                                }
+                                if(select==2 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilEO"))){
                                     comprarArma("misilEO");
                                 }
                             }
@@ -228,10 +229,14 @@ public class IA extends Jugador {
                     i++;
                 }
             }else{
-                comprarArma("misil");
+                if(getDinero()>Battleship.getMyBattleship().getPrecioArma("misil")) {
+                    comprarArma("misil");
+                }
             }
         }else{
-            comprarArma("misil");
+            if(getDinero()>Battleship.getMyBattleship().getPrecioArma("misil")) {
+                comprarArma("misil");
+            }
         }
     }
 

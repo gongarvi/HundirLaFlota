@@ -11,8 +11,14 @@ public class Radar {
     /**
      * constructora de radar
      */
-    public Radar() {
+    public Radar() {}
 
+    /**
+     * devuelve el número de usos restantes del radar
+     * @return
+     */
+    public int usosRaar(){
+        return  numUsos;
     }
 
     /**
@@ -54,20 +60,20 @@ public class Radar {
                 for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
                     Posicion act=new Posicion(i, j);
                     if (pretenecenAreaAccion(i, j, pPos) || Tablero.getMiTablero().barcoHundido(act)) {
-                        boolean esc =Tablero.getMiTablero().escudoAliado(act);
-                        String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                        boolean esc =Tablero.getMiTablero().escudoEnemigo(act);
+                        String estado=Tablero.getMiTablero().estadoCampoContrario(act);
                         if(estado!=null && esc) {
                             if (estado.equals("normal")) {
                                 if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                                     tablero += " BE ";
                                 } else {
-                                    ControladorTablero.getController().setBotonAliado(i, j, "normalYescudo");
+                                    ControladorTablero.getController().setBotonEnemigo(i, j, "escudo");
                                 }
                             } else if (estado.equals("tocado")) {
                                 if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                                     tablero += " TE ";
                                 } else {
-                                    ControladorTablero.getController().setBotonAliado(i, j, "tocadoYescudo");
+                                    ControladorTablero.getController().setBotonEnemigo(i, j, "escudo");
                                 }
                             }
                         }else if(estado!=null && ! esc){

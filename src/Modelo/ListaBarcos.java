@@ -171,6 +171,7 @@ public class ListaBarcos {
             aImpactar.reparar(pPosicion);
         }else{
             System.out.println("fallo");
+            Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioReparacion());
         }
     }
 
@@ -183,8 +184,10 @@ public class ListaBarcos {
         if(aImpactar!=null){
             aImpactar.recibirDanios(pPosicion);
 
-        }else if(Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("fallo Aguaaaa....");
+        }else  if(Battleship.getMyBattleship().turnoAct()==0) {
+            if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                System.out.println("fallo Aguaaaa....");
+            }
         }
     }
 
@@ -218,13 +221,13 @@ public class ListaBarcos {
      * devuelve true si todos los barcos de la flota estan hundidos
      * @return
      */
-    public boolean haGanado() {
-        Iterator<Barco>it=getIterator();
-        boolean haGanado=true;
-        while(it.hasNext()&& haGanado){
-            haGanado=it.next().hundido();
+    public boolean flotaHundida() {
+        for(Barco b:lb){
+            if(!b.hundido()){
+                return false;
+            }
         }
-        return haGanado;
+        return true;
     }
 
     /**
@@ -236,8 +239,10 @@ public class ListaBarcos {
         Barco aImpactar=buscarPorPos(pPosicion);
         if(aImpactar!=null){
             aImpactar.hundir();
-        }else if(Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("fallo Aguaaaa....");
+        }else if(Battleship.getMyBattleship().turnoAct()==0) {
+            if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                System.out.println("fallo Aguaaaa....");
+            }
         }
     }
 
@@ -249,12 +254,15 @@ public class ListaBarcos {
 
         Barco aImpactar=buscarPorPos(pPosicion);
         if(aImpactar!=null && !aImpactar.tieneEscudo()){
-            aImpactar.setEscudo(new Escudo());
-        }else if(Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("has fallado o tenia escudo");
-            Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
-        }else {
-            ControladorTablero.getController().error("has fallado o ya tenia escudo");
+            aImpactar.setEscudo();
+        }else if(Battleship.getMyBattleship().turnoAct()==0) {
+            if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                System.out.println("has fallado o tenia escudo");
+                Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+            } else {
+                ControladorTablero.getController().error("has fallado o ya tenia escudo");
+                Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+            }
         }
     }
 

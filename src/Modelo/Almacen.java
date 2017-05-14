@@ -20,6 +20,14 @@ public class Almacen {
     }
 
     /**
+     * reinicia el almacen
+     *
+     */
+    public void reiniciarMae() {
+        miAlmacen=null;
+    }
+
+    /**
      * inicializar el almacen con el número de armas especificadas en Battleship
      *
      */

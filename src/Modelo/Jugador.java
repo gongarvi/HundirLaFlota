@@ -140,12 +140,26 @@ public abstract class Jugador {
      * @param pPos
      */
     public void repararBarco(Posicion pPos) {
+        if (decrementarDinero(Battleship.getMyBattleship().getPrecioEscudo())) {
         Tablero.getMiTablero().reparar(pPos);
+        }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
+            System.out.println("no tienes dinero suficiente");
+        }else{
+            ControladorTablero.getController().error("no tienes dinero suficiente");
+        }
     }
     /**
      * método abstracto jugar turno redefinido en clases  especificas
      */
     public abstract void jugarTurno();
+
+    /**
+     * método que devuelve el numero de usos del radar
+     * @return
+     */
+    public int usosRadar() {
+      return radar.usosRaar();
+    }
 
     /**
      * método que dispara el arma seleccionada en la posicion dada

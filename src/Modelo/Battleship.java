@@ -14,6 +14,7 @@ public class Battleship {
     private int turno;
     private String tipoVista;
     private int fase;
+    private boolean acabado;
 
     /**
      * variables globales modelo:
@@ -52,6 +53,8 @@ public class Battleship {
     private int faseDisparo=3;
     private int faseTurnoIA=4;
     private int faseReparacion=5;
+    private int faseVictoria=6;
+    private int faseDerrota=7;
 
     /**
      * contructora privada para la clase Battleship (patrón Singleton)
@@ -60,6 +63,7 @@ public class Battleship {
         //0 es turno humano
         fase=0;
         turno=0;
+        acabado=false;
     }
 
     /**
@@ -83,7 +87,19 @@ public class Battleship {
     public int getFaseRadar(){return faseRadar;}
 
     /**
-     *
+     *devuelve el valor de la fase Derrota
+     * @return
+     */
+    public int getFaseDerrota(){return faseDerrota;}
+
+    /**
+     *devuelve el valor de la fase Victoria
+     * @return
+     */
+    public int getFaseVictoria(){return faseVictoria;}
+
+    /**
+     *devuelve el valor de la fase Comprar o colocar escudo
      * @return
      */
     public int getFaseCompraYEscudo(){return faseCompraYEscudo;}
@@ -387,10 +403,18 @@ public class Battleship {
     private void inicializarGui(){ControladorTablero.getController().inicializarGui();}
 
     /**
+     *reinicia las Mae del juego para reiniciar
+     */
+    private void reiniciarMaes(){
+        myBattleship=null;
+        Almacen.getMiAlmacen().reiniciarMae();
+        Tablero.getMiTablero().reiniciarMae();
+    }
+
+    /**
      * metodo jugar que decide la vista del juego e inicia la interaccion con el usuario en funcion de dicha seleccion ("consola" = GUI interna , "gui" = GUI externa)
      */
     public void jugar() {
-
         //lanzar Ventana Bienvenida y recoger nombre y tipo de vista
         System.out.println("Bienvenido: ¿quieres usar consola? (y/n)");
         String seleccion = imputString();
@@ -400,12 +424,14 @@ public class Battleship {
         }else{
              tipoVista="gui";
         }
+        if(acabado){
+            reiniciarMaes();
+        }
         Battleship.getMyBattleship().addTipoVista(tipoVista);
         System.out.println("¿como te llamas ?");
         String pNombre = imputString();
         inicializarJugadores(pNombre);//inicializa todos sus atributos
-        boolean acabado = false;
-        if (tipoVista.equals("consola")) {
+        if(tipoVista.equals("consola")) {
             colocarFlotas();//abre el gestor de colocacion de flotas
             while (!acabado) {
                 if (turnoAct() == 0) {
@@ -433,7 +459,6 @@ public class Battleship {
             cambiarTurno();
             //iniciar el peloteo
             ControladorTablero.getController().fase(0);
-
         }
     }
 
@@ -462,6 +487,8 @@ public class Battleship {
         ControladorTablero.getController().setOpcion("turno",String.valueOf(turnoAct()));
         ControladorTablero.getController().setOpcion("precioEscudo",String.valueOf(getPrecioEscudo()));
         ControladorTablero.getController().setOpcion("precioReparacion",String.valueOf(getPrecioReparacion()));
+        ControladorTablero.getController().setOpcion("usosRadar",String.valueOf(humano.usosRadar()));
+        ControladorTablero.getController().setOpcion("nombre",String.valueOf(humano.getNombre()));
         humano.cuantoDineroHay();
         humano.cuantasArmasHay();
         Almacen.getMiAlmacen().cuantasArmasHay();
@@ -550,12 +577,21 @@ public class Battleship {
             if(humano.existeArma(arma)) {
                 humano.dispararArma(arma, pPos);
                 ControladorTablero.getController().changed();
+                if(Tablero.getMiTablero().haGanado()){
+                    acabado =true;
+                    fase=faseVictoria;
+                    ControladorTablero.getController().fase(fase);
+                }
                 //hasta aqui bien
-                fase = 4;
-                ControladorTablero.getController().fase(fase);
+                fase = faseTurnoIA;
                 //turno de la IA
                 cambiarTurno();
                 ia.jugarTurno();
+                if(Tablero.getMiTablero().haGanado()){
+                    acabado =true;
+                    fase=faseDerrota;
+                    ControladorTablero.getController().fase(fase);
+                }
                 cambiarTurno();
 
                 ControladorTablero.getController().changed();
@@ -567,6 +603,7 @@ public class Battleship {
             }
         }else  if (fase==faseRadar) {
             humano.setPosicionRadar(pPos);
+            ControladorTablero.getController().changed();
             //avisar siguiente fase
             fase=faseCompraYEscudo;
             ControladorTablero.getController().fase(fase);
@@ -578,15 +615,28 @@ public class Battleship {
         }
     }
 
+
+    /**
+     * devuelve el nombre del jugador humano  (
+     * @return
+     */
+    public String getNombreJugador(){return humano.getNombre();}
+
     /**
      * método que permite saltar una fase sin realizar na accin (GUI externa)
      */
     public void saltarFase(){
-        if(fase==faseInicializacion){
+        if(fase==faseInicializacion || fase==faseDerrota || fase==faseVictoria){
             ControladorTablero.getController().error("no puedes saltarte esta fase");
         }else  if(fase==faseDisparo){
             cambiarTurno();
+            System.out.println(turnoAct());
             ia.jugarTurno();
+            if(Tablero.getMiTablero().haGanado()){
+                acabado =true;
+                fase=faseDerrota;
+                ControladorTablero.getController().fase(fase);
+            }
             cambiarTurno();
             ControladorTablero.getController().changed();
             fase = faseReparacion;

@@ -39,6 +39,8 @@ public class TableroVista extends JFrame implements Observer {
     private JLabel precioMisilesBoom;
     private JLabel precioEscudo;
     private JLabel precioReparacion;
+    private JLabel usosRadar;
+    private JLabel nombre;
     private boolean skipHints;
     private String armaSeleccionada;
     private String orientacionleccionada;
@@ -87,6 +89,30 @@ public class TableroVista extends JFrame implements Observer {
         JButton btn=new JButton("entendido");
         btn.addActionListener(ControladorTablero.getController());
         popUpAct.add(btn, BorderLayout.EAST);
+        popUpAct.setVisible(true);
+    }
+
+    /**
+     * lanza up popUp de victoria / derrota
+     * @param pInfo
+     */
+    public void popUpVictoriaDerrota(String pInfo){
+        popUpAct =new JFrame();
+        popUpAct.setTitle(pInfo);
+        popUpAct.setBounds(300,300,1000,100);
+        if(pInfo.equals("victoria")) {
+            popUpAct.add(new JLabel("felicidades !! almirante " + ControladorTablero.getController().getNombreJugador()), BorderLayout.CENTER);
+        }else{
+            popUpAct.add(new JLabel("otra vez será , reinicia y dale una tunda almirante"  + ControladorTablero.getController().getNombreJugador()), BorderLayout.CENTER);
+        }
+        JPanel east=new JPanel();
+        JButton btnR=new JButton("reiniciar");
+        JButton btnS=new JButton("salir");
+        btnR.addActionListener(ControladorTablero.getController());
+        btnS.addActionListener(ControladorTablero.getController());
+        popUpAct.add(east,BorderLayout.EAST);
+        east.add(btnR,BorderLayout.WEST);
+        east.add(btnS,BorderLayout.EAST);
         popUpAct.setVisible(true);
     }
 
@@ -234,12 +260,26 @@ public class TableroVista extends JFrame implements Observer {
     }
 
     /**
-     * lanza la información referente a la fase 0 COLOCAR BARCOS
+     * lanza la información referente a la fase  COLOCAR BARCOS
      */
     public void faseColocacion(){
         if(!skipHints){
             popUpInformacion("en esta fase debes seleccionar: tipo de barco, posiciones y orientacion de los barcos");
         }
+    }
+
+    /**
+     * lanza la información referente a la DERROTA
+     */
+    public void faseDerrota(){
+            popUpVictoriaDerrota("derrota");
+    }
+
+    /**
+     * lanza la información referente a la VICTORIA
+     */
+    public void faseVictoria(){
+        popUpVictoriaDerrota("victoria");
     }
 
     /**
@@ -259,24 +299,8 @@ public class TableroVista extends JFrame implements Observer {
             casillasMiddle.get( boton ).setBackground(Color.black);
         }else if(pEstado.equals( "tocado" )){
             casillasMiddle.get( boton ).setBackground(Color.red);
-        }else if(pEstado.equals( "tocadoYescudo" )){
-            JPanel tmp=new JPanel();
-            JPanel esc=new JPanel();
-            JPanel toc=new JPanel();
-            tmp.add(esc,BorderLayout.NORTH);
-            tmp.add(toc,BorderLayout.SOUTH);
-            esc.setBackground(Color.CYAN);
-            toc.setBackground(Color.black);
-            casillasMiddle.get( boton ).add(tmp);
-        }else if(pEstado.equals( "normalYescudo" )){
-            JPanel tmp=new JPanel();
-            JPanel esc=new JPanel();
-            JPanel toc=new JPanel();
-            tmp.add(esc,BorderLayout.NORTH);
-            tmp.add(toc,BorderLayout.SOUTH);
-            esc.setBackground(Color.CYAN);
-            toc.setBackground(Color.red);
-            casillasMiddle.get( boton ).add(tmp);
+        }else if(pEstado.equals( "escudo" )) {
+            casillasMiddle.get( boton ).setBackground(Color.CYAN);
         }else {
             casillasMiddle.get( boton ).setBackground(Color.blue);
         }
@@ -291,25 +315,9 @@ public class TableroVista extends JFrame implements Observer {
 
             if (pEstado.equals("normal")) {
                 casillasEast.get(boton).setBackground(Color.black);
-            }else if(pEstado.equals( "tocadoYescudo" )){
-                JPanel tmp=new JPanel();
-                JPanel esc=new JPanel();
-                JPanel toc=new JPanel();
-                tmp.add(esc,BorderLayout.NORTH);
-                tmp.add(toc,BorderLayout.SOUTH);
-                esc.setBackground(Color.CYAN);
-                toc.setBackground(Color.black);
-                casillasMiddle.get( boton ).add(tmp);
-            }else if(pEstado.equals( "normalYescudo" )){
-                JPanel tmp=new JPanel();
-                JPanel esc=new JPanel();
-                JPanel toc=new JPanel();
-                tmp.add(esc,BorderLayout.NORTH);
-                tmp.add(toc,BorderLayout.SOUTH);
-                esc.setBackground(Color.CYAN);
-                toc.setBackground(Color.red);
-                casillasMiddle.get( boton ).add(tmp);
-            } else if (pEstado.equals("tocado")) {
+            }else if(pEstado.equals( "escudo" )){
+                casillasMiddle.get( boton ).setBackground(Color.CYAN);
+            }else if (pEstado.equals("tocado")) {
                 casillasEast.get(boton).setBackground(Color.red);
             } else if (pEstado.equals("agua")) {
                 casillasEast.get(boton).setBackground(Color.blue);
@@ -358,6 +366,10 @@ public class TableroVista extends JFrame implements Observer {
             precioReparacion.setText(pTexto);
         }else  if(pOpcion.equals("precioEscudo")) {
             precioEscudo.setText(pTexto);
+        }else  if(pOpcion.equals("usosRadar")) {
+            usosRadar.setText(pTexto);
+        }else  if(pOpcion.equals("nombre")) {
+            nombre.setText(pTexto);
         }
     }
 
@@ -387,7 +399,7 @@ public class TableroVista extends JFrame implements Observer {
         skipHints=false;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("HundiLaFlota");
-        setBounds(10, 50, 1350, 500);
+        setBounds(10, 50, 1360, 450);
         middle = new JPanel();
         east= new JPanel();
         ventana = new JPanel();
@@ -488,7 +500,7 @@ public class TableroVista extends JFrame implements Observer {
 
         opciones.setBackground(Color.GRAY);
         opciones.setBorder(new EmptyBorder(5, 5, 5, 5));
-        opciones.setLayout(new GridLayout(8, 4, 0, 0));
+        opciones.setLayout(new GridLayout(11, 4, 0, 0));
 
         //inicializa columnas y filas
         maxCol=pColumnas;
@@ -520,16 +532,26 @@ public class TableroVista extends JFrame implements Observer {
             jButton1.addActionListener(ControladorTablero.getController());
 
         }
-
-
-        opciones.add( new Label( "Dinero") );
-        opciones.add(  dinero=new JLabel( "0" ));
+        opciones.add( new Label( "nombre") );
+        opciones.add( nombre=new JLabel( "0" ));
         opciones.add( new JLabel("") );
         opciones.add( new JLabel( "" ));
+        opciones.add( new Label( "INFORMACIÖN GENERAL") );
+        opciones.add( new JLabel( "" ));
+        opciones.add( new JLabel("") );
+        opciones.add( new JLabel( "" ));
+        opciones.add( new Label( "Dinero") );
+        opciones.add(  dinero=new JLabel( "0" ));
+        opciones.add( new JLabel("usos radar") );
+        opciones.add( usosRadar=new JLabel( "0" ));
         opciones.add( new JLabel( "Precio Escudo: ") );
         opciones.add( precioEscudo=new JLabel( "0" ));
         opciones.add( new JLabel("Precio Reparacion: ") );
         opciones.add( precioReparacion=new JLabel( "0" ));
+        opciones.add( new Label( "INFORMACIÓN ARMAS") );
+        opciones.add( new JLabel( "" ));
+        opciones.add( new JLabel("") );
+        opciones.add( new JLabel( "" ));
         opciones.add( new JLabel("") );
         opciones.add( new JLabel( "mis armas" ));
         opciones.add( new JLabel("almacén") );

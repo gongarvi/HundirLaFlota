@@ -72,6 +72,10 @@ public class ControladorTablero extends Observable implements ActionListener {
             TableroVista.getTablero().faseColocacion();
         }else  if(pFase==Battleship.getMyBattleship().getFaseTurnoIA()){
             TableroVista.getTablero().faseTurnoIA();
+        }else  if(pFase==Battleship.getMyBattleship().getFaseVictoria()){
+            TableroVista.getTablero().faseVictoria();
+        }else  if(pFase==Battleship.getMyBattleship().getFaseDerrota()){
+            TableroVista.getTablero().faseDerrota();
         }
     }
 
@@ -97,6 +101,12 @@ public class ControladorTablero extends Observable implements ActionListener {
      * @return
      */
     public String getOrientacion(){return TableroVista.getTablero().getOrientacion();}
+
+    /**
+     * devuelve el nombre del jugador humano (Modelo)
+     * @return
+     */
+    public String getNombreJugador(){return Battleship.getMyBattleship().getNombreJugador();}
 
     /**
      * devuelve el String con la cantidad de barcos que falta por colocar  (Modelo)
@@ -181,6 +191,11 @@ public class ControladorTablero extends Observable implements ActionListener {
             Battleship.getMyBattleship().comprar();
         }else if(btnSeleccionado.getText().equals("deshabilitarAyuda")) {
             TableroVista.getTablero().skipHints();
+        }else if(btnSeleccionado.getText().equals("reiniciar")) {
+            TableroVista.getTablero().disposePopUp();
+            Battleship.getMyBattleship().jugar();
+        }else if(btnSeleccionado.getText().equals("salir")) {
+            System.exit(0);
         }else if(btnSeleccionado.getText().equals("añadirInfo")) {
             TableroVista.getTablero().disposePopUp();
             Battleship.getMyBattleship().gestionarCampoAliado(posAct);
