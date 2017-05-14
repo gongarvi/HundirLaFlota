@@ -6,12 +6,12 @@ public class Radar {
     /**
      * atributos del radar
      */
-    private int numUsos = Battleship.getMyBattleship().getMaxUsosRadar();
+    private int numUsos ;
 
     /**
      * constructora de radar
      */
-    public Radar() {}
+    public Radar() {numUsos = Battleship.getMyBattleship().getMaxUsosRadar();}
 
     /**
      * devuelve el número de usos restantes del radar
@@ -59,7 +59,7 @@ public class Radar {
                 String tablero = "";
                 for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
                     Posicion act=new Posicion(i, j);
-                    if (pretenecenAreaAccion(i, j, pPos) || Tablero.getMiTablero().barcoHundido(act)) {
+                    if (pretenecenAreaAccion(i, j, pPos) || Tablero.getMiTablero().barcoHundidoEnemigo(act)) {
                         boolean esc =Tablero.getMiTablero().escudoEnemigo(act);
                         String estado=Tablero.getMiTablero().estadoCampoContrario(act);
                         if(estado!=null && esc) {

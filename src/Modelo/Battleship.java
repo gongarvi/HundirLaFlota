@@ -403,12 +403,13 @@ public class Battleship {
     private void inicializarGui(){ControladorTablero.getController().inicializarGui();}
 
     /**
-     *reinicia las Mae del juego para reiniciar
+     *reinicia las Mae de la vista para reiniciar
      */
     private void reiniciarMaes(){
         myBattleship=null;
         Almacen.getMiAlmacen().reiniciarMae();
         Tablero.getMiTablero().reiniciarMae();
+        ControladorTablero.getController().reiniciarVista();
     }
 
     /**
@@ -502,7 +503,6 @@ public class Battleship {
     public void gestionarCampoAliado(int pBtnSeleccionado){
 
         Posicion pPos=convertirAPosicion(pBtnSeleccionado);
-        //cambiar cte s
         if (fase==faseCompraYEscudo) {
             humano.setEscudo(pPos);
             //avisar que puede comprar mas hasta que pase fase
@@ -515,12 +515,17 @@ public class Battleship {
             ControladorTablero.getController().fase(fase);
             ControladorTablero.getController().changed();
         }else if (fase==faseInicializacion) {
-            humano.colocarBarcosAuto();
-            //int[] pivote=new int[2];
-           // pivote[0]=pPos.getX();
-           // pivote[1]=pPos.getY();
-            //humano.colocarUnBarco(pivote,ControladorTablero.getController().getOrientacion(),getLength(ControladorTablero.getController().getTipoBarco()));
-            //notificar cambios
+             humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
+            /**
+             * comentar debajo(para auto)
+
+            int[] pivote=new int[2];
+            pivote[0]=pPos.getX();
+            pivote[1]=pPos.getY();
+            humano.colocarUnBarco(pivote,ControladorTablero.getController().getOrientacion(),getLength(ControladorTablero.getController().getTipoBarco()));
+            /**
+             * comentar encima (para auto)
+             */
             ControladorTablero.getController().changed();
             System.out.println(humano.quedanBarcos());
             if(!humano.quedanBarcos()){

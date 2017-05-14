@@ -225,7 +225,7 @@ public  class ListaPosiciones {
     public Posicion contieneTocadoNoHundido(){
         for(Posicion p:posiciones){
             String estado=Tablero.getMiTablero().estadoCampoContrario(p);
-            if(estado!=null && estado.equals("tocado") && !Tablero.getMiTablero().barcoHundido(p)){
+            if(estado!=null && estado.equals("tocado") && !Tablero.getMiTablero().barcoHundidoEnemigo(p)){
                 return p;
             }
         }

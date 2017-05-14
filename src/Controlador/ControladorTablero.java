@@ -123,6 +123,11 @@ public class ControladorTablero extends Observable implements ActionListener {
     public void error(String pError){TableroVista.getTablero().popUpError(pError);}
 
     /**
+     * se reiniciara la vista
+     */
+    public void reiniciarVista(){TableroVista.getTablero().reiniciarMae();}
+
+    /**
      * lanza un mensaje de informacion que no se puede eludir (Vista)
      */
     public void recuerda(){TableroVista.getTablero().popUpInformacion("recuerda que si quieres recibir ayuda tendras que habilitar los comentarios");}

@@ -17,7 +17,7 @@ public abstract class Arma {
             String tablero ="";
             for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
                 Posicion act =new Posicion(i,j);
-                if ((pListaPos.pretenecenAreaAccion(act))|| Tablero.getMiTablero().barcoHundido(act)) {
+                if ((pListaPos.pretenecenAreaAccion(act))|| Tablero.getMiTablero().barcoHundidoEnemigo(act)) {
                     boolean esc =Tablero.getMiTablero().escudoEnemigo(act);
                     String estado=Tablero.getMiTablero().estadoCampoContrario(act);
                     if(estado!=null && esc) {

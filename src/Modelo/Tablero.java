@@ -69,13 +69,28 @@ public class Tablero {
     }
 
     /**
-     * devuelve true si el barco  que contiene la posicion esta hundido
+     * devuelve true si el barco  que contiene la posicion esta hundido en la flota enemiga
      *
      * @param pPos
      * @return
      */
-    public boolean barcoHundido(Posicion pPos) {
+    public boolean barcoHundidoEnemigo(Posicion pPos) {
         if (Battleship.getMyBattleship().turnoAct() == 0) {
+            return flotaOrdenador.barcoHundido(pPos);
+        } else {
+            return flotaHumano.barcoHundido(pPos);
+        }
+
+    }
+
+    /**
+     * devuelve true si el barco  que contiene la posicion esta hundido en la flota aliada
+     *
+     * @param pPos
+     * @return
+     */
+    public boolean barcoHundidoAliado(Posicion pPos) {
+        if (Battleship.getMyBattleship().turnoAct() == 1) {
             return flotaOrdenador.barcoHundido(pPos);
         } else {
             return flotaHumano.barcoHundido(pPos);

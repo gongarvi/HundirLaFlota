@@ -26,12 +26,26 @@ public class IA extends Jugador {
             System.out.println("TableroVista ordenador:\n");
         }
         for(int i=0;i<Battleship.getMyBattleship().maxFila();i++) {
-
             String tablero ="";
             for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
-
-                String estado=Tablero.getMiTablero().estadoCampoAliado(new Posicion(i, j));
-                if(estado!=null){
+                Posicion act =new Posicion(i,j);
+                boolean esc =Tablero.getMiTablero().escudoAliado(act);
+                String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                if(estado!=null && esc) {
+                    if (estado.equals("normal")) {
+                        if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                            tablero += " BE ";
+                        } else {
+                            ControladorTablero.getController().setBotonEnemigo(i, j, "escudo");
+                        }
+                    } else if (estado.equals("tocado")) {
+                        if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                            tablero += " TE ";
+                        } else {
+                            ControladorTablero.getController().setBotonEnemigo(i, j, "escudo");
+                        }
+                    }
+                }else if(estado!=null && !esc){
                 if (estado.equals("normal")) {
                     if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                         tablero += " B ";
@@ -46,12 +60,12 @@ public class IA extends Jugador {
                     }
                 }
                 }else{
-                            if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
-                                tablero += " A ";
-                            }else{
-                                ControladorTablero.getController().setBotonEnemigo(i,j,"agua");
-                            }
-                        }
+                    if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                        tablero += " A ";
+                    }else{
+                        ControladorTablero.getController().setBotonEnemigo(i,j,"agua");
+                    }
+                }
             }
             if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
                 System.out.println(tablero);
@@ -68,9 +82,82 @@ public class IA extends Jugador {
      * método jugar turno de la IA
      */
     public void jugarTurno() {
+        reparar();
         usarRadar();
         comprar();
+        colocarEscudos();
         disparar();
+        mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
+    }
+
+    /**
+     * metodo reparar de la IA
+     */
+    public void reparar(){
+        Posicion pos=posDañadaAliada();
+        if(getDinero()>Battleship.getMyBattleship().getPrecioReparacion() && pos !=null){
+            repararBarco(pos);
+        }
+    }
+
+    /**
+     * resuleve la siguiente posicion que reparará la IA
+     * @return
+     */
+    public Posicion posDañadaAliada(){
+        Posicion tmp=null;
+        boolean resueltaPos=false;
+        int i=0,j=0;
+        while(!resueltaPos && i<Battleship.getMyBattleship().maxFila()){
+            while(!resueltaPos && j<Battleship.getMyBattleship().maxCol()){
+                Posicion act =new Posicion(i,j);
+                String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                if(estado!=null && estado.equals("tocado") && !Tablero.getMiTablero().barcoHundidoAliado(act)){
+                    resueltaPos=true;
+                    tmp=act;
+                }else{
+                    j++;
+                }
+            }
+            j=1;
+            i++;
+        }
+        return  tmp;
+    }
+
+    /**
+     * metodo resolver escudo  de la IA
+     */
+    public void colocarEscudos(){
+        Posicion pos=posAliada();
+        if(getDinero()>Battleship.getMyBattleship().getPrecioEscudo()){
+            setEscudo(pos);
+        }
+    }
+
+    /**
+     * resuleve la siguiente posicion que reparará la IA
+     * @return
+     */
+    public Posicion posAliada(){
+        Posicion tmp=null;
+        boolean resueltaPos=false;
+        int i=0,j=0;
+        while(!resueltaPos && i<Battleship.getMyBattleship().maxFila()){
+            while(!resueltaPos && j<Battleship.getMyBattleship().maxCol()){
+                Posicion act =new Posicion(i,j);
+                String estado=Tablero.getMiTablero().estadoCampoAliado(act);
+                if(estado!=null && estado.equals("normal")&& !Tablero.getMiTablero().escudoAliado(act)){
+                    resueltaPos=true;
+                    tmp=act;
+                }else{
+                    j++;
+                }
+            }
+            j=0;
+            i++;
+        }
+        return  tmp;
     }
 
     /**

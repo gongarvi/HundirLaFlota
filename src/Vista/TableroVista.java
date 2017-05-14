@@ -307,6 +307,11 @@ public class TableroVista extends JFrame implements Observer {
     }
 
     /**
+     * reinicia la Mae vista
+     */
+    public void reiniciarMae(){vista=null;dispose();}
+
+    /**
      * actualiza el boton del campo enemigo especificado como parametro al estado dado tambien como parametro
      * @param boton
      * @param pEstado
@@ -316,7 +321,7 @@ public class TableroVista extends JFrame implements Observer {
             if (pEstado.equals("normal")) {
                 casillasEast.get(boton).setBackground(Color.black);
             }else if(pEstado.equals( "escudo" )){
-                casillasMiddle.get( boton ).setBackground(Color.CYAN);
+                casillasEast.get( boton ).setBackground(Color.CYAN);
             }else if (pEstado.equals("tocado")) {
                 casillasEast.get(boton).setBackground(Color.red);
             } else if (pEstado.equals("agua")) {
@@ -541,7 +546,7 @@ public class TableroVista extends JFrame implements Observer {
         opciones.add( new JLabel("") );
         opciones.add( new JLabel( "" ));
         opciones.add( new Label( "Dinero") );
-        opciones.add(  dinero=new JLabel( "0" ));
+        opciones.add( dinero=new JLabel( "0" ));
         opciones.add( new JLabel("usos radar") );
         opciones.add( usosRadar=new JLabel( "0" ));
         opciones.add( new JLabel( "Precio Escudo: ") );
