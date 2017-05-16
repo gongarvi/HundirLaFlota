@@ -65,6 +65,17 @@ public class Battleship {
         turno=0;
         acabado=false;
     }
+    /**
+     *inicializa el Battleship para ejecutar pruebas
+     * @return
+     */
+    public void pruebas(){
+        Tablero.getMiTablero();
+        tipoVista="consola";
+        inicializarJugadores("edgar");
+        humano.colocarBarcosAuto();
+        ia.colocarBarcos();
+    }
 
     /**
      * main del juego
@@ -342,7 +353,7 @@ public class Battleship {
      * método que coloca los barcos en el juego (GUI interna)
      */
     private void colocarFlotas() {
-       humano.colocarBarcos();
+       humano.colocarBarcosAuto();
        cambiarTurno();
        ia.colocarBarcos();
        cambiarTurno();
@@ -364,8 +375,14 @@ public class Battleship {
      */
     public int imputInt(){
         Scanner imput=new Scanner( System.in );
-        int result=Integer.parseInt(imput.nextLine());
-        return result ;
+        int result;
+        try{
+             result = Integer.parseInt(imput.nextLine());
+             return result;
+        }catch(Exception e){
+            System.out.println("introduce un numero por favor");
+            return  imputInt();
+        }
     }
 
     /**
@@ -435,22 +452,11 @@ public class Battleship {
         if(tipoVista.equals("consola")) {
             colocarFlotas();//abre el gestor de colocacion de flotas
             while (!acabado) {
-                if (turnoAct() == 0) {
-                    humano.jugarTurno();
-                    acabado = humano.haGanado();
-                    if (acabado) {
-                        System.out.println("has ganado " + humano.getNombre() + " felicidades!!!!!!!");
-                    } else {
-                        cambiarTurno();
-                    }
-                } else {
-                    ia.jugarTurno();
-                    acabado = ia.haGanado();
-                    if (acabado) {
-                        System.out.println("has perdido " + humano.getNombre() + " vuelve a intentarlo");
-                    } else {
-                        cambiarTurno();
-                    }
+                fase=faseRadar;
+                humano.jugarTurno();
+                acabado = humano.haGanado();
+                if (acabado) {
+                    System.out.println("has ganado " + humano.getNombre() + " felicidades!!!!!!!");
                 }
             }
         }else{
@@ -515,10 +521,10 @@ public class Battleship {
             ControladorTablero.getController().fase(fase);
             ControladorTablero.getController().changed();
         }else if (fase==faseInicializacion) {
-             humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
+            //humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
             /**
              * comentar debajo(para auto)
-
+             **/
             int[] pivote=new int[2];
             pivote[0]=pPos.getX();
             pivote[1]=pPos.getY();
@@ -632,28 +638,57 @@ public class Battleship {
      */
     public void saltarFase(){
         if(fase==faseInicializacion || fase==faseDerrota || fase==faseVictoria){
-            ControladorTablero.getController().error("no puedes saltarte esta fase");
+            if(tipoVista.equals("consola")){
+                System.out.println("no puedes saltarte esta fase");
+            }else {
+                ControladorTablero.getController().error("no puedes saltarte esta fase");
+            }
         }else  if(fase==faseDisparo){
             cambiarTurno();
-            System.out.println(turnoAct());
             ia.jugarTurno();
             if(Tablero.getMiTablero().haGanado()){
                 acabado =true;
                 fase=faseDerrota;
-                ControladorTablero.getController().fase(fase);
+                if(tipoVista.equals("consola")){
+                    System.out.println("lo siento has perdido ,vuelve a intentarlo");
+                }else {
+                    ControladorTablero.getController().fase(fase);
+                }
             }
             cambiarTurno();
-            ControladorTablero.getController().changed();
+            if(!tipoVista.equals("consola")){
+                ControladorTablero.getController().changed();
+            }
             fase = faseReparacion;
-            ControladorTablero.getController().fase(fase);
-        }else if (fase !=faseReparacion){
+            if(tipoVista.equals("consola")){
+                System.out.println("repara en esta fase");
+            }else {
+                ControladorTablero.getController().fase(fase);
+            }
+        }else if (fase ==faseRadar){
             //avisar cambio de fase
-            fase++;
-            ControladorTablero.getController().fase(fase);
-        }else{
+            fase=faseCompraYEscudo;
+            if(tipoVista.equals("consola")){
+                System.out.println("en esta fase puedes comprar armas y escudos , tantos como desees");
+            }else {
+                ControladorTablero.getController().fase(fase);
+            }
+        } else if (fase ==faseCompraYEscudo){
+            //avisar cambio de fase
+            fase=faseDisparo;
+            if(tipoVista.equals("consola")){
+                System.out.println("en esta fase puedes disparar el arma que desees a la posicion que introduzcas");
+            }else {
+                ControladorTablero.getController().fase(fase);
+            }
+        }else if (fase ==faseReparacion){
             //avisar cambio de fase
             fase=faseRadar;
-            ControladorTablero.getController().fase(fase);
+            if(tipoVista.equals("consola")){
+                System.out.println("coloca radar en esta fase");
+            }else {
+                ControladorTablero.getController().fase(fase);
+            }
         }
     }
 

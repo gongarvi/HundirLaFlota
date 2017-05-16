@@ -161,7 +161,6 @@ public class Tablero {
      * @param pPosicion
      */
     public void reparar(Posicion pPosicion) {
-
         if (Battleship.getMyBattleship().turnoAct() == 0) {
             flotaHumano.reparar(pPosicion);
         } else {

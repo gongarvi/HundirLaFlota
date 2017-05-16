@@ -23,6 +23,7 @@ public  class ListaPosiciones {
     public ListaPosiciones(){
         posiciones=new ArrayList<>();
     }
+
     /**
      * constructora de listas de posiciones con una longitud limitada (para barcos) por defecto a(-1,-1) con estado de barco
      */

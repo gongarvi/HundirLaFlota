@@ -87,7 +87,13 @@ public class IA extends Jugador {
         comprar();
         colocarEscudos();
         disparar();
-        mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
+        /**
+         * descomentar la linea de abajo para ver el campo enemigo en todo momento
+         */
+       // mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
+        /**
+         * descomentar la linea de arriba para ver el campo enemigo en todo momento
+         */
     }
 
     /**
@@ -119,7 +125,7 @@ public class IA extends Jugador {
                     j++;
                 }
             }
-            j=1;
+            j=0;
             i++;
         }
         return  tmp;
@@ -130,7 +136,7 @@ public class IA extends Jugador {
      */
     public void colocarEscudos(){
         Posicion pos=posAliada();
-        if(getDinero()>Battleship.getMyBattleship().getPrecioEscudo()){
+        if(getDinero()>Battleship.getMyBattleship().getPrecioEscudo() && pos!=null){
             setEscudo(pos);
         }
     }
@@ -262,10 +268,11 @@ public class IA extends Jugador {
                 return "misilEO";
             }else if( existeArma("misilNS")){
                 return "misilNS";
-            }else {
+            }else if( existeArma("bomba")) {
                 return "bomba";
             }
         }
+        return null;
     }
     /**
      * metodo para utilizar el radar
@@ -333,8 +340,10 @@ public class IA extends Jugador {
     @Override
     public void disparar() {
         Posicion pos=resolverSigPosDisparar();
-        String arma=resolverArmaDisparar(pos);
-        this.dispararArma(arma,pos);
+        String arma = resolverArmaDisparar(pos);
+        if(pos!=null && arma!=null) {
+            this.dispararArma(arma, pos);
+        }
     }
 
 }

@@ -42,7 +42,14 @@ public class Humano extends Jugador {
              mostrarFlotaJugador();
              int[] pPivote = Battleship.getMyBattleship().getEjes();
              String direccion =Battleship.getMyBattleship(). getDireccion();
-             int length = getTipoBarco();
+             int length=-1;
+             while(length!=-1) {
+                 String tipo = Battleship.getMyBattleship().imputString();
+                 length = Battleship.getMyBattleship().getLength(tipo);
+                 if(length==-1){
+                     System.out.println("inserta bien el tipo de barco");
+                 }
+             }
              Tablero.getMiTablero().inicializar(pPivote, direccion, length);
          }
 
@@ -124,28 +131,6 @@ public class Humano extends Jugador {
         }
     }
 
-    /**
-     * método que decide el tipo de barco y devuelve su longitud (Gui interna)
-     * @return
-     */
-    private int getTipoBarco(){
-        String tipo ;
-        System.out.println("introduce tipo barco:\n fragata \n destructor \n portaaviones \n submarino");
-        tipo=Battleship.getMyBattleship().imputString();
-        if(tipo.equals("fragata")){
-            return Battleship.getMyBattleship().getLength("fragata");
-        }else  if(tipo.equals("submarino")){
-            return Battleship.getMyBattleship().getLength("submarino");
-        }else  if(tipo.equals("destructor")){
-            return Battleship.getMyBattleship().getLength("destructor");
-        }else  if(tipo.equals("portaaviones")){
-            return Battleship.getMyBattleship().getLength("portaaviones");
-        }else{
-            System.out.println("incorrecto");
-            return getTipoBarco();
-        }
-
-    }
 
     /**
      * método para utilizar radar (GUI interna)
@@ -155,7 +140,7 @@ public class Humano extends Jugador {
         int[] posicion=Battleship.getMyBattleship().getEjes();
         Posicion tmp=new Posicion (posicion[0],posicion[1]);
         setPosicionRadar(tmp);
-
+        Battleship.getMyBattleship().saltarFase();
     }
 
     /**
@@ -169,9 +154,19 @@ public class Humano extends Jugador {
                 "\n precio misil " + Battleship.getMyBattleship().getPrecioMisil() +
                 "\n precio misilEO " + Battleship.getMyBattleship().getPrecioMisilEO() +
                 "\n precio misilNS " + Battleship.getMyBattleship().getPrecioMisilNS() +
-                "\n precio misilBoom "+ Battleship.getMyBattleship().getPrecioMisilBOOM());
+                "\n precio misilBoom "+ Battleship.getMyBattleship().getPrecioMisilBOOM() +
+                "\n precio escudo "+ Battleship.getMyBattleship().getPrecioEscudo() );
+        System.out.println("para continuearescribe : saltar fase ");
         arma =Battleship.getMyBattleship().imputString();
-        comprarArma(arma);
+        if(arma.equals("escudo")){
+            mostrarFlotaJugador();
+            int[]pivote=Battleship.getMyBattleship().getEjes();
+            setEscudo(new Posicion(pivote[0],pivote[1]));
+        }else  if(arma.equals("saltar fase")){
+            Battleship.getMyBattleship().saltarFase();
+        }else{
+            comprarArma(arma);
+        }
     }
 
     /**
@@ -188,9 +183,23 @@ public class Humano extends Jugador {
         Posicion tmp=new Posicion (posicion[0],posicion[1]);
         if(existeArma(arma)) {
             dispararArma(arma, tmp);
+            Battleship.getMyBattleship().saltarFase();
         }else{
             disparar();
         }
+    }
+
+
+    /**
+     * método para disparar (GUI interna)
+     */
+    public void  reparar(){
+        mostrarFlotaJugador();
+        int[] pivote;
+        System.out.println("selecciones una posicion para reparar ");
+        pivote =Battleship.getMyBattleship().getEjes();
+        Posicion tmp=new Posicion (pivote[0],pivote[1]);
+        repararBarco(tmp);
     }
 
     /**
@@ -208,8 +217,12 @@ public class Humano extends Jugador {
        if(Battleship.getMyBattleship().getTipoVista().equals("consola")) {
            mostrarFlotaJugador();
            usarRadar();
-           comprar();
+           System.out.println(Battleship.getMyBattleship().getFaseAct());
+           while(Battleship.getMyBattleship().getFaseAct()==Battleship.getMyBattleship().getFaseCompraYEscudo()) {
+               comprar();
+           }
            disparar();
+           reparar();
        }
     }
 

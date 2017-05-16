@@ -27,8 +27,6 @@ public class ListaBarcos {
         return lb.iterator();
     }
 
-
-
     /**
      * devuelve true si el barco que contiene la posicion dada como parameto esta hundido
      * @param pPos
