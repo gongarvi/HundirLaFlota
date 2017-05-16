@@ -23,4 +23,9 @@ public class BarcoFactoryTest {
     }
 
 
+    /**
+     * los método relacionados con varias clases los testeamos
+     * de manera manual aqui solo aparecen test de métodos finales
+     * que devuelven un valor
+     */
 }

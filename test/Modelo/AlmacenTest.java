@@ -68,4 +68,11 @@ public class AlmacenTest {
     public void cuantasBombasHay() {
         Assert.assertTrue( Almacen.getMiAlmacen().cuantasBombasHay()==Battleship.getMyBattleship().getnBombas());
     }
+
+
+    /**
+     * los método relacionados con varias clases los testeamos
+     * de manera manual aqui solo aparecen test de métodos finales
+     * que devuelven un valor
+     */
 }

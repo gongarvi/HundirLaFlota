@@ -128,10 +128,10 @@ public class BarcoTest {
 
     @Test
     public void testHundirSetEscudoTieneEscudo() throws Exception {
-        tmp1.setEscudo(new Escudo());
-        tmp2.setEscudo(new Escudo());
-        tmp3.setEscudo(new Escudo());
-        tmp4.setEscudo(new Escudo());
+        tmp1.setEscudo();
+        tmp2.setEscudo();
+        tmp3.setEscudo();
+        tmp4.setEscudo();
         Assert.assertTrue(tmp1.tieneEscudo());
         Assert.assertTrue(tmp2.tieneEscudo());
         Assert.assertTrue(tmp3.tieneEscudo());
@@ -158,4 +158,10 @@ public class BarcoTest {
         Assert.assertEquals(tmp4.estadoPos(new Posicion(-1,-1)),"tocado");
     }
 
+
+    /**
+     * los método relacionados con varias clases los testeamos
+     * de manera manual aqui solo aparecen test de métodos finales
+     * que devuelven un valor
+     */
 }

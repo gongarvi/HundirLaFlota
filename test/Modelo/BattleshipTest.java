@@ -12,7 +12,7 @@ public class BattleshipTest {
 
     @Test
     public void testGeters() throws Exception {
-        Assert.assertEquals(Battleship.getMyBattleship().turnoAct(),0);
+        Assert.assertEquals(Battleship.getMyBattleship().turnoAct(),1);
         Assert.assertEquals(Battleship.getMyBattleship().getDineroInicial(),1000);
         Assert.assertEquals(Battleship.getMyBattleship().getFaseCompraYEscudo(),2);
         Assert.assertEquals(Battleship.getMyBattleship().getFaseDisparo(),3);
@@ -53,4 +53,10 @@ public class BattleshipTest {
         Assert.assertEquals(Battleship.getMyBattleship().turnoAct(),1);
     }
 
+
+    /**
+     * los método relacionados con varias clases los testeamos
+     * de manera manual aqui solo aparecen test de métodos finales
+     * que devuelven un valor
+     */
 }

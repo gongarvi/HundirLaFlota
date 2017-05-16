@@ -5,80 +5,56 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ListaArmasTest {
-
-    ListaArmas tmp;
+    private  ListaArmas la;
 
     @BeforeMethod
-    public void init() {
-       tmp=new ListaArmas();
+    public void init() throws Exception {
+        la=new ListaArmas();
     }
 
     @Test
-    public void testGetMiAlmacen() throws Exception {
-        Assert.assertNotNull(tmp);
+    public void testConstructora() throws Exception {
+        Assert.assertNotNull(la);
     }
 
     @Test
-    public void testAñadirArmaYGetSize() throws Exception {
-        tmp.añadirArma("bomba");
-        tmp.añadirArma("misil");
-        tmp.añadirArma("misilNS");
-        tmp.añadirArma("misilEO");
-        tmp.añadirArma("misilBoom");
-        Assert.assertEquals(1,tmp.getSize("bomba"));
-        Assert.assertEquals(1,tmp.getSize("misil"));
-        Assert.assertEquals(1,tmp.getSize("misilNS"));
-        Assert.assertEquals(1,tmp.getSize("misilEO"));
-        Assert.assertEquals(1,tmp.getSize("misilBoom"));
+    public void testFuncionesListaArmas() throws Exception {
+       Assert.assertFalse(la.consultarArma("bomba"));
+       Assert.assertFalse( la.consultarArma("misil"));
+       Assert.assertFalse( la.consultarArma("misilEO"));
+       Assert.assertFalse( la.consultarArma("misilNS"));
+       Assert.assertFalse( la.consultarArma("misilBoom"));
+       la.añadirArma("bomba");
+       la.añadirArma("misil");
+       la.añadirArma("misilEO");
+       la.añadirArma("misilNS");
+       la.añadirArma("misilBoom");
+       Assert.assertTrue(la.consultarArma("bomba"));
+       Assert.assertTrue( la.consultarArma("misil"));
+       Assert.assertTrue( la.consultarArma("misilEO"));
+       Assert.assertTrue( la.consultarArma("misilNS"));
+       Assert.assertTrue( la.consultarArma("misilBoom"));
+       Assert.assertTrue(la.getSize("bomba")==1);
+       Assert.assertTrue( la.getSize("misil")==1);
+       Assert.assertTrue( la.getSize("misilEO")==1);
+       Assert.assertTrue( la.getSize("misilNS")==1);
+       Assert.assertTrue( la.getSize("misilBoom")==1);
+       la.removeArma("bomba");
+       la.removeArma("misil");
+       la.removeArma("misilEO");
+       la.removeArma("misilNS");
+       la.removeArma("misilBoom");
+       Assert.assertFalse(la.consultarArma("bomba"));
+       Assert.assertFalse( la.consultarArma("misil"));
+       Assert.assertFalse( la.consultarArma("misilEO"));
+       Assert.assertFalse( la.consultarArma("misilNS"));
+       Assert.assertFalse( la.consultarArma("misilBoom"));
     }
 
-    @Test
-    public void testRemoveArmaYGetSize() throws Exception {
-        tmp.removeArma("bomba");
-        tmp.removeArma("misil");
-        tmp.removeArma("misilNS");
-        tmp.removeArma("misilEO");
-        tmp.removeArma("misilBoom");
-        Assert.assertEquals(0,tmp.getSize("bomba"));
-        Assert.assertEquals(0,tmp.getSize("misil"));
-        Assert.assertEquals(0,tmp.getSize("misilNS"));
-        Assert.assertEquals(0,tmp.getSize("misilEO"));
-        Assert.assertEquals(0,tmp.getSize("misilBoom"));
 
-        tmp.añadirArma("bomba");
-        tmp.añadirArma("misil");
-        tmp.añadirArma("misilNS");
-        tmp.añadirArma("misilEO");
-        tmp.añadirArma("misilBoom");
-        tmp.añadirArma("bomba");
-        tmp.añadirArma("misil");
-        tmp.añadirArma("misilNS");
-        tmp.añadirArma("misilEO");
-        tmp.añadirArma("misilBoom");
-        tmp.removeArma("bomba");
-        tmp.removeArma("misil");
-        tmp.removeArma("misilNS");
-        tmp.removeArma("misilEO");
-        tmp.removeArma("misilBoom");
-        Assert.assertEquals(1,tmp.getSize("bomba"));
-        Assert.assertEquals(1,tmp.getSize("misil"));
-        Assert.assertEquals(1,tmp.getSize("misilNS"));
-        Assert.assertEquals(1,tmp.getSize("misilEO"));
-        Assert.assertEquals(1,tmp.getSize("misilBoom"));
-    }
-
-    @Test
-    public void testConsultaArma() throws Exception {
-        tmp.añadirArma("bomba");
-        tmp.añadirArma("misil");
-        tmp.añadirArma("misilNS");
-        tmp.añadirArma("misilEO");
-        tmp.añadirArma("misilBoom");
-        Assert.assertTrue(tmp.consultarArma("bomba"));
-        Assert.assertTrue(tmp.consultarArma("misil"));
-        Assert.assertTrue(tmp.consultarArma("misilNS"));
-        Assert.assertTrue(tmp.consultarArma("misilEO"));
-        Assert.assertTrue(tmp.consultarArma("misilBoom"));
-    }
-
+    /**
+     * los método relacionados con varias clases los testeamos
+     * de manera manual aqui solo aparecen test de métodos finales
+     * que devuelven un valor
+     */
 }
