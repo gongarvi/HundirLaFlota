@@ -309,7 +309,7 @@ public class TableroVista extends JFrame implements Observer {
     /**
      * reinicia la Mae vista
      */
-    public void reiniciarMae(){vista=null;dispose();}
+    public void reiniciarMae(){;dispose();vista=new TableroVista();}
 
     /**
      * actualiza el boton del campo enemigo especificado como parametro al estado dado tambien como parametro

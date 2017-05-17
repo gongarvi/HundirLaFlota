@@ -426,6 +426,7 @@ public class Battleship {
         myBattleship=null;
         Almacen.getMiAlmacen().reiniciarMae();
         Tablero.getMiTablero().reiniciarMae();
+        inicializarGui();
         ControladorTablero.getController().reiniciarVista();
     }
 
