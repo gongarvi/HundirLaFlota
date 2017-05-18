@@ -25,10 +25,10 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ![logo_preview](http://i.imgur.com/loBCsOI.png)
 ##
 # Primer Sprint
-![logo_preview](http://i.imgur.com/iZCc8tv.png)
-![logo_preview](http://i.imgur.com/EHBvhJy.png)
+![logo_preview](http://i.imgur.com/Yd0eMgq.png)
+![logo_preview](http://i.imgur.com/AXBhMIa.png)
 ![logo_preview](http://i.imgur.com/bZJjh9L.png)
-![logo_preview](http://i.imgur.com/i52UHKf.png)
+![logo_preview](http://i.imgur.com/fHps5lL.png)
 ##
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
@@ -50,9 +50,9 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 	
 # Segundo Sprint
 ![logo_preview](http://i.imgur.com/iA07MUR.png)
-![logo_preview](http://i.imgur.com/z0hBoYA.png)
-![logo_preview](http://i.imgur.com/iZCc8tv.png)
-![logo_preview](http://i.imgur.com/j4nB3P3.png)
+![logo_preview](http://i.imgur.com/9O7kT84.png)
+![logo_preview](http://i.imgur.com/n3PSs4P.png)
+![logo_preview](http://i.imgur.com/wAG0N0f.png)
 ##
 	# HU4: Consultar radar jugador
 		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
@@ -77,7 +77,7 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 # Tercer Sprint 
 ![logo_preview](http://i.imgur.com/CiW4Ag6.png)
 ![logo_preview](http://i.imgur.com/945l6ZT.png)
-![logo_preview](http://i.imgur.com/7m7rSvx.png)
+![logo_preview](http://i.imgur.com/TKxBcsn.png)
 ![logo_preview](http://i.imgur.com/2e5LpYG.png)
 ##
 	# HU8: Reparar barco jugador
@@ -149,12 +149,9 @@ Actualmente el radar muestra las posiciones de alrededor y de la posición desea
 ##
 H6 y H7:
 La clase Arma cuenta con un método abstracto disparar que se redefine para actuar de maneras diferentes en sus especializaciones (aplicado mediante patrón Strategy).
-La IA usa la misma idea del radar para las armas. Para ello reutiliza la lista de posiciones y verificara el lugar ideoneo para disparar.
+La IA usa la misma idea del radar para las armas. Para ello reutiliza la lista de posiciones y verificara el lugar ideoneo para disparar, luego el arma actúa de la misma manera, ataca la posición y según que arma seleccionase, destruira más posiciones.
 
-Cabe destacar que el disparo se realiza posición a posición y que existen método diferentes de comportamiento de impacto para bombas y misiles, la cadena de ejecución de
-este método termina en el estado de los barcos (en caso de acierto) aplicandose aquí el 
-patrón State , en caso de fallar saltará un mensaje (solo por consola , 
-era muy engorroso en interfaz y estaria sacando advertencias tanto para el turno de humano como para el turno de la IA).
+Cabe destacar que el disparo se realiza posición a posición y que existen método diferentes de comportamiento de impacto para bombas y misiles, la cadena de ejecución de este método termina en el estado de los barcos (en caso de acierto) aplicandose aquí el patrón State , en caso de fallar saltará un mensaje (solo por consola, era muy engorroso en interfaz y estaria sacando advertencias tanto para el turno de humano como para el turno de la IA).
 ##
 ##
 H8 y H9:
