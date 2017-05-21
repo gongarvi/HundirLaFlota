@@ -93,23 +93,37 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 		- Si el ordenador desea comprar algún armamento y dispone de dinero suficiente, pasa a tener el armamento 
 		comprado disminuyendo la cantidad de dinero del ordenador.
 ##
+
 ##	
 HU1: 
 La asociación del armamento dinero y radar se realiza a los jugadores 
-tanto humano como IA , cabe destacar que esta asociación tambien incluye 
-a la flota  de cada jugador (ambas contenidas en la clase Tablero),
-estas flotas inicialmente contiene todos los barcos del juego pero sin 
-posición específica (-1,-1).
-
-El Almacén actúa a modo de estanteria pudiendo coger la cantidad de 
-armas que deseemos dentro del límite de provisiones , este almacen 
-lo comparten humano y ordenador.
+tanto humano como IA , las flotas de ambos jugadores se almacenan y componen el tablero,
+estas flotas inicialmente contienen todos los barcos del juegoinicializados pero sin posición
+,por defecto (-1,-1).
 
 Sobre Battleship recae la responsabilidad de conocer todas las variables 
 de juego pudiendo acceder a ellas de forma sencilla (solo se pueden
- modificar mediante la codificación) , de esta forma se convierte en 
+modificar mediante la codificación) , de esta forma se convierte en 
 fuente de conocimiento de todas aquellas clases que interactúen con 
-información global.
+información global , además contiene toda la información sobre el 
+turno y las fases de cada turno (ver al final) .
+
+Inicialización de barcos: la inicialización de barcos se realiza de uno en uno y consiste 
+en asignar posiciones a un barco que coincida con el tipo especificado , como había introdu-
+cido antes los barcos ya están inicializados pero sin posición , por otro lado se realiza una 
+inferencia para minimizar parámetros (pivote(x,y), direccion y tipoBarco) de esta información
+deducimos que barco coincide y las coordenadas de cada posición que lo compone , este proceso
+es guiado por un gestor de inicialización que no nos permitira continuar con el juego hasta que
+se encuentren todos los barcos inicializados , además nos proporciona la información necesaria
+para inicializar los barcos correctamente.
+
+El Almacén actúa a modo de estanteria pudiendo coger la cantidad de 
+armas que deseemos dentro del límite de provisiones , este almacen 
+lo comparten humano y ordenador,se inicializa antes de la fase de colocación
+de barcos y genera el número de armas especificado en las variables globales 
+del Battleship
+
+
 
 La interfaz gráfica concretamente el tablero adversario ( por consola es igual) 
 cuenta con un sistema de refresco que permite ver al usuario todo lo que ha visto 
@@ -118,17 +132,12 @@ interacciones de la Ia después de la fase de disparo del jugador humano ,
 de esta manera no tenemos porque almacenar posiciones avistadas para mostrarlas
 ,la IA por su parte las guardara para realizar su proximo movimiento.
 
-El programa cuenta con un gestor de inicialización, 
-comprueba que no sea una posición colindante, sin contar las esquinas; 
-además de que la posición se encuentre en el tablero. Posteriormente asignará 
-la posicion deseada a un barco de la flota que cumpla sus características
-,es decir; que sea del mismo tipo, para utilizar este gestor por interfaz gráfica bastará con seguir las
-instrucciones de las informaciones emergentes (donde estas se podrán desactivar).
-
+Importante para pruebas:
 *La flota ordenador se coloca automáticamente ,este método es aplicable 
 a la flota humano, útil para pruebas, cambiando unas lineas que están especificadas en la
 clase Battleship. 
 ##
+
 ##
 HU2 y HU3: 
 Los escudos son atributos de los barcos y no se almacenan en ningún sitio, se
@@ -137,38 +146,108 @@ que no tienen escudo lo tendrán a nulo y recibiran directamente el impacto seg�
 Los escudos  son capaces de recibir dos impactos de bomba o uno de misil y protegen todas 
 las posiciones de barco por igual.
 
-El modo de interacción para la generación de escudos es igual para el jugador y la IA , se selecciona una posición a la que colocar el escudo y se resuelve el barco deseado en función de dicha posición ,si no existe el barco no actúa y lo avisará
+El modo de interacción para la generación de escudos es igual para el jugador y la IA , se 
+selecciona una posición a la que colocar el escudo y se resuelve el barco deseado en función de 
+dicha posición ,si no existe el barco no actúa y lo avisará
 ##
+
 ##
 H4 y H5 :
-La clase radar tiene un número de usos limitado a tres, cuando se desea se le
-asigna una nueva posición que explorar. El método es igual para la IA y el humano, exceptuando que la IA contiene una lista de posiciones revisadas, mediante esa lista comprobara el lugar idoneo para colocar el radar. En cambio el humano verá actualizarse la interfaz gráfica.
+La clase radar tiene un número de usos limitado a tres, cuando se desea se le asigna una nueva posición que 
+revelar. El método es igual para la IA y el humano,posterirmente la información recogida se guardara en el 
+caso de la IA y se mostrará en el caso de usuario.
 
-Actualmente el radar muestra las posiciones de alrededor y de la posición deseada, esto podría modificarse por el uso de Listas de posiciones cuya formación corre a cargo de la posición (es capaz de saber sus colindantes),posteriormente se realiza un filtrado del Tablero mostrando unicamente aquellas posiciones que pertenezcan a la lista dada.
+Actualmente el radar muestra las posiciones de alrededor y de la posición deseada, esto podría modificarse por
+el uso de Listas de posiciones cuya formación corre a cargo de la posición (es capaz de saber sus colindantes),
+posteriormente se realiza un filtrado del Tablero mostrando unicamente aquellas posiciones que pertenezcan a la
+lista dada.
 ##
+
 ##
 H6 y H7:
-La clase Arma cuenta con un método abstracto disparar que se redefine para actuar de maneras diferentes en sus especializaciones (aplicado mediante patrón Strategy).
-La IA usa la misma idea del radar para las armas. Para ello reutiliza la lista de posiciones y verificara el lugar ideoneo para disparar, luego el arma actúa de la misma manera, ataca la posición y según que arma seleccionase, destruira más posiciones.
+La clase Arma cuenta con un método abstracto disparar que se redefine para actuar de maneras diferentes 
+en sus especializaciones (aplicado mediante patrón Strategy).El disparo cuenta con varios fallos contemplados
+(no existe arma,no existe barco en la posición) además de los impedimentos de interfaz(ver al final),en este 
+caso la actividad del usuario se restringe al campo contrario.Cada disparo quedará guardado en posiciones 
+revisadas de la IA y se mostrará por pantalla en el caso de humano (los barcos hundidos se registran enteros 
+como posiciones conocidaa aunque solo hayamos atacado una posición)
 
-Cabe destacar que el disparo se realiza posición a posición y que existen método diferentes de comportamiento de impacto para bombas y misiles, la cadena de ejecución de este método termina en el estado de los barcos (en caso de acierto) aplicandose aquí el patrón State , en caso de fallar saltará un mensaje (solo por consola, era muy engorroso en interfaz y estaria sacando advertencias tanto para el turno de humano como para el turno de la IA).
+La IA usa la misma idea del radar para las armas. Para ello reutiliza la lista de posiciones y 
+verificara el lugar ideoneo para disparar, luego el arma actúa de la misma manera, ataca la posición 
+y según que arma seleccionase, destruira más posiciones.
+
+Cabe destacar que el disparo se realiza posición a posición y que existen método diferentes de comportamiento 
+de impacto para bombas y misiles, la cadena de ejecución de este método termina en el estado de los barcos 
+(en caso de acierto) aplicandose aquí el patrón State , en caso de fallar saltará un mensaje (solo por consola, 
+era muy engorroso en interfaz y estaria sacando advertencias tanto para el turno de humano como para el turno 
+de la IA).
 ##
+
 ##
 H8 y H9:
-El método de reparación se realiza en la IA y el humano por igual, se reparan barcos posición a posición, y en caso de fallar se devuelve el dinero que se le ha retirado al jugador. En el caso de la IA si tiene algun barco por reparar solo reparará 1 y saltará de fase.
+El método de reparación se realiza en la IA y el humano por igual, se reparan barcos posición a posición, 
+y en caso de fallar se devuelve el dinero que se le ha retirado al jugador,solo se podrá reparar un barco 
+en cada fase reparación y el fallo contará como reparación. En el caso de la IA reparará el primer barco 
+tocado que tenga ya que solo se puede realizar un tocado por turno (en caso de realizarse).
 ##
-##
-H10 y H11:
-El método de comprar es equivalente en ambos jugadores humano e IA, es posible comprar varios articulos en la misma fase, en esta fase tambien se colocar escudos a modo de producto. 
-Para la IA lo tenemos diferenciado en 2 fases: comprar arma y colocar Escudo. De nuevo a usará de la lista de posiciones, donde revisará si tiene alguna posicion revisada que contiene un barco y comprueba que arma puede comprar.
-En la siguiente fase, comprará colocará un escudo y si no es posible se le devolverá el dinero, una vez terminada continuara a la siguiente fase.
-##
-##
-IA:
-Existe un método asociado a cada método anterior para facilitar el siguiente movimiento a la IA, esos metodos han sido programados para que la IA tome decisiones y una vez tomadas usará los metodos en común para la función de cada en cada fase.
 
 ##
+H10 y H11:
+El método de comprar es equivalente en ambos jugadores humano e IA, es posible comprar varios articulos en
+la misma fase, en esta fase tambien se colocar escudos a modo de producto.Para la IA lo tenemos diferenciado 
+en 2 pasos: comprar arma y colocar Escudo. De nuevo  usará  la lista de posiciones revisadas para decidir que
+tipo de arma le conviene utilizar en cada momento ,por otro lado colocará un escudo .
+
+Los métodos de compra solo comprueban el dinero del usuario y lo decrementan , posteriormente al alcanzar el
+producto a comprar (arma o escudo)se devolvera el dinero en caso que no existiera o los parámetros no 
+coincidieran con un barco por ejemplo , esta transición no la verá el usuario por nuestra política de refresco
+(ver al final),todos los fallos contemplados en la compra de armas y escudos avisarán al usuario que la operación 
+no se ha realizado con éxito(falta de dinero,no existe arma ,ya existía escudo ,la posción seleccionada no es barco)
+,existen otros impedimentos de interfaz(ver final).
+##
+
+##
+IA:
+Existe un método asociado a cada fase del turno(ver final) para facilitar el siguiente movimiento a la IA, 
+esos metodos han sido programados para que la IA tome decisiones que se usarán en los métodos generales de
+jugador ,es decir ,resuelva los parametros de los proximos métodos.
+
+En cuanto a profundidad de inteligencia son simplemente scripts que interpretan las posiciones revisadas de
+la IA y las variables del juego que conoce (unicamente), es capaz de gestionar todos los aspectos del juego
+(colocación de barcos ,radar , comprar y escudos , disparar ,reparar) de una forma simple pero eficcaz ,
+recuerda que la información del campo enemigo es en función de lo que conoces en un instante no en tiempo 
+real (niebla de guerra).
+
+confusiones típicas:
+-cuando se dispare un misil y un barco no se hunda será porque contaba con escudo 
+-cuando ataquemos varias posiciones con bombas y aparezcan todas las posiciones tocadas puede ser 
+ que la IA las haya ido reparando y a nosotros no nos aparezca 
+ 
+##
+
 ##
 Fases :
-Existen fases para distinguir cada momento del juego, se han creado para dar una secuencialidad al juego. De esta manera tambien le damos cierto orden de actuación a la IA y así puede jugar de una manera más audaz.
+Existen fases para distinguir cada momento del turno , esto sirve para gestionar los sucesos
+de forma secuencial y asíncrona a la vez, es decir , podemos decidir que fase saltar cuando 
+suceda un evento o podemos darle la posibilidad al usuario de generar varios eventos en la misma
+fase (comprar varias armas por ejemplo),también somos capaces de gestionar el "evento vacio" que 
+en nuestro caso se considera "saltar fase", este evento permite al usuario decidir en todo momento
+que prefiere hacer (el juego no te obliga a jugar una fase pero si el turno al fin y al cabo no decidir
+constituye una decisión intrinsecamente)
+##
+
+##
+Política de refresco :
+El juego solo mostrará los cambios en el juego en ciertos puntos, al final de cada fase concretamente
+el refresco solo afecta a la visión del usuario sobre la información que tiene al alcance su
+análogo jugador-humano en el modelo .
+##
+
+##
+impedimentos de la interfaz :
+estos impedimentos evitan que se pueda realizar cualquier acción en la interfaz (GUI o consola),en función
+de la fase en que nos encontremos se nos permitira interactuar con el programa de una forma determinada , están 
+contemplados en el modelo pero suponen componentes básicos de interacción (dos tableros + opciones),en el 
+caso de la consola se irán mostrando cuando se necesiten (aquí se contempla más facilmente la política 
+de refresco y la niebla de guerra)
 ##
