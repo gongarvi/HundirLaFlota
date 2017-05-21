@@ -41,6 +41,7 @@ public class TableroVista extends JFrame implements Observer {
     private JLabel precioReparacion;
     private JLabel usosRadar;
     private JLabel nombre;
+    private JLabel infoFase;
     private boolean skipHints;
     private String armaSeleccionada;
     private String orientacionleccionada;
@@ -138,6 +139,7 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("selecciona una posicion del campo enemigo para colocar un radar , recuerda");
         }
+        infoFase.setText("fase radar");
     }
 
     /**
@@ -147,6 +149,7 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("en esta fase puedes comprar lo que desees ,tanto armas como escudos ,abajo a la izquierda encontraras el boton de comprar y para los escudos selecciona un barco");
         }
+        infoFase.setText("fase comprar y escudo");
     }
 
     /**
@@ -156,7 +159,7 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("en esta fase debes seleccionar una posición para disparar con el arma que selecciones");
         }
-        //seleccion de arma
+        infoFase.setText("fase disparo");
     }
     /**
      * lanza la información referente a la cuarta fase TURNO IA
@@ -165,7 +168,7 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("la IA jugara su turno ahora");
         }
-
+        infoFase.setText("fase turno IA");
     }
 
     /**
@@ -175,7 +178,7 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("en esta fase puedes reparar un barco aliado o saltar la fase");
         }
-
+        infoFase.setText("fase reparación");
     }
 
     /**
@@ -266,19 +269,22 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("en esta fase debes seleccionar: tipo de barco, posiciones y orientacion de los barcos");
         }
+        infoFase.setText("fase colocación de barcos");
     }
 
     /**
      * lanza la información referente a la DERROTA
      */
     public void faseDerrota(){
-            popUpVictoriaDerrota("derrota");
+        infoFase.setText("fase derrota");
+        popUpVictoriaDerrota("derrota");
     }
 
     /**
      * lanza la información referente a la VICTORIA
      */
     public void faseVictoria(){
+        infoFase.setText("fase victoria");
         popUpVictoriaDerrota("victoria");
     }
 
@@ -481,6 +487,12 @@ public class TableroVista extends JFrame implements Observer {
         deshabilitarAyuda.setSize( 20, 20);
         deshabilitarAyuda.setVisible( true );
         deshabilitarAyuda.setText("deshabilitarAyuda");
+
+
+        infoFase=new JLabel( );
+        imput.add( new JLabel( "") );
+        imput.add( new JLabel( "") );
+        imput.add( infoFase );
 
         //añadir controlador del tablero a los botones de campo jugador
         deshabilitarAyuda.addActionListener(ControladorTablero.getController());

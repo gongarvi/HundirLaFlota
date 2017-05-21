@@ -21,6 +21,20 @@ public abstract class Jugador {
     }
 
     /**
+     * método para reiniciar la lista de armas del jugador
+     */
+    public void vaciarListaArmas(){
+        lArmas=new ListaArmas();
+    }
+
+    /**
+     * método para reiniciar el radar del jugador
+     */
+    public void reiniciarRadar(){
+        radar=new Radar();
+    }
+
+    /**
      * método que devuelve el dinero del jugador
      * @return
      */

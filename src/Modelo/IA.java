@@ -5,15 +5,24 @@ import Controlador.ControladorTablero;
 import java.util.Collection;
 
 public class IA extends Jugador {
+
     /**
      * atributos
      */
     ListaPosiciones revisadas;
+
     /**
      * constructora de IA
      */
     public IA() {
         super();
+        revisadas=new ListaPosiciones();
+    }
+
+    /**
+     * método para reiniciar las posiciones revisadas de la IA
+     */
+    public void reiniciarRevisadas() {
         revisadas=new ListaPosiciones();
     }
 
@@ -78,6 +87,7 @@ public class IA extends Jugador {
      * @param pPos
      */
     public void addPosRevisada(Posicion pPos){revisadas.anadir(pPos);}
+
     /**
      * método jugar turno de la IA
      */
@@ -245,6 +255,12 @@ public class IA extends Jugador {
                 j=0;
                 i++;
             }
+            }else{
+                revisadas.eliminar(tmp);
+                revisadas.anadir(new Posicion( tmp.getX()-1,tmp.getY()));
+                revisadas.anadir(new Posicion( tmp.getX()+1,tmp.getY()));
+                revisadas.anadir(new Posicion( tmp.getX(),tmp.getY()+1));
+                revisadas.anadir(new Posicion( tmp.getX(),tmp.getY()-1));
             }
         }
         return  tmp;
@@ -257,7 +273,7 @@ public class IA extends Jugador {
      */
     private String resolverArmaDisparar(Posicion pPos){
         String estadoTablero=Tablero.getMiTablero().estadoCampoContrario(pPos);
-        if(estadoTablero!=null && existeArma("misil")){
+        if(estadoTablero!=null &&estadoTablero.equals("normal") &&existeArma("misil")){
             return "misil";
         }else{
             int maxCol=Battleship.getMyBattleship().maxCol();
@@ -290,7 +306,10 @@ public class IA extends Jugador {
      */
     @Override
     public void comprar() {
-        comprarArma("bomba");
+        System.out.println("entra");
+        if(Almacen.getMiAlmacen().existeArma("bomba")) {
+            comprarArma("bomba");
+        }
         Posicion tmp=revisadas.contieneNormal();
         if(tmp==null){
             tmp=revisadas.contieneTocadoNoHundido();
@@ -303,14 +322,14 @@ public class IA extends Jugador {
                     while(!resueltaPos && j<maxCol){
                         Posicion act =new Posicion(i,j);
                         if(!revisadas.contiene(act)){
-                            if(act.getX()<((maxFila/2)+1) && act.getX()>((maxFila/2)-1) && act.getY()<((maxCol/2)+1) && act.getY()>((maxCol/2)-1) && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilBoom"))){
+                            if(act.getX()<((maxFila/2)+1) && act.getX()>((maxFila/2)-1) && act.getY()<((maxCol/2)+1) && act.getY()>((maxCol/2)-1) && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilBoom")) && (Almacen.getMiAlmacen().existeArma("misilBoom"))){
                                 comprarArma("misilBoom");
                             }else {
                                 int select=(int)(Math.random()*2.0);
-                                if(select==0 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilNS"))){
+                                if(select==0 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilNS"))&& (Almacen.getMiAlmacen().existeArma("misilNS"))){
                                     comprarArma("misilNS");
                                 }
-                                if(select==2 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilEO"))){
+                                if(select==2 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilEO"))&& (Almacen.getMiAlmacen().existeArma("misilEO"))){
                                     comprarArma("misilEO");
                                 }
                             }
@@ -323,12 +342,12 @@ public class IA extends Jugador {
                     i++;
                 }
             }else{
-                if(getDinero()>Battleship.getMyBattleship().getPrecioArma("misil")) {
+                if((getDinero()>Battleship.getMyBattleship().getPrecioArma("misil"))&& Almacen.getMiAlmacen().existeArma("misil")) {
                     comprarArma("misil");
                 }
             }
         }else{
-            if(getDinero()>Battleship.getMyBattleship().getPrecioArma("misil")) {
+            if((getDinero()>Battleship.getMyBattleship().getPrecioArma("misil"))&& Almacen.getMiAlmacen().existeArma("misil")) {
                 comprarArma("misil");
             }
         }

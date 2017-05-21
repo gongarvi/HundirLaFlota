@@ -46,6 +46,34 @@ public  class ListaPosiciones {
     }
 
     /**
+     * elimina una posición
+     * @param pPos
+     */
+    public void eliminar(Posicion pPos){
+        int index=buscarPos(pPos);
+        if(index!=-1) {
+            posiciones.remove(index);
+        }
+    }
+
+    /**
+     * método que busca la posicion dentro de la lista , si no está devuelve -1
+     * @param pPos
+     * @return
+     */
+    private int buscarPos(Posicion pPos){
+        int i=0;
+        for(Posicion p:posiciones ){
+            if(p.equals(pPos)){
+                return i;
+            }else{
+                i++;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * hunde la posicion especificada
      */
     public void hundir(){

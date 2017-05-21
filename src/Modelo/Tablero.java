@@ -29,6 +29,14 @@ public class Tablero {
     }
 
     /**
+     * método para reiniciar ambas flotas del tablero
+     */
+    public void reiniciarTablero() {
+        flotaHumano.reiniciar();
+        flotaOrdenador.reiniciar();
+    }
+
+    /**
      * reinicia el Tablero
      *
      */

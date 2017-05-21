@@ -23,8 +23,8 @@ public class Almacen {
      * reinicia el almacen
      *
      */
-    public void reiniciarMae() {
-        miAlmacen=null;
+    public void reiniciarAlmacen() {
+        this.inicializarAlmacen();
     }
 
     /**

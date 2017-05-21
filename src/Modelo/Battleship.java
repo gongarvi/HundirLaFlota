@@ -423,11 +423,19 @@ public class Battleship {
      *reinicia las Mae de la vista para reiniciar
      */
     private void reiniciarMaes(){
-        myBattleship=null;
-        Almacen.getMiAlmacen().reiniciarMae();
-        Tablero.getMiTablero().reiniciarMae();
-        inicializarGui();
-        ControladorTablero.getController().reiniciarVista();
+        fase=0;
+        turno=0;
+        acabado=false;
+        Almacen.getMiAlmacen().reiniciarAlmacen();
+        ia.vaciarListaArmas();
+        ia.reiniciarRadar();
+        ia.reiniciarRevisadas();
+        humano.vaciarListaArmas();
+        humano.reiniciarRadar();
+        Tablero.getMiTablero().reiniciarTablero();
+        //Aqui forzamos la actualización global
+        mostrarOpciones();
+        mostrarCampoAliado();
     }
 
     /**
@@ -522,10 +530,10 @@ public class Battleship {
             ControladorTablero.getController().fase(fase);
             ControladorTablero.getController().changed();
         }else if (fase==faseInicializacion) {
-            //humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
+            humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
             /**
              * comentar debajo(para auto)
-             **/
+
             int[] pivote=new int[2];
             pivote[0]=pPos.getX();
             pivote[1]=pPos.getY();

@@ -138,9 +138,9 @@ public class ListaBarcos {
         Iterator<Barco> barcos=getIterator();
         boolean valido;
         if(direccion.equals("V")){
-            valido=(pPivote[0]+length<Battleship.getMyBattleship().maxFila());
+            valido=(pPivote[0]+(length-1)<Battleship.getMyBattleship().maxFila()) &&(pPivote[0]>=0);
         }else{
-            valido=(pPivote[1]+length<Battleship.getMyBattleship().maxCol());
+            valido=(pPivote[1]+(length-1)<Battleship.getMyBattleship().maxCol())&& (pPivote[1]>=0);
         }
         while(barcos.hasNext() && valido ){
                   Barco actB=barcos.next();
@@ -157,6 +157,14 @@ public class ListaBarcos {
      */
     private void anadir(Barco pBarco) {
         lb.add(pBarco);
+    }
+
+    /**
+     * método para reiniciar la flota
+     */
+    public void reiniciar(){
+        lb=new ArrayList<>();
+        inicializar();
     }
 
     /**
