@@ -251,3 +251,27 @@ contemplados en el modelo pero suponen componentes básicos de interacción (dos
 caso de la consola se irán mostrando cuando se necesiten (aquí se contempla más facilmente la política 
 de refresco y la niebla de guerra)
 ##
+
+##
+recursos anexos:
+IDE:hemos realizado el proyecto en el IDE IntelliJ de JetBrains por su facilidad y comodidas a la hora de 
+codificar, además cuenta con un depurador de código sofisticado que nos permite simplificar el código.
+
+TEST:para realizar las pruebas unitarias hemos decidido utilizar el Framework TestNG por su versatilidad 
+de métodos de prueba y overrides funcionales.
+
+GUI:para realizar la interfaz hemos utilizado las librerias  javax.swing de java.
+
+versión de java:hemos utilizado la octava versión de Java para aprovechar las expresiones lambda y la ge-
+nericidad.
+
+control versiones : para realizar el control de versiones del proyecto hemos utilizado GitHub ,además nos 
+ayuda a mantener el proyecto en su última versión compartido entre todos los integrantes del grupo.
+
+Readme: hemos utilizado un archivo de tpo MD para guardar la información referente al proyecto.
+
+Diseño : hemos utilizado el soporte informático Visual Paradigm para realizar el diagrama de clases y los
+diagramas de secuencia.
+
+
+##
