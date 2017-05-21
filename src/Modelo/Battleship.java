@@ -433,6 +433,7 @@ public class Battleship {
         humano.vaciarListaArmas();
         humano.reiniciarRadar();
         Tablero.getMiTablero().reiniciarTablero();
+
         //Aqui forzamos la actualización global
         mostrarOpciones();
         mostrarCampoAliado();

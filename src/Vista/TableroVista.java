@@ -51,7 +51,7 @@ public class TableroVista extends JFrame implements Observer {
     private ArrayList<JButton> casillasMiddle;//campo Jugador
     private ArrayList<JButton> casillasEast;//campo Contrincante
     private JFrame popUpAct;
-
+    private boolean inicializado=false;
 
     /**
      * devuelve el tipo de barco sleccionado
@@ -269,23 +269,23 @@ public class TableroVista extends JFrame implements Observer {
         if(!skipHints){
             popUpInformacion("en esta fase debes seleccionar: tipo de barco, posiciones y orientacion de los barcos");
         }
-        infoFase.setText("fase colocación de barcos");
+        infoFase.setText("Fase colocación de barcos");
     }
 
     /**
      * lanza la información referente a la DERROTA
      */
     public void faseDerrota(){
-        infoFase.setText("fase derrota");
-        popUpVictoriaDerrota("derrota");
+        infoFase.setText("Fase derrota");
+        popUpVictoriaDerrota("Derrota");
     }
 
     /**
      * lanza la información referente a la VICTORIA
      */
     public void faseVictoria(){
-        infoFase.setText("fase victoria");
-        popUpVictoriaDerrota("victoria");
+        infoFase.setText("Fase Victoria");
+        popUpVictoriaDerrota("Victoria");
     }
 
     /**
@@ -407,193 +407,197 @@ public class TableroVista extends JFrame implements Observer {
      * @param pColumnas
      */
     public void  inicializarVista(int pFilas, int pColumnas) {
-        skipHints=false;
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("HundiLaFlota");
-        setBounds(10, 50, 1360, 450);
-        middle = new JPanel();
-        east= new JPanel();
-        ventana = new JPanel();
-        opciones = new JPanel();
-        imput=new JPanel();
-        ButtonGroup selectorArma=new ButtonGroup();
-        JRadioButton bomba=new JRadioButton("bomba");
-        bomba.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                armaSeleccionada="bomba";
-            }
-        });
-        selectorArma.add(bomba);
-        JRadioButton misil=new JRadioButton("misil");
-        misil.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                armaSeleccionada="misil";
-            }
-        });
-        selectorArma.add(misil);
-        JRadioButton misilNS=new JRadioButton("misilNS");
-        misilNS.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                armaSeleccionada="misilNS";
-            }
-        });
-        selectorArma.add(misilNS);
-        JRadioButton misilEO=new JRadioButton("misilEO");
-        misilEO.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                armaSeleccionada="misilEO";
-            }
-        });
-        selectorArma.add(misilEO);
-        JRadioButton misilBOOM=new JRadioButton("misilBoom");
-        misilBOOM.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                armaSeleccionada="misilBoom";
-            }
-        });
-        selectorArma.add(misilBOOM);
-        imput.add(bomba);
-        imput.add(misil);
-        imput.add(misilNS);
-        imput.add(misilEO);
-        imput.add(misilBOOM);
-        JButton comprar=new JButton( );
-        imput.add( comprar );
-        comprar.setSize( 20, 20);
-        comprar.setVisible( true );
-        comprar.setText("comprar");
+        if(!inicializado){
+            skipHints = false;
 
-        //añadir controlador del tablero a los botones de campo jugador
-        comprar.addActionListener(ControladorTablero.getController());
-
-
-        JButton saltarFase=new JButton( );
-        imput.add( saltarFase );
-        saltarFase.setSize( 20, 20);
-        saltarFase.setVisible( true );
-        saltarFase.setText("saltarFase");
-
-        //añadir controlador del tablero a los botones de campo jugador
-        saltarFase.addActionListener(ControladorTablero.getController());
-
-
-        JButton deshabilitarAyuda=new JButton( );
-        imput.add( deshabilitarAyuda );
-        deshabilitarAyuda.setSize( 20, 20);
-        deshabilitarAyuda.setVisible( true );
-        deshabilitarAyuda.setText("deshabilitarAyuda");
-
-
-        infoFase=new JLabel( );
-        imput.add( new JLabel( "") );
-        imput.add( new JLabel( "") );
-        imput.add( infoFase );
-
-        //añadir controlador del tablero a los botones de campo jugador
-        deshabilitarAyuda.addActionListener(ControladorTablero.getController());
-
-        ventana.setLayout(new BorderLayout(0, 0));
-        ventana.add(opciones, BorderLayout.WEST);
-        ventana.add(middle, BorderLayout.CENTER);
-        ventana.add(east, BorderLayout.EAST);
-        ventana.add(imput, BorderLayout.SOUTH);
-
-        ventana.setBackground(Color.GRAY);
-        ventana.setBorder(new EmptyBorder(5, 5, 5, 5));
-        add( ventana );
-
-        middle.setBackground(Color.GRAY);
-        middle.setBorder(new EmptyBorder(5, 5, 5, 5));
-        middle.setLayout(new GridLayout(pFilas, pColumnas, 0, 0));
-
-        east.setBackground(Color.GRAY);
-        east.setBorder(new EmptyBorder(5, 5, 5, 5));
-        east.setLayout(new GridLayout(pFilas, pColumnas, 0, 0));
-
-        opciones.setBackground(Color.GRAY);
-        opciones.setBorder(new EmptyBorder(5, 5, 5, 5));
-        opciones.setLayout(new GridLayout(11, 4, 0, 0));
-
-        //inicializa columnas y filas
-        maxCol=pColumnas;
-        maxFila=pFilas;
-        casillasMiddle =new ArrayList<JButton>(  );
-        casillasEast = new ArrayList<JButton>(  );
-
-        //inicializa botones
-        for (int i = 0;i<maxCol*maxFila; i++) {
-            JButton jButton=new JButton( );
-            jButton.setBackground(Color.blue);
-            casillasMiddle.add( jButton );
-            jButton.setSize( 20, 20);
-            jButton.setVisible( true );
-            middle.add (jButton);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setTitle("HundiLaFlota");
+            setBounds(10, 50, 1360, 450);
+            middle = new JPanel();
+            east = new JPanel();
+            ventana = new JPanel();
+            opciones = new JPanel();
+            imput = new JPanel();
+            ButtonGroup selectorArma = new ButtonGroup();
+            JRadioButton bomba = new JRadioButton("bomba");
+            bomba.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    armaSeleccionada = "bomba";
+                }
+            });
+            selectorArma.add(bomba);
+            JRadioButton misil = new JRadioButton("misil");
+            misil.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    armaSeleccionada = "misil";
+                }
+            });
+            selectorArma.add(misil);
+            JRadioButton misilNS = new JRadioButton("misilNS");
+            misilNS.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    armaSeleccionada = "misilNS";
+                }
+            });
+            selectorArma.add(misilNS);
+            JRadioButton misilEO = new JRadioButton("misilEO");
+            misilEO.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    armaSeleccionada = "misilEO";
+                }
+            });
+            selectorArma.add(misilEO);
+            JRadioButton misilBOOM = new JRadioButton("misilBoom");
+            misilBOOM.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    armaSeleccionada = "misilBoom";
+                }
+            });
+            selectorArma.add(misilBOOM);
+            imput.add(bomba);
+            imput.add(misil);
+            imput.add(misilNS);
+            imput.add(misilEO);
+            imput.add(misilBOOM);
+            JButton comprar = new JButton();
+            imput.add(comprar);
+            comprar.setSize(20, 20);
+            comprar.setVisible(true);
+            comprar.setText("comprar");
 
             //añadir controlador del tablero a los botones de campo jugador
-            jButton.addActionListener(ControladorTablero.getController());
+            comprar.addActionListener(ControladorTablero.getController());
 
 
-            JButton jButton1=new JButton( );
-            jButton1.setBackground(Color.white);
-            casillasEast.add( jButton1 );
-            jButton1.setSize( 20, 20);
-            jButton1.setVisible( true );
-            east.add( jButton1 );
+            JButton saltarFase = new JButton();
+            imput.add(saltarFase);
+            saltarFase.setSize(20, 20);
+            saltarFase.setVisible(true);
+            saltarFase.setText("saltarFase");
 
-            //añadir controlador del tablero a los botones de campo ordenador
-            jButton1.addActionListener(ControladorTablero.getController());
+            //añadir controlador del tablero a los botones de campo jugador
+            saltarFase.addActionListener(ControladorTablero.getController());
 
+
+            JButton deshabilitarAyuda = new JButton();
+            imput.add(deshabilitarAyuda);
+            deshabilitarAyuda.setSize(20, 20);
+            deshabilitarAyuda.setVisible(true);
+            deshabilitarAyuda.setText("deshabilitarAyuda");
+
+
+            infoFase = new JLabel();
+            imput.add(new JLabel(""));
+            imput.add(new JLabel(""));
+            imput.add(infoFase);
+
+            //añadir controlador del tablero a los botones de campo jugador
+            deshabilitarAyuda.addActionListener(ControladorTablero.getController());
+
+            ventana.setLayout(new BorderLayout(0, 0));
+            ventana.add(opciones, BorderLayout.WEST);
+            ventana.add(middle, BorderLayout.CENTER);
+            ventana.add(east, BorderLayout.EAST);
+            ventana.add(imput, BorderLayout.SOUTH);
+
+            ventana.setBackground(Color.GRAY);
+            ventana.setBorder(new EmptyBorder(5, 5, 5, 5));
+            add(ventana);
+
+            middle.setBackground(Color.GRAY);
+            middle.setBorder(new EmptyBorder(5, 5, 5, 5));
+            middle.setLayout(new GridLayout(pFilas, pColumnas, 0, 0));
+
+            east.setBackground(Color.GRAY);
+            east.setBorder(new EmptyBorder(5, 5, 5, 5));
+            east.setLayout(new GridLayout(pFilas, pColumnas, 0, 0));
+
+            opciones.setBackground(Color.GRAY);
+            opciones.setBorder(new EmptyBorder(5, 5, 5, 5));
+            opciones.setLayout(new GridLayout(11, 4, 0, 0));
+
+            //inicializa columnas y filas
+            maxCol = pColumnas;
+            maxFila = pFilas;
+            casillasMiddle = new ArrayList<JButton>();
+            casillasEast = new ArrayList<JButton>();
+
+            //inicializa botones
+            for (int i = 0; i < maxCol * maxFila; i++) {
+                JButton jButton = new JButton();
+                jButton.setBackground(Color.blue);
+                casillasMiddle.add(jButton);
+                jButton.setSize(20, 20);
+                jButton.setVisible(true);
+                middle.add(jButton);
+
+                //añadir controlador del tablero a los botones de campo jugador
+                jButton.addActionListener(ControladorTablero.getController());
+
+
+                JButton jButton1 = new JButton();
+                jButton1.setBackground(Color.white);
+                casillasEast.add(jButton1);
+                jButton1.setSize(20, 20);
+                jButton1.setVisible(true);
+                east.add(jButton1);
+
+                //añadir controlador del tablero a los botones de campo ordenador
+                jButton1.addActionListener(ControladorTablero.getController());
+
+            }
+            opciones.add(new Label("nombre"));
+            opciones.add(nombre = new JLabel("0"));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel(""));
+            opciones.add(new Label("INFORMACIÓN GENERAL"));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel(""));
+            opciones.add(new Label("Dinero"));
+            opciones.add(dinero = new JLabel("0"));
+            opciones.add(new JLabel("usos radar"));
+            opciones.add(usosRadar = new JLabel("0"));
+            opciones.add(new JLabel("Precio Escudo: "));
+            opciones.add(precioEscudo = new JLabel("0"));
+            opciones.add(new JLabel("Precio Reparacion: "));
+            opciones.add(precioReparacion = new JLabel("0"));
+            opciones.add(new Label("INFORMACIÓN ARMAS"));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel(""));
+            opciones.add(new JLabel("mis armas"));
+            opciones.add(new JLabel("almacén"));
+            opciones.add(new JLabel("precio"));
+            opciones.add(new Label("bombas"));
+            opciones.add(bombas = new JLabel("0"));
+            opciones.add(bombasAlmacen = new JLabel("0"));
+            opciones.add(precioBomba = new JLabel("0"));
+            opciones.add(new Label("misiles"));
+            opciones.add(misiles = new JLabel("0"));
+            ;
+            opciones.add(misilesAlmacen = new JLabel("0"));
+            opciones.add(precioMisil = new JLabel("0"));
+            opciones.add(new Label("misilesNS"));
+            opciones.add(misilesNS = new JLabel("0"));
+            opciones.add(misilesNSAlmacen = new JLabel("0"));
+            opciones.add(precioMisilNS = new JLabel("0"));
+            opciones.add(new Label("misilesEO"));
+            opciones.add(misilesEO = new JLabel("0"));
+            opciones.add(misilesEOAlmacen = new JLabel("0"));
+            opciones.add(precioMisilesEO = new JLabel("0"));
+            opciones.add(new Label("misilesBOOM"));
+            opciones.add(misilesBOOM = new JLabel("0"));
+            opciones.add(misilesBoomAlmacen = new JLabel("0"));
+            opciones.add(precioMisilesBoom = new JLabel("0"));
+            inicializado=true;
         }
-        opciones.add( new Label( "nombre") );
-        opciones.add( nombre=new JLabel( "0" ));
-        opciones.add( new JLabel("") );
-        opciones.add( new JLabel( "" ));
-        opciones.add( new Label( "INFORMACIÖN GENERAL") );
-        opciones.add( new JLabel( "" ));
-        opciones.add( new JLabel("") );
-        opciones.add( new JLabel( "" ));
-        opciones.add( new Label( "Dinero") );
-        opciones.add( dinero=new JLabel( "0" ));
-        opciones.add( new JLabel("usos radar") );
-        opciones.add( usosRadar=new JLabel( "0" ));
-        opciones.add( new JLabel( "Precio Escudo: ") );
-        opciones.add( precioEscudo=new JLabel( "0" ));
-        opciones.add( new JLabel("Precio Reparacion: ") );
-        opciones.add( precioReparacion=new JLabel( "0" ));
-        opciones.add( new Label( "INFORMACIÓN ARMAS") );
-        opciones.add( new JLabel( "" ));
-        opciones.add( new JLabel("") );
-        opciones.add( new JLabel( "" ));
-        opciones.add( new JLabel("") );
-        opciones.add( new JLabel( "mis armas" ));
-        opciones.add( new JLabel("almacén") );
-        opciones.add( new JLabel( "precio" ));
-        opciones.add( new Label( "bombas") );
-        opciones.add( bombas=new JLabel( "0" ) );
-        opciones.add( bombasAlmacen=new JLabel( "0" ) );
-        opciones.add( precioBomba=new JLabel( "0" ) );
-        opciones.add( new Label( "misiles") );
-        opciones.add( misiles=new JLabel( "0" ) );;
-        opciones.add( misilesAlmacen=new JLabel( "0" ) );
-        opciones.add( precioMisil=new JLabel( "0" ) );
-        opciones.add( new Label( "misilesNS") );
-        opciones.add( misilesNS=new JLabel( "0" ) );
-        opciones.add( misilesNSAlmacen=new JLabel( "0" ) );
-        opciones.add( precioMisilNS=new JLabel( "0" ) );
-        opciones.add( new Label( "misilesEO") );
-        opciones.add( misilesEO=new JLabel( "0" ) );
-        opciones.add( misilesEOAlmacen=new JLabel( "0" ) );
-        opciones.add( precioMisilesEO=new JLabel( "0" ) );
-        opciones.add( new Label( "misilesBOOM") );
-        opciones.add( misilesBOOM=new JLabel( "0" ));
-        opciones.add( misilesBoomAlmacen=new JLabel( "0" ) );
-        opciones.add( precioMisilesBoom=new JLabel( "0" ) );
-
         setVisible( true );
         ControladorTablero.getController().actualizarOpciones();
     }
