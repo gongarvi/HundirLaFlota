@@ -433,7 +433,6 @@ public class Battleship {
         humano.vaciarListaArmas();
         humano.reiniciarRadar();
         Tablero.getMiTablero().reiniciarTablero();
-
         //Aqui forzamos la actualización global
         mostrarOpciones();
         mostrarCampoAliado();
@@ -531,10 +530,10 @@ public class Battleship {
             ControladorTablero.getController().fase(fase);
             ControladorTablero.getController().changed();
         }else if (fase==faseInicializacion) {
-            humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
+           // humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
             /**
              * comentar debajo(para auto)
-
+             */
             int[] pivote=new int[2];
             pivote[0]=pPos.getX();
             pivote[1]=pPos.getY();
@@ -603,9 +602,7 @@ public class Battleship {
                     fase=faseVictoria;
                     ControladorTablero.getController().fase(fase);
                 }
-                //hasta aqui bien
                 fase = faseTurnoIA;
-                //turno de la IA
                 cambiarTurno();
                 ia.jugarTurno();
                 if(Tablero.getMiTablero().haGanado()){
@@ -616,11 +613,10 @@ public class Battleship {
                 cambiarTurno();
 
                 ControladorTablero.getController().changed();
-                //avisar siguiente fase
                 fase = faseReparacion;
                 ControladorTablero.getController().fase(fase);
             }else{
-                ControladorTablero.getController().error("no quedan armas");
+                ControladorTablero.getController().error("No quedan armas");
             }
         }else  if (fase==faseRadar) {
             humano.setPosicionRadar(pPos);
@@ -649,9 +645,9 @@ public class Battleship {
     public void saltarFase(){
         if(fase==faseInicializacion || fase==faseDerrota || fase==faseVictoria){
             if(tipoVista.equals("consola")){
-                System.out.println("no puedes saltarte esta fase");
+                System.out.println("No puedes saltarte esta fase");
             }else {
-                ControladorTablero.getController().error("no puedes saltarte esta fase");
+                ControladorTablero.getController().error("No puedes saltarte esta fase");
             }
         }else  if(fase==faseDisparo){
             cambiarTurno();
@@ -660,7 +656,7 @@ public class Battleship {
                 acabado =true;
                 fase=faseDerrota;
                 if(tipoVista.equals("consola")){
-                    System.out.println("lo siento has perdido ,vuelve a intentarlo");
+                    System.out.println("Lo siento has perdido ,vuelve a intentarlo");
                 }else {
                     ControladorTablero.getController().fase(fase);
                 }
@@ -671,7 +667,7 @@ public class Battleship {
             }
             fase = faseReparacion;
             if(tipoVista.equals("consola")){
-                System.out.println("repara en esta fase");
+                System.out.println("Repara en esta fase");
             }else {
                 ControladorTablero.getController().fase(fase);
             }
@@ -679,7 +675,7 @@ public class Battleship {
             //avisar cambio de fase
             fase=faseCompraYEscudo;
             if(tipoVista.equals("consola")){
-                System.out.println("en esta fase puedes comprar armas y escudos , tantos como desees");
+                System.out.println("En esta fase puedes comprar armas y escudos , tantos como desees");
             }else {
                 ControladorTablero.getController().fase(fase);
             }
@@ -687,7 +683,7 @@ public class Battleship {
             //avisar cambio de fase
             fase=faseDisparo;
             if(tipoVista.equals("consola")){
-                System.out.println("en esta fase puedes disparar el arma que desees a la posicion que introduzcas");
+                System.out.println("En esta fase puedes disparar el arma que desees a la posicion que introduzcas");
             }else {
                 ControladorTablero.getController().fase(fase);
             }
@@ -695,7 +691,7 @@ public class Battleship {
             //avisar cambio de fase
             fase=faseRadar;
             if(tipoVista.equals("consola")){
-                System.out.println("coloca radar en esta fase");
+                System.out.println("Coloca radar en esta fase");
             }else {
                 ControladorTablero.getController().fase(fase);
             }
@@ -709,17 +705,19 @@ public class Battleship {
         if (fase==faseCompraYEscudo) {
             if(Almacen.getMiAlmacen().existeArma(ControladorTablero.getController().getImputSelect())){
                 humano.comprarArma(ControladorTablero.getController().getImputSelect());
+                //avisar que puede comprar mas hasta que pase fase
+                ControladorTablero.getController().fase(fase);
                 ControladorTablero.getController().changed();
             }else{
                 if(getTipoVista().equals("consola")){
-                    System.out.println("no quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                    System.out.println("No quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
                 }else{
-                    ControladorTablero.getController().error("no quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                    ControladorTablero.getController().error("No quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
                 }
             }
             //avisar que puede comprar mas hasta que pase fase
         }else{
-            ControladorTablero.getController().error("en esta fase no se puede hacer eso");
+            ControladorTablero.getController().error("En esta fase no se puede hacer eso");
             ControladorTablero.getController().recuerda();
             ControladorTablero.getController().fase(fase);
         }

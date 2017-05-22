@@ -2,6 +2,8 @@ package Modelo;
 
 import Controlador.ControladorTablero;
 
+import java.util.Collection;
+
 public class Radar {
     /**
      * atributos del radar
@@ -22,15 +24,19 @@ public class Radar {
     }
 
     /**
-     * devuelve true si los valores (i,j) pertenecen a las casillas al rededor de pPos
-     *
-     * @param pI
-     * @param pJ
+     * devuelve true si la posición pAct pertenece a las casillas al rededor de pPos
+     * @param pAct
      * @param pPos
      * @return
      */
-    private boolean pretenecenAreaAccion(int pI, int pJ, Posicion pPos) {
-        return (pI == pPos.getX() - 1 || pI == pPos.getX() || pI == pPos.getX() + 1) && (pJ == pPos.getY() - 1 || pJ == pPos.getY() || pJ == pPos.getY() + 1);
+    private boolean pretenecenAreaAccion(Posicion pAct, Posicion pPos) {
+        Collection<Posicion>colindantes=pPos.colindantes();
+        for(Posicion p:colindantes){
+            if(p.equals(pAct)){
+               return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -59,7 +65,7 @@ public class Radar {
                 String tablero = "";
                 for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
                     Posicion act=new Posicion(i, j);
-                    if (pretenecenAreaAccion(i, j, pPos) || Tablero.getMiTablero().barcoHundidoEnemigo(act)) {
+                    if (pretenecenAreaAccion(act, pPos) || Tablero.getMiTablero().barcoHundidoEnemigo(act)) {
                         boolean esc =Tablero.getMiTablero().escudoEnemigo(act);
                         String estado=Tablero.getMiTablero().estadoCampoContrario(act);
                         if(estado!=null && esc) {
@@ -128,7 +134,7 @@ public class Radar {
             for (int i = 0; i < Battleship.getMyBattleship().maxFila(); i++) {
                 for (int j = 0; j < Battleship.getMyBattleship().maxCol(); j++) {
                     Posicion aRegistrar = new Posicion(i, j);
-                    if (pretenecenAreaAccion(i, j, pPos) ) {
+                    if (pretenecenAreaAccion(aRegistrar, pPos) ) {
                         Battleship.getMyBattleship().addRevisadaIA(aRegistrar);
                     }
 

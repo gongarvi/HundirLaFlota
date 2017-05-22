@@ -72,10 +72,10 @@ public abstract class Barco {
             partesBarco.reparar(pPos);
         }else{
             if(Battleship.getMyBattleship().getTipoVista().equals("consola")){
-                System.out.println("no puedes reparar un barco hundido");
+                System.out.println("No puedes reparar un barco hundido");
                 Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioReparacion());
             }else{
-                ControladorTablero.getController().error("no puedes reparar un barco hundido");
+                ControladorTablero.getController().error("No puedes reparar un barco hundido");
                 Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioReparacion());
             }
         }
@@ -107,11 +107,10 @@ public abstract class Barco {
             escudo = new Escudo();
         }else if(Battleship.getMyBattleship().turnoAct()==0) {
             if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
-                System.out.println("no se puede colocar escudo a un barco hundido");
-                Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+                System.out.println("No se puede colocar escudo a un barco hundido");
                 Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
             } else {
-                ControladorTablero.getController().error("no se puede colocar escudo a un barco hundido");
+                ControladorTablero.getController().error("No se puede colocar escudo a un barco hundido");
                 Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
             }
         }

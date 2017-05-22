@@ -1,6 +1,6 @@
 package Modelo;
-
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 public  class ListaPosiciones {
@@ -43,34 +43,6 @@ public  class ListaPosiciones {
      */
     public void anadir(Posicion pPos){
         posiciones.add(pPos);
-    }
-
-    /**
-     * elimina una posición
-     * @param pPos
-     */
-    public void eliminar(Posicion pPos){
-        int index=buscarPos(pPos);
-        if(index!=-1) {
-            posiciones.remove(index);
-        }
-    }
-
-    /**
-     * método que busca la posicion dentro de la lista , si no está devuelve -1
-     * @param pPos
-     * @return
-     */
-    private int buscarPos(Posicion pPos){
-        int i=0;
-        for(Posicion p:posiciones ){
-            if(p.equals(pPos)){
-                return i;
-            }else{
-                i++;
-            }
-        }
-        return -1;
     }
 
     /**
@@ -251,14 +223,17 @@ public  class ListaPosiciones {
      * devuelve la primera posicion cuyo estado sea normal
      * @return
      */
-    public Posicion contieneTocadoNoHundido(){
+    public void revisarColindantesTocado(){
+        Collection<Posicion>colindantes = new ArrayList<>();
         for(Posicion p:posiciones){
             String estado=Tablero.getMiTablero().estadoCampoContrario(p);
             if(estado!=null && estado.equals("tocado") && !Tablero.getMiTablero().barcoHundidoEnemigo(p)){
-                return p;
+                colindantes.addAll(p.colindantes());
             }
         }
-        return null;
+        for(Posicion col:colindantes){
+            posiciones.add(col);
+        }
     }
 
     /**
@@ -293,6 +268,24 @@ public  class ListaPosiciones {
     }
 
     /**
+     * devuelve true si la lista contiene la posicion dada como parametro o alguna de sus colindantes
+     * @param pPos
+     * @return
+     */
+    public boolean contieneColindantes(Posicion pPos){
+        Collection<Posicion>colindantes=pPos.colindantes();
+        for(Posicion c:colindantes){
+            for (Posicion p:posiciones){
+                if(c.equals(p)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
      * devuelve true si la lista contiene la posicion dada como parametro
      * @param pos
      * @return
@@ -305,5 +298,62 @@ public  class ListaPosiciones {
             enc= act.equals(pos);
         }
         return enc;
+    }
+
+    /**
+     * devolvera true si es apropiado el lanzamiento de un misil Boom
+     * @param pAct
+     * @return
+     */
+    public  boolean aptoMisilBoom(Posicion pAct){
+        int matches=0;
+        int pY=pAct.getY(),pX=pAct.getX();
+        for(int x=0;x<Battleship.getMyBattleship().maxFila();x++){
+            Posicion tmp=new Posicion(x,pY);
+            if(contiene(tmp)){
+                matches++;
+            }
+        }
+        for(int y=0;y<Battleship.getMyBattleship().maxFila();y++){
+            Posicion tmp=new Posicion(pX,y);
+            if(contiene(tmp)){
+                matches++;
+            }
+        }
+        return matches==0;
+    }
+
+    /**
+     * devolvera true si es apropiado el lanzamiento de un misil NS
+     * @param pAct
+     * @return
+     */
+    public  boolean aptoMisilNS(Posicion pAct){
+        int matches=0;
+        int y=pAct.getY();
+        for(int x=0;x<Battleship.getMyBattleship().maxFila();x++){
+            Posicion tmp=new Posicion(x,y);
+            if(contiene(tmp)){
+                matches++;
+            }
+        }
+        return matches<4;
+    }
+
+    /**
+     * devolvera true si es apropiado el lanzamiento de un misil EO
+     * @param pAct
+     * @return
+     */
+    public  boolean aptoMisilEO(Posicion pAct){
+        int matches=0;
+        int x=pAct.getX();
+        for(int y=0;y<Battleship.getMyBattleship().maxFila();y++){
+            Posicion tmp=new Posicion(x,y);
+            if(contiene(tmp)){
+                matches++;
+            }
+        }
+        return matches<4;
     }
 }

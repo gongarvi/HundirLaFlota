@@ -35,7 +35,6 @@ public class MisilBoom extends Arma {
 
         }
         if(Battleship.getMyBattleship().turnoAct()==0){
-            System.out.println("muestra");
             mostrarDisparoJugador(tmp);
         }else{
             registrarDisparoIA(tmp);

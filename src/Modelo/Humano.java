@@ -36,7 +36,7 @@ public class Humano extends Jugador {
     @Override
     public void colocarBarcos() {
 
-         System.out.println("inicializar flota Humano");
+         System.out.println("Inicializar flota Humano");
          while (quedanBarcos()) {
              System.out.println(cuantosBarcosQuedan());
              mostrarFlotaJugador();
@@ -47,7 +47,7 @@ public class Humano extends Jugador {
                  String tipo = Battleship.getMyBattleship().imputString();
                  length = Battleship.getMyBattleship().getLength(tipo);
                  if(length==-1){
-                     System.out.println("inserta bien el tipo de barco");
+                     System.out.println("Inserta bien el tipo de barco");
                  }
              }
              Tablero.getMiTablero().inicializar(pPivote, direccion, length);
@@ -136,7 +136,7 @@ public class Humano extends Jugador {
      * método para utilizar radar (GUI interna)
      */
     public void  usarRadar(){
-        System.out.println("introduce posicion para colocar radar\n");
+        System.out.println("Introduce posicion para colocar radar\n");
         int[] posicion=Battleship.getMyBattleship().getEjes();
         Posicion tmp=new Posicion (posicion[0],posicion[1]);
         setPosicionRadar(tmp);
@@ -196,7 +196,7 @@ public class Humano extends Jugador {
     public void  reparar(){
         mostrarFlotaJugador();
         int[] pivote;
-        System.out.println("selecciones una posicion para reparar ");
+        System.out.println("Selecciones una posicion para reparar ");
         pivote =Battleship.getMyBattleship().getEjes();
         Posicion tmp=new Posicion (pivote[0],pivote[1]);
         repararBarco(tmp);

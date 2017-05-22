@@ -16,7 +16,6 @@ public class Almacen {
     private Almacen() {
         existencias = new ListaArmas();
         inicializarAlmacen();
-        //System.out.println("inicializa almacen");
     }
 
     /**
@@ -161,11 +160,7 @@ public class Almacen {
      */
     public boolean existeArma(String pArma) {
             return existencias.consultarArma(pArma) ;
-
-        }
-
-
-
+    }
 }
 
 

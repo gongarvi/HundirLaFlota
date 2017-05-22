@@ -98,11 +98,11 @@ public class IA extends Jugador {
         colocarEscudos();
         disparar();
         /**
-         * descomentar la linea de abajo para ver el campo enemigo en todo momento
+         * descomentar la linea de abajo para ver el campo enemigo en el campo enemigo
          */
-       // mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
+        mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
         /**
-         * descomentar la linea de arriba para ver el campo enemigo en todo momento
+         * descomentar la linea de arriba para ver el campo enemigo enel campo enemigo
          */
     }
 
@@ -195,20 +195,20 @@ public class IA extends Jugador {
         //si la posicion se encuentra entre las revisadas
         Posicion tmp=null;
         boolean resueltaPos=false;
-        int i=1,j=1;
-        while(!resueltaPos && i<Battleship.getMyBattleship().maxFila()-1){
-            while(!resueltaPos && j<Battleship.getMyBattleship().maxCol()-1){
-                Posicion act =new Posicion(i,j);
-                if(!revisadas.contiene(act) && !revisadasColindantes(act)){
+        int i = Battleship.getMyBattleship().maxFila()-1, j = Battleship.getMyBattleship().maxCol()-1;
+        while (!resueltaPos && i>0) {
+            while (!resueltaPos && j >0) {
+                Posicion act = new Posicion(i, j);
+                if (!revisadas.contieneColindantes(act)) {
                     //si la posicion no se encuentra entre las revisadas
-                    tmp=act;
-                    resueltaPos=true;
-                }else{
-                    j++;
+                    tmp = act;
+                    resueltaPos = true;
+                } else {
+                    j--;
                 }
             }
-            j=1;
-            i++;
+            j = Battleship.getMyBattleship().maxCol()-1;
+            i--;
         }
         return  tmp;
     }
@@ -235,32 +235,24 @@ public class IA extends Jugador {
      */
     public Posicion resolverSigPosDisparar(){
         //si la posicion se encuentra entre las revisadas
+        revisadas.revisarColindantesTocado();
         Posicion tmp=revisadas.contieneNormal();
-        if(tmp==null){
-            tmp=revisadas.contieneTocadoNoHundido();
-            if(tmp==null){
-            boolean resueltaPos=false;
-            int i=0,j=0;
-            while(!resueltaPos && i<Battleship.getMyBattleship().maxFila()){
-                while(!resueltaPos && j<Battleship.getMyBattleship().maxCol()){
-                    Posicion act =new Posicion(i,j);
-                   if(!revisadas.contiene(act)){
-                       //si la posicion no se encuentra entre las revisadas
-                       tmp=act;
-                       resueltaPos=true;
-                   }else{
-                       j++;
-                   }
+        if(tmp==null) {
+            boolean resueltaPos = false;
+            int i = 0, j = 0;
+            while (!resueltaPos && i < Battleship.getMyBattleship().maxFila()) {
+                while (!resueltaPos && j < Battleship.getMyBattleship().maxCol()) {
+                    Posicion act = new Posicion(i, j);
+                    if (!revisadas.contiene(act)) {
+                        //si la posicion no se encuentra entre las revisadas
+                        tmp = act;
+                        resueltaPos = true;
+                    } else {
+                        j++;
+                    }
                 }
-                j=0;
+                j = 0;
                 i++;
-            }
-            }else{
-                revisadas.eliminar(tmp);
-                revisadas.anadir(new Posicion( tmp.getX()-1,tmp.getY()));
-                revisadas.anadir(new Posicion( tmp.getX()+1,tmp.getY()));
-                revisadas.anadir(new Posicion( tmp.getX(),tmp.getY()+1));
-                revisadas.anadir(new Posicion( tmp.getX(),tmp.getY()-1));
             }
         }
         return  tmp;
@@ -276,9 +268,7 @@ public class IA extends Jugador {
         if(estadoTablero!=null &&estadoTablero.equals("normal") &&existeArma("misil")){
             return "misil";
         }else{
-            int maxCol=Battleship.getMyBattleship().maxCol();
-            int maxFila=Battleship.getMyBattleship().maxFila();
-            if(pPos.getX()<((maxFila/2)+1) && pPos.getX()>((maxFila/2)-1) && pPos.getY()<((maxCol/2)+1) && pPos.getY()>((maxCol/2)-1) && existeArma("misilBoom")){
+            if(existeArma("misilBoom")){
                 return "misilBoom";
             }else if( existeArma("misilEO")){
                 return "misilEO";
@@ -306,14 +296,11 @@ public class IA extends Jugador {
      */
     @Override
     public void comprar() {
-        System.out.println("entra");
         if(Almacen.getMiAlmacen().existeArma("bomba")) {
             comprarArma("bomba");
         }
         Posicion tmp=revisadas.contieneNormal();
         if(tmp==null){
-            tmp=revisadas.contieneTocadoNoHundido();
-            if(tmp==null){
                 boolean resueltaPos=false;
                 int i=0,j=0;
                 int maxCol=Battleship.getMyBattleship().maxCol();
@@ -322,17 +309,14 @@ public class IA extends Jugador {
                     while(!resueltaPos && j<maxCol){
                         Posicion act =new Posicion(i,j);
                         if(!revisadas.contiene(act)){
-                            if(act.getX()<((maxFila/2)+1) && act.getX()>((maxFila/2)-1) && act.getY()<((maxCol/2)+1) && act.getY()>((maxCol/2)-1) && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilBoom")) && (Almacen.getMiAlmacen().existeArma("misilBoom"))){
+                            if(revisadas.aptoMisilBoom(act) && getDinero()>=Battleship.getMyBattleship().getPrecioArma("misilBoom") && Almacen.getMiAlmacen().existeArma("misilBoom")){
                                 comprarArma("misilBoom");
-                            }else {
-                                int select=(int)(Math.random()*2.0);
-                                if(select==0 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilNS"))&& (Almacen.getMiAlmacen().existeArma("misilNS"))){
-                                    comprarArma("misilNS");
-                                }
-                                if(select==2 && (getDinero()>Battleship.getMyBattleship().getPrecioArma("misilEO"))&& (Almacen.getMiAlmacen().existeArma("misilEO"))){
-                                    comprarArma("misilEO");
-                                }
+                            }else if(revisadas.aptoMisilNS(act) && getDinero()>=Battleship.getMyBattleship().getPrecioArma("misilNS")&& Almacen.getMiAlmacen().existeArma("misilNS")){
+                                comprarArma("misilNS");
+                            }else if(revisadas.aptoMisilEO(act) && getDinero()>=Battleship.getMyBattleship().getPrecioArma("misilEO")&& Almacen.getMiAlmacen().existeArma("misilEO")){
+                                comprarArma("misilEO");
                             }
+
                             resueltaPos=true;
                         }else{
                             j++;
@@ -342,15 +326,11 @@ public class IA extends Jugador {
                     i++;
                 }
             }else{
-                if((getDinero()>Battleship.getMyBattleship().getPrecioArma("misil"))&& Almacen.getMiAlmacen().existeArma("misil")) {
+                if((getDinero()>=Battleship.getMyBattleship().getPrecioArma("misil"))&& Almacen.getMiAlmacen().existeArma("misil")) {
                     comprarArma("misil");
                 }
             }
-        }else{
-            if((getDinero()>Battleship.getMyBattleship().getPrecioArma("misil"))&& Almacen.getMiAlmacen().existeArma("misil")) {
-                comprarArma("misil");
-            }
-        }
+
     }
 
     /**

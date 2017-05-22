@@ -37,14 +37,6 @@ public class Tablero {
     }
 
     /**
-     * reinicia el Tablero
-     *
-     */
-    public void reiniciarMae() {
-        miTablero=null;
-    }
-
-    /**
      * método para inicializar la flota de jugador automaticamente
      *
      * @param pTipo

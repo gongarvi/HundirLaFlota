@@ -176,7 +176,7 @@ public class ListaBarcos {
         if(aImpactar!=null){
             aImpactar.reparar(pPosicion);
         }else{
-            System.out.println("fallo");
+            System.out.println("fallaste al elegir barco");
             Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioReparacion());
         }
     }
@@ -266,7 +266,7 @@ public class ListaBarcos {
                 System.out.println("has fallado o tenia escudo");
                 Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
             } else {
-                ControladorTablero.getController().error("has fallado o ya tenia escudo");
+                ControladorTablero.getController().error("Has fallado o ya tenia escudo");
                 Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
             }
         }

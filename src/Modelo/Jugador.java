@@ -92,7 +92,7 @@ public abstract class Jugador {
      * @return
      */
     public boolean decrementarDinero(int pCantidad) {
-        if (dinero > pCantidad) {
+        if (dinero >= pCantidad) {
             dinero -= pCantidad;
             return true;
         }
@@ -110,17 +110,17 @@ public abstract class Jugador {
                 lArmas.añadirArma(pArma);
             }else{
                 if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
-                    System.out.println("no quedan existencias en el almacen");
+                    System.out.println("No quedan existencias en el almacen");
                     Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioArma(pArma));
                 }else{
-                    ControladorTablero.getController().error("no quedan existencias en el almacen");
+                    ControladorTablero.getController().error("No quedan existencias en el almacen");
                     Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioArma(pArma));
                 }
             }
         }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("no tienes dinero suficiente");
+            System.out.println("No tienes dinero suficiente");
         }else{
-            ControladorTablero.getController().error("no tienes dinero suficiente");
+            ControladorTablero.getController().error("No tienes dinero suficiente");
         }
     }
     /**
@@ -157,9 +157,9 @@ public abstract class Jugador {
         if (decrementarDinero(Battleship.getMyBattleship().getPrecioEscudo())) {
         Tablero.getMiTablero().reparar(pPos);
         }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("no tienes dinero suficiente");
+            System.out.println("No tienes dinero suficiente");
         }else{
-            ControladorTablero.getController().error("no tienes dinero suficiente");
+            ControladorTablero.getController().error("No tienes dinero suficiente");
         }
     }
     /**
@@ -185,9 +185,9 @@ public abstract class Jugador {
         if(aDisparar!=null){
             aDisparar.disparar(pPos);
         }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("no tienes armas de ese tipo");
+            System.out.println("No tienes armas de ese tipo");
         }else{
-            ControladorTablero.getController().error("no tienes armas de ese tipo");
+            ControladorTablero.getController().error("No tienes armas de ese tipo");
         }
     }
 
@@ -207,9 +207,9 @@ public abstract class Jugador {
         if (decrementarDinero(Battleship.getMyBattleship().getPrecioEscudo())) {
              Tablero.getMiTablero().setEscudo(pPosicion);
         }else if (Battleship.getMyBattleship().getTipoVista().equals("consola")){
-            System.out.println("no tienes dinero suficiente");
+            System.out.println("No tienes dinero suficiente");
         }else{
-            ControladorTablero.getController().error("no tienes dinero suficiente");
+            ControladorTablero.getController().error("No tienes dinero suficiente");
         }
     }
 }
