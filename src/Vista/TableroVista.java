@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,6 +16,7 @@ public class TableroVista extends JFrame implements Observer {
     /**
      * atributos
      */
+    private ImageIcon icon;
     private static TableroVista vista;
     private JPanel ventana;
     private JPanel opciones;
@@ -84,13 +86,14 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void popUpInformacion(String pInfo){
         popUpAct =new JFrame();
-        popUpAct.setTitle("información");
+        popUpAct.setTitle("Información");
         popUpAct.setBounds(300,300,1000,100);
         popUpAct.add(new JLabel(pInfo), BorderLayout.CENTER);
-        JButton btn=new JButton("entendido");
+        JButton btn=new JButton("Entendido");
         btn.addActionListener(ControladorTablero.getController());
         popUpAct.add(btn, BorderLayout.EAST);
         popUpAct.setVisible(true);
+        popUpAct.setIconImage(icon.getImage());
     }
 
     /**
@@ -102,19 +105,20 @@ public class TableroVista extends JFrame implements Observer {
         popUpAct.setTitle(pInfo);
         popUpAct.setBounds(300,300,1000,100);
         if(pInfo.equals("victoria")) {
-            popUpAct.add(new JLabel("felicidades !! almirante " + ControladorTablero.getController().getNombreJugador()), BorderLayout.CENTER);
+            popUpAct.add(new JLabel("Felicidades!! Almirante\n" + ControladorTablero.getController().getNombreJugador()), BorderLayout.CENTER);
         }else{
-            popUpAct.add(new JLabel("otra vez será , reinicia y dale una tunda almirante"  + ControladorTablero.getController().getNombreJugador()), BorderLayout.CENTER);
+            popUpAct.add(new JLabel("Otra vez será, reinicia y dale una tunda almirante\n"  + ControladorTablero.getController().getNombreJugador()), BorderLayout.CENTER);
         }
         JPanel east=new JPanel();
-        JButton btnR=new JButton("reiniciar");
-        JButton btnS=new JButton("salir");
+        JButton btnR=new JButton("Reiniciar");
+        JButton btnS=new JButton("Salir");
         btnR.addActionListener(ControladorTablero.getController());
         btnS.addActionListener(ControladorTablero.getController());
         popUpAct.add(east,BorderLayout.EAST);
         east.add(btnR,BorderLayout.WEST);
         east.add(btnS,BorderLayout.EAST);
         popUpAct.setVisible(true);
+        popUpAct.setIconImage(icon.getImage());
     }
 
     /**
@@ -123,13 +127,14 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void popUpError(String pTipoFallo){
         popUpAct =new JFrame();
-        popUpAct.setTitle("error");
+        popUpAct.setTitle("Error");
         popUpAct.setBounds(400,300,300,100);
         popUpAct.add(new JLabel(pTipoFallo), BorderLayout.CENTER);
-        JButton btn=new JButton("entendido");
+        JButton btn=new JButton("Entendido");
         btn.addActionListener(ControladorTablero.getController());
         popUpAct.add(btn, BorderLayout.EAST);
         popUpAct.setVisible(true);
+        popUpAct.setIconImage(icon.getImage());
     }
 
     /**
@@ -137,9 +142,9 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void faseRadar(){
         if(!skipHints){
-            popUpInformacion("selecciona una posicion del campo enemigo para colocar un radar , recuerda");
+            popUpInformacion("Recuerda: Selecciona una posición del campo enemigo para colocar un radar");
         }
-        infoFase.setText("fase radar");
+        infoFase.setText("Fase radar");
     }
 
     /**
@@ -147,9 +152,9 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void faseComprarYEScudo(){
         if(!skipHints){
-            popUpInformacion("en esta fase puedes comprar lo que desees ,tanto armas como escudos ,abajo a la izquierda encontraras el boton de comprar y para los escudos selecciona un barco");
+            popUpInformacion("Recuerda: En esta fase puedes comprar lo que desees, tanto armas como escudos, abajo a la izquierda encontraras el boton de comprar. Para los escudos selecciona un barco");
         }
-        infoFase.setText("fase comprar y escudo");
+        infoFase.setText("Fase comprar y escudo");
     }
 
     /**
@@ -157,18 +162,18 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void faseDisparo(){
         if(!skipHints){
-            popUpInformacion("en esta fase debes seleccionar una posición para disparar con el arma que selecciones");
+            popUpInformacion("Recuerda: En esta fase debes seleccionar el arma. Una vez seleccionada el arma clicka en una posición para disparar");
         }
-        infoFase.setText("fase disparo");
+        infoFase.setText("Fase disparo");
     }
     /**
      * lanza la información referente a la cuarta fase TURNO IA
      */
     public void faseTurnoIA(){
         if(!skipHints){
-            popUpInformacion("la IA jugara su turno ahora");
+            popUpInformacion("La IA jugara su turno ahora");
         }
-        infoFase.setText("fase turno IA");
+        infoFase.setText("Fase turno IA");
     }
 
     /**
@@ -176,9 +181,9 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void faseReparar(){
         if(!skipHints){
-            popUpInformacion("en esta fase puedes reparar un barco aliado o saltar la fase");
+            popUpInformacion("Recuerda: en esta fase puedes reparar un barco aliado o saltar la fase");
         }
-        infoFase.setText("fase reparación");
+        infoFase.setText("Fase reparación");
     }
 
     /**
@@ -193,32 +198,32 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void recogerInfo(){
         popUpAct =new JFrame();
-        popUpAct.setTitle("colocacion de barco");
+        popUpAct.setTitle("Colocación de barco");
         popUpAct.setBounds(150,150,1000,100);
         ButtonGroup selectorBarco=new ButtonGroup();
         ButtonGroup selectorOrientacion=new ButtonGroup();
-        JRadioButton fragata=new JRadioButton("fragata");
+        JRadioButton fragata=new JRadioButton("Fragata");
         fragata.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 barcoSeleccionado="fragata";
             }
         });
-        JRadioButton destructor=new JRadioButton("destructor");
+        JRadioButton destructor=new JRadioButton("Destructor");
         destructor.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 barcoSeleccionado="destructor";
             }
         });
-        JRadioButton submarino=new JRadioButton("submarino");
+        JRadioButton submarino=new JRadioButton("Submarino");
         submarino.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 barcoSeleccionado="submarino";
             }
         });
-        JRadioButton portaaviones=new JRadioButton("portaaviones");
+        JRadioButton portaaviones=new JRadioButton("Portaaviones");
         portaaviones.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -229,14 +234,14 @@ public class TableroVista extends JFrame implements Observer {
         selectorBarco.add(destructor);
         selectorBarco.add(submarino);
         selectorBarco.add(portaaviones);
-        JRadioButton vertical=new JRadioButton("vertical");
+        JRadioButton vertical=new JRadioButton("Vertical");
         vertical.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 orientacionleccionada="V";
             }
         });
-        JRadioButton horizontal=new JRadioButton("horizontal");
+        JRadioButton horizontal=new JRadioButton("Horizontal");
         horizontal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -256,10 +261,11 @@ public class TableroVista extends JFrame implements Observer {
         centro.add(new Label(""));
         centro.add(vertical);
         centro.add(horizontal);
-        popUpAct.add(new JLabel("selecciona tipo de barco y orientacion, recuerda \n"+ControladorTablero.getController().cuantosBarcosQuedan()),BorderLayout.NORTH);
+        popUpAct.add(new JLabel("Recuerda: Selecciona un tipo de barco y su orientación\n"+ControladorTablero.getController().cuantosBarcosQuedan()),BorderLayout.NORTH);
         popUpAct.add(centro, BorderLayout.CENTER);
         popUpAct.add(btn, BorderLayout.EAST);
         popUpAct.setVisible(true);
+        popUpAct.setIconImage(icon.getImage());
     }
 
     /**
@@ -267,7 +273,7 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void faseColocacion(){
         if(!skipHints){
-            popUpInformacion("en esta fase debes seleccionar: tipo de barco, posiciones y orientacion de los barcos");
+            popUpInformacion("Recuerda: En esta fase debes seleccionar: tipo de barco, posiciones y orientacion de los barcos");
         }
         infoFase.setText("Fase colocación de barcos");
     }
@@ -276,8 +282,8 @@ public class TableroVista extends JFrame implements Observer {
      * lanza la información referente a la DERROTA
      */
     public void faseDerrota(){
-        infoFase.setText("Fase derrota");
-        popUpVictoriaDerrota("Derrota");
+        infoFase.setText("Fase Derrota");
+        popUpVictoriaDerrota("derrota");
     }
 
     /**
@@ -285,7 +291,7 @@ public class TableroVista extends JFrame implements Observer {
      */
     public void faseVictoria(){
         infoFase.setText("Fase Victoria");
-        popUpVictoriaDerrota("Victoria");
+        popUpVictoriaDerrota("victoria");
     }
 
     /**
@@ -311,12 +317,6 @@ public class TableroVista extends JFrame implements Observer {
             casillasMiddle.get( boton ).setBackground(Color.blue);
         }
     }
-
-    /**
-     * reinicia la Mae vista
-     */
-    public void reiniciarMae(){;dispose();vista=new TableroVista();}
-
     /**
      * actualiza el boton del campo enemigo especificado como parametro al estado dado tambien como parametro
      * @param boton
@@ -411,7 +411,8 @@ public class TableroVista extends JFrame implements Observer {
             skipHints = false;
 
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            setTitle("HundiLaFlota");
+            setTitle("Hundir La Flota");
+
             setBounds(10, 50, 1360, 450);
             middle = new JPanel();
             east = new JPanel();
@@ -419,7 +420,7 @@ public class TableroVista extends JFrame implements Observer {
             opciones = new JPanel();
             imput = new JPanel();
             ButtonGroup selectorArma = new ButtonGroup();
-            JRadioButton bomba = new JRadioButton("bomba");
+            JRadioButton bomba = new JRadioButton("Bomba");
             bomba.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -427,7 +428,7 @@ public class TableroVista extends JFrame implements Observer {
                 }
             });
             selectorArma.add(bomba);
-            JRadioButton misil = new JRadioButton("misil");
+            JRadioButton misil = new JRadioButton("Misil");
             misil.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -435,7 +436,7 @@ public class TableroVista extends JFrame implements Observer {
                 }
             });
             selectorArma.add(misil);
-            JRadioButton misilNS = new JRadioButton("misilNS");
+            JRadioButton misilNS = new JRadioButton("Misil NS");
             misilNS.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -443,7 +444,7 @@ public class TableroVista extends JFrame implements Observer {
                 }
             });
             selectorArma.add(misilNS);
-            JRadioButton misilEO = new JRadioButton("misilEO");
+            JRadioButton misilEO = new JRadioButton("Misil EO");
             misilEO.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -451,7 +452,7 @@ public class TableroVista extends JFrame implements Observer {
                 }
             });
             selectorArma.add(misilEO);
-            JRadioButton misilBOOM = new JRadioButton("misilBoom");
+            JRadioButton misilBOOM = new JRadioButton("Misil Boom");
             misilBOOM.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -551,54 +552,57 @@ public class TableroVista extends JFrame implements Observer {
                 jButton1.addActionListener(ControladorTablero.getController());
 
             }
-            opciones.add(new Label("nombre"));
+            opciones.add(new Label("Nombre:"));
             opciones.add(nombre = new JLabel("0"));
             opciones.add(new JLabel(""));
             opciones.add(new JLabel(""));
-            opciones.add(new Label("INFORMACIÓN GENERAL"));
+            opciones.add(new Label("INFORMACIÓN GENERAL:"));
             opciones.add(new JLabel(""));
             opciones.add(new JLabel(""));
             opciones.add(new JLabel(""));
-            opciones.add(new Label("Dinero"));
+            opciones.add(new Label("Dinero:"));
             opciones.add(dinero = new JLabel("0"));
-            opciones.add(new JLabel("usos radar"));
+            opciones.add(new JLabel("Usos radar:"));
             opciones.add(usosRadar = new JLabel("0"));
             opciones.add(new JLabel("Precio Escudo: "));
             opciones.add(precioEscudo = new JLabel("0"));
             opciones.add(new JLabel("Precio Reparacion: "));
             opciones.add(precioReparacion = new JLabel("0"));
-            opciones.add(new Label("INFORMACIÓN ARMAS"));
+            opciones.add(new Label("INFORMACIÓN ARMAS:"));
             opciones.add(new JLabel(""));
             opciones.add(new JLabel(""));
             opciones.add(new JLabel(""));
             opciones.add(new JLabel(""));
-            opciones.add(new JLabel("mis armas"));
-            opciones.add(new JLabel("almacén"));
-            opciones.add(new JLabel("precio"));
-            opciones.add(new Label("bombas"));
+            opciones.add(new JLabel("Mis Armas"));
+            opciones.add(new JLabel("Almacén"));
+            opciones.add(new JLabel("Precio"));
+            opciones.add(new Label("Bombas"));
             opciones.add(bombas = new JLabel("0"));
             opciones.add(bombasAlmacen = new JLabel("0"));
             opciones.add(precioBomba = new JLabel("0"));
-            opciones.add(new Label("misiles"));
+            opciones.add(new Label("Misiles"));
             opciones.add(misiles = new JLabel("0"));
             ;
             opciones.add(misilesAlmacen = new JLabel("0"));
             opciones.add(precioMisil = new JLabel("0"));
-            opciones.add(new Label("misilesNS"));
+            opciones.add(new Label("Misiles NS"));
             opciones.add(misilesNS = new JLabel("0"));
             opciones.add(misilesNSAlmacen = new JLabel("0"));
             opciones.add(precioMisilNS = new JLabel("0"));
-            opciones.add(new Label("misilesEO"));
+            opciones.add(new Label("Misiles EO"));
             opciones.add(misilesEO = new JLabel("0"));
             opciones.add(misilesEOAlmacen = new JLabel("0"));
             opciones.add(precioMisilesEO = new JLabel("0"));
-            opciones.add(new Label("misilesBOOM"));
+            opciones.add(new Label("Misiles BOOM"));
             opciones.add(misilesBOOM = new JLabel("0"));
             opciones.add(misilesBoomAlmacen = new JLabel("0"));
             opciones.add(precioMisilesBoom = new JLabel("0"));
             inicializado=true;
+            URL iconURL= getClass().getResource("/images/hundirLaFlota.png");
+            icon = new ImageIcon(iconURL);
+            setIconImage(icon.getImage());
         }
-        setVisible( true );
+        setVisible(true);
         ControladorTablero.getController().actualizarOpciones();
     }
 
