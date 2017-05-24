@@ -100,7 +100,7 @@ public class IA extends Jugador {
         /**
          * descomentar la linea de abajo para ver el campo enemigo en el campo enemigo
          */
-        mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
+       // mostrarFlotaOrdenador(); //dscomentar para ver cada movimiento del ordenador en el campo enemigo
         /**
          * descomentar la linea de arriba para ver el campo enemigo enel campo enemigo
          */
@@ -176,6 +176,14 @@ public class IA extends Jugador {
         return  tmp;
     }
 
+
+    /**
+     * metodo para inicializar los portasviones (pruebas)
+     */
+    public void colocarSoloPortaaviones() {
+        Tablero.getMiTablero().inicializarAutoOrdenador("portaaviones");
+    }
+
     /**
      * metodo para inicializar los barcos en las coordenadas deseadas
      */
@@ -195,7 +203,7 @@ public class IA extends Jugador {
         //si la posicion se encuentra entre las revisadas
         Posicion tmp=null;
         boolean resueltaPos=false;
-        int i = Battleship.getMyBattleship().maxFila()-1, j = Battleship.getMyBattleship().maxCol()-1;
+        int i = Battleship.getMyBattleship().maxFila()-2, j = Battleship.getMyBattleship().maxCol()-2;
         while (!resueltaPos && i>0) {
             while (!resueltaPos && j >0) {
                 Posicion act = new Posicion(i, j);
@@ -207,26 +215,10 @@ public class IA extends Jugador {
                     j--;
                 }
             }
-            j = Battleship.getMyBattleship().maxCol()-1;
+            j = Battleship.getMyBattleship().maxCol()-2;
             i--;
         }
         return  tmp;
-    }
-
-    /**
-     * devuelve true si alguna casilla colindante se encuentra revisada
-     * @param pPos
-     * @return
-     */
-    private boolean revisadasColindantes(Posicion pPos){
-       Collection<Posicion> tmp=pPos.colindantes();
-       for(Posicion p:tmp){
-           if(revisadas.contiene(p)){
-               return true;
-           }
-       }
-
-       return false;
     }
 
     /**

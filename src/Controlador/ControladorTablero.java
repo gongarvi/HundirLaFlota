@@ -49,6 +49,11 @@ public class ControladorTablero extends Observable implements ActionListener {
     public void mostrarFlotaJugador(){Battleship.getMyBattleship().mostrarCampoAliado();}
 
     /**
+     * método para generar una peticion de información de la fase
+     */
+    public void pedirInfoFase(){Battleship.getMyBattleship().pedirInfoFase();}
+
+    /**
      * método que actualiza en la vista la opcion deseada con el texto correspondiente (Vista)
      * @param pOpcion
      * @param pTexto
@@ -123,12 +128,6 @@ public class ControladorTablero extends Observable implements ActionListener {
     public void error(String pError){TableroVista.getTablero().popUpError(pError);}
 
 
-
-    /**
-     * lanza un mensaje de informacion que no se puede eludir (Vista)
-     */
-    public void recuerda(){TableroVista.getTablero().popUpInformacion("recuerda que si quieres recibir ayuda tendras que habilitar los comentarios");}
-
     /**
      * settea el boton aliado seleccionado (x,y) al estado de dicha casilla en el modelo  (Vista)
      * @param pX
@@ -185,7 +184,7 @@ public class ControladorTablero extends Observable implements ActionListener {
         //recoger posicion del boton que lo llamo...
 
         AbstractButton btnSeleccionado= (AbstractButton)e.getSource();
-        if(btnSeleccionado.getText().equals("entendido")) {
+        if(btnSeleccionado.getText().equals("Entendido")) {
             TableroVista.getTablero().disposePopUp();
         }else if(btnSeleccionado.getText().equals("saltarFase")) {
             Battleship.getMyBattleship().saltarFase();
@@ -193,10 +192,10 @@ public class ControladorTablero extends Observable implements ActionListener {
             Battleship.getMyBattleship().comprar();
         }else if(btnSeleccionado.getText().equals("deshabilitarAyuda")) {
             TableroVista.getTablero().skipHints();
-        }else if(btnSeleccionado.getText().equals("reiniciar")) {
+        }else if(btnSeleccionado.getText().equals("Reiniciar")) {
             TableroVista.getTablero().disposePopUp();
             Battleship.getMyBattleship().jugar();
-        }else if(btnSeleccionado.getText().equals("salir")) {
+        }else if(btnSeleccionado.getText().equals("Salir")) {
             System.exit(0);
         }else if(btnSeleccionado.getText().equals("añadirInfo")) {
             TableroVista.getTablero().disposePopUp();

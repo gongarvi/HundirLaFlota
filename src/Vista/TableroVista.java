@@ -131,7 +131,17 @@ public class TableroVista extends JFrame implements Observer {
         popUpAct.setBounds(400,300,300,100);
         popUpAct.add(new JLabel(pTipoFallo), BorderLayout.CENTER);
         JButton btn=new JButton("Entendido");
-        btn.addActionListener(ControladorTablero.getController());
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                disposePopUp();
+                if(skipHints) {
+                    popUpInformacion("recuerda que si quieres recibir ayuda tendras que habilitar los comentarios");
+                }else{
+                   ControladorTablero.getController().pedirInfoFase();
+                }
+            }
+        });
         popUpAct.add(btn, BorderLayout.EAST);
         popUpAct.setVisible(true);
         popUpAct.setIconImage(icon.getImage());
@@ -491,12 +501,6 @@ public class TableroVista extends JFrame implements Observer {
             deshabilitarAyuda.setVisible(true);
             deshabilitarAyuda.setText("deshabilitarAyuda");
 
-
-            infoFase = new JLabel();
-            imput.add(new JLabel(""));
-            imput.add(new JLabel(""));
-            imput.add(infoFase);
-
             //añadir controlador del tablero a los botones de campo jugador
             deshabilitarAyuda.addActionListener(ControladorTablero.getController());
 
@@ -552,9 +556,10 @@ public class TableroVista extends JFrame implements Observer {
                 jButton1.addActionListener(ControladorTablero.getController());
 
             }
+
             opciones.add(new Label("Nombre:"));
             opciones.add(nombre = new JLabel("0"));
-            opciones.add(new JLabel(""));
+            opciones.add(infoFase = new JLabel());
             opciones.add(new JLabel(""));
             opciones.add(new Label("INFORMACIÓN GENERAL:"));
             opciones.add(new JLabel(""));
@@ -601,9 +606,15 @@ public class TableroVista extends JFrame implements Observer {
             URL iconURL= getClass().getResource("/images/hundirLaFlota.png");
             icon = new ImageIcon(iconURL);
             setIconImage(icon.getImage());
+            setVisible(true);
+            ControladorTablero.getController().actualizarOpciones();
+        }else{
+            for (int i = 0; i < maxCol * maxFila; i++) {
+                casillasMiddle.get(i).setBackground(Color.blue);
+                casillasEast.get(i).setBackground(Color.white);
+            }
+            ControladorTablero.getController().actualizarOpciones();
         }
-        setVisible(true);
-        ControladorTablero.getController().actualizarOpciones();
     }
 
     /**

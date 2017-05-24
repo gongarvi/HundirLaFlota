@@ -65,14 +65,47 @@ public class Battleship {
         turno=0;
         acabado=false;
     }
+
     /**
      *inicializa el Battleship para ejecutar pruebas
      * @return
      */
     public void pruebas(){
         Tablero.getMiTablero();
-        tipoVista="consola";
         inicializarJugadores("edgar");
+        fase=0;
+        turno=0;
+        acabado=false;
+        Almacen.getMiAlmacen().reiniciarAlmacen();
+        ia.vaciarListaArmas();
+        ia.reiniciarRadar();
+        ia.reiniciarRevisadas();
+        humano.vaciarListaArmas();
+        humano.reiniciarRadar();
+        Tablero.getMiTablero().reiniciarTablero();
+        tipoVista="consola";
+        humano.colocarBarcosAuto();
+        ia.colocarSoloPortaaviones();
+    }
+
+    /**
+     *inicializa el Battleship para ejecutar pruebas
+     * @return
+     */
+    public void masPruebas(){
+        Tablero.getMiTablero();
+        inicializarJugadores("edgar");
+        fase=0;
+        turno=0;
+        acabado=false;
+        Almacen.getMiAlmacen().reiniciarAlmacen();
+        ia.vaciarListaArmas();
+        ia.reiniciarRadar();
+        ia.reiniciarRevisadas();
+        humano.vaciarListaArmas();
+        humano.reiniciarRadar();
+        Tablero.getMiTablero().reiniciarTablero();
+        tipoVista="consola";
         humano.colocarBarcosAuto();
         ia.colocarBarcos();
     }
@@ -516,7 +549,6 @@ public class Battleship {
      * @param pBtnSeleccionado
      */
     public void gestionarCampoAliado(int pBtnSeleccionado){
-
         Posicion pPos=convertirAPosicion(pBtnSeleccionado);
         if (fase==faseCompraYEscudo) {
             humano.setEscudo(pPos);
@@ -530,32 +562,44 @@ public class Battleship {
             ControladorTablero.getController().fase(fase);
             ControladorTablero.getController().changed();
         }else if (fase==faseInicializacion) {
-           // humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
+            // humano.colocarBarcosAuto(); //descomentar para colocar los barcos automaticamente
             /**
              * comentar debajo(para auto)
              */
             int[] pivote=new int[2];
             pivote[0]=pPos.getX();
             pivote[1]=pPos.getY();
-            humano.colocarUnBarco(pivote,ControladorTablero.getController().getOrientacion(),getLength(ControladorTablero.getController().getTipoBarco()));
+            String dir=ControladorTablero.getController().getOrientacion();
+            String tipoBarco=ControladorTablero.getController().getTipoBarco();
+            if(dir!=null && tipoBarco!=null) {
+                humano.colocarUnBarco(pivote, dir, getLength(tipoBarco));
+                /**
+                 * comentar encima (para auto)
+                 */
+                ControladorTablero.getController().changed();
+                if (!humano.quedanBarcos()) {
+                    //avisar siguiente fase
+                    fase = faseRadar;
+                    ControladorTablero.getController().fase(fase);
+                }
+                /**
+                 * comentar debajo(para auto)
+                 */
+            } else {
+                ControladorTablero.getController().error("Selecciona los parametros correctamente");
+            }
             /**
              * comentar encima (para auto)
              */
-            ControladorTablero.getController().changed();
-            System.out.println(humano.quedanBarcos());
-            if(!humano.quedanBarcos()){
-                //avisar siguiente fase
-                fase=faseRadar;
-                ControladorTablero.getController().fase(fase);
-            }else{
-                //quedan n barcos
-            }
         }else{
            ControladorTablero.getController().error("en esta fase no se puede hacer eso");
-           ControladorTablero.getController().recuerda();
-           ControladorTablero.getController().fase(fase);
         }
     }
+
+    /**
+     * método para lanzar un popUp con información de la fase
+     */
+    public void pedirInfoFase(){ ControladorTablero.getController().fase(fase);}
 
     /**
      * método que devuelve la longitud del tipo especificado
@@ -593,8 +637,7 @@ public class Battleship {
         Posicion pPos=convertirAPosicion(pBtnSeleccionado);
         if(fase==faseDisparo) {
             String arma=ControladorTablero.getController().getImputSelect();
-            System.out.println(arma);
-            if(humano.existeArma(arma)) {
+            if(arma!=null && humano.existeArma(arma)) {
                 humano.dispararArma(arma, pPos);
                 ControladorTablero.getController().changed();
                 if(Tablero.getMiTablero().haGanado()){
@@ -616,7 +659,19 @@ public class Battleship {
                 fase = faseReparacion;
                 ControladorTablero.getController().fase(fase);
             }else{
-                ControladorTablero.getController().error("No quedan armas");
+                if(getTipoVista().equals("consola")){
+                    if(arma!=null) {
+                        System.out.println("No quedan " + ControladorTablero.getController().getImputSelect() + " en el almacen");
+                    }else{
+                        System.out.println("selecciona un arma");
+                    }
+                }else{
+                    if(arma!=null) {
+                        ControladorTablero.getController().error("No quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                    }else{
+                        ControladorTablero.getController().error("selecciona un arma");
+                    }
+                }
             }
         }else  if (fase==faseRadar) {
             humano.setPosicionRadar(pPos);
@@ -627,8 +682,6 @@ public class Battleship {
         }else{
             //error
             ControladorTablero.getController().error("en esta fase no se puede hacer eso");
-            ControladorTablero.getController().recuerda();
-            ControladorTablero.getController().fase(fase);
         }
     }
 
@@ -703,23 +756,30 @@ public class Battleship {
      */
     public void comprar(){
         if (fase==faseCompraYEscudo) {
-            if(Almacen.getMiAlmacen().existeArma(ControladorTablero.getController().getImputSelect())){
-                humano.comprarArma(ControladorTablero.getController().getImputSelect());
+            String arma=ControladorTablero.getController().getImputSelect();
+            if(arma!= null && Almacen.getMiAlmacen().existeArma(arma)){
+                humano.comprarArma(arma);
                 //avisar que puede comprar mas hasta que pase fase
                 ControladorTablero.getController().fase(fase);
                 ControladorTablero.getController().changed();
             }else{
                 if(getTipoVista().equals("consola")){
-                    System.out.println("No quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                    if(arma!=null) {
+                        System.out.println("No quedan " + ControladorTablero.getController().getImputSelect() + " en el almacen");
+                    }else{
+                        System.out.println("selecciona un arma");
+                    }
                 }else{
-                    ControladorTablero.getController().error("No quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                    if(arma!=null) {
+                        ControladorTablero.getController().error("No quedan "+ControladorTablero.getController().getImputSelect()+ " en el almacen");
+                    }else{
+                        ControladorTablero.getController().error("selecciona un arma");
+                    }
                 }
             }
             //avisar que puede comprar mas hasta que pase fase
         }else{
             ControladorTablero.getController().error("En esta fase no se puede hacer eso");
-            ControladorTablero.getController().recuerda();
-            ControladorTablero.getController().fase(fase);
         }
     }
 
