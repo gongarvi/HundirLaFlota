@@ -218,4 +218,8 @@ Recursos anexos:
 
 - Diseño: 
 	- Hemos utilizado el soporte informático Visual Paradigm para realizar el diagrama de clases y los diagramas de secuencia.
+	
+- Codificación:
+	- El proyecto esta hecho en formato de codificación UTF-8.
 ##
+	
