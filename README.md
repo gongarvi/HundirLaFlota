@@ -223,3 +223,4 @@ Recursos anexos:
 	- El proyecto esta hecho en formato de codificación UTF-8.
 ##
 	
+Hecho por Edgar Andrés Santamaría y Unai Martín Gonzalez.
