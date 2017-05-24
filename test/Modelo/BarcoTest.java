@@ -92,23 +92,23 @@ public class BarcoTest {
 
     @Test
     public void testEstadoPosRepararTocarSetEstadoPos() throws Exception {
-        Assert.assertEquals(tmp1.estadoPos(new Posicion(-1,-1)),"normal");
+
         Assert.assertEquals(tmp2.estadoPos(new Posicion(-1,-1)),"normal");
         Assert.assertEquals(tmp3.estadoPos(new Posicion(-1,-1)),"normal");
         Assert.assertEquals(tmp4.estadoPos(new Posicion(-1,-1)),"normal");
-        tmp1.recibirDanios(new Posicion(-1,-1));
+
         tmp2.recibirDanios(new Posicion(-1,-1));
         tmp3.recibirDanios(new Posicion(-1,-1));
         tmp4.recibirDanios(new Posicion(-1,-1));
-        Assert.assertEquals(tmp1.estadoPos(new Posicion(-1,-1)),"tocado");
+
         Assert.assertEquals(tmp2.estadoPos(new Posicion(-1,-1)),"tocado");
         Assert.assertEquals(tmp3.estadoPos(new Posicion(-1,-1)),"tocado");
         Assert.assertEquals(tmp4.estadoPos(new Posicion(-1,-1)),"tocado");
-        tmp1.reparar(new Posicion(-1,-1));
+
         tmp2.reparar(new Posicion(-1,-1));
         tmp3.reparar(new Posicion(-1,-1));
         tmp4.reparar(new Posicion(-1,-1));
-        Assert.assertEquals(tmp1.estadoPos(new Posicion(-1,-1)),"normal");
+
         Assert.assertEquals(tmp2.estadoPos(new Posicion(-1,-1)),"normal");
         Assert.assertEquals(tmp3.estadoPos(new Posicion(-1,-1)),"normal");
         Assert.assertEquals(tmp4.estadoPos(new Posicion(-1,-1)),"normal");

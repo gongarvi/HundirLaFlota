@@ -25,7 +25,7 @@ public class IATest {
         boolean posResuelta=false;
         int i=0;
         int j=0;
-        Assert.assertTrue(tmp.resolverSigPosRadar().equals(new Posicion(1,1)));
+        Assert.assertTrue(tmp.resolverSigPosRadar().equals(new Posicion(8,8)));
         if(Battleship.getMyBattleship().turnoAct()==0) {
             Battleship.getMyBattleship().cambiarTurno();
         }
@@ -46,9 +46,6 @@ public class IATest {
         Assert.assertTrue(tmp.posAliada().equals(normalIA));
         Battleship.getMyBattleship().cambiarTurno();
         Tablero.getMiTablero().impactar(normalIA);
-        Battleship.getMyBattleship().cambiarTurno();
-        Assert.assertTrue(tmp.posDañadaAliada().equals(normalIA));
-        Battleship.getMyBattleship().cambiarTurno();
         posResuelta=false;
          i=0;
          j=0;

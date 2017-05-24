@@ -15,7 +15,7 @@ public class JugadorTest {
     @BeforeMethod
     public void init() throws Exception {
         tmp=new Humano("edgar");
-        Battleship.getMyBattleship().pruebas();
+        Battleship.getMyBattleship().masPruebas();
     }
 
     @Test
