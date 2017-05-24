@@ -164,7 +164,7 @@ Los métodos de compra solo comprueban el dinero del usuario y lo decrementan, p
 ![logo_preview](http://i.imgur.com/TYXnNjV.png)
 Para comprar un arma, debemoso seleccionar la deseada (rectángulo negro) y darle a comprar (rectángulo a rojo). Podemos ver como el almacen (rectángulo amarillo) reduce sus existencias y nuestras armas aumentan (rectángulo verde) y como disminuye nuestro dinero (rectángulo naranja).
 
-![logo_preview]()
+![logo_preview](http://i.imgur.com/eYnlFQb.png)
 Al perder nuestro último barco podremos reiniciar el juego o salir (rectángulo negro). 
 ##
 
