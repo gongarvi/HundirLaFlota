@@ -25,10 +25,10 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ![logo_preview](http://i.imgur.com/PQaoOqV.png)
 ##
 # Primer Sprint
-![logo_preview](http://i.imgur.com/wzR8wnZ.png)
+![logo_preview](http://i.imgur.com/FO42f5e.png)
 ![logo_preview](http://i.imgur.com/19dOhsa.png)
-![logo_preview](http://i.imgur.com/iVExllC.png)
-![logo_preview](http://i.imgur.com/kgsE0kM.png)
+![logo_preview](http://i.imgur.com/cKaDmRl.png)
+![logo_preview](http://i.imgur.com/YN59uHj.png)
 ##
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
