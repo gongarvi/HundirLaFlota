@@ -22,13 +22,13 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
 
 # Diagrama de clases:
-![logo_preview](http://i.imgur.com/loBCsOI.png)
+![logo_preview](http://i.imgur.com/PQaoOqV.png)
 ##
 # Primer Sprint
-![logo_preview](http://i.imgur.com/Yd0eMgq.png)
-![logo_preview](http://i.imgur.com/AXBhMIa.png)
-![logo_preview](http://i.imgur.com/bZJjh9L.png)
-![logo_preview](http://i.imgur.com/fHps5lL.png)
+![logo_preview](http://i.imgur.com/wzR8wnZ.png)
+![logo_preview](http://i.imgur.com/19dOhsa.png)
+![logo_preview](http://i.imgur.com/iVExllC.png)
+![logo_preview](http://i.imgur.com/kgsE0kM.png)
 ##
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
@@ -51,8 +51,8 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 # Segundo Sprint
 ![logo_preview](http://i.imgur.com/iA07MUR.png)
 ![logo_preview](http://i.imgur.com/9O7kT84.png)
-![logo_preview](http://i.imgur.com/n3PSs4P.png)
-![logo_preview](http://i.imgur.com/wAG0N0f.png)
+![logo_preview](http://i.imgur.com/lvswpYf.png)
+![logo_preview](http://i.imgur.com/8dY8LiF.png)
 ##
 	# HU4: Consultar radar jugador
 		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
@@ -75,10 +75,10 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ##
 	
 # Tercer Sprint 
-![logo_preview](http://i.imgur.com/CiW4Ag6.png)
-![logo_preview](http://i.imgur.com/945l6ZT.png)
-![logo_preview](http://i.imgur.com/TKxBcsn.png)
-![logo_preview](http://i.imgur.com/2e5LpYG.png)
+![logo_preview](http://i.imgur.com/pE57TGP.png)
+![logo_preview](http://i.imgur.com/D9oBqa9.png)
+![logo_preview](http://i.imgur.com/YKUwiKH.png)
+![logo_preview](http://i.imgur.com/xNVVaMR.png)
 ##
 	# HU8: Reparar barco jugador
 		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo
@@ -95,6 +95,9 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ##
 
 ##	
+
+![logo_preview](http://i.imgur.com/OUa21Dq.png)
+En el rectangulo azul vemos el almacen,  nuestras armas en el inicio vacias y el precio de cada arma. El rectángulo naranja indica nuestro dinero que se ira reduciendo, el coste de los escudos, las reparacioney  los usos del radar. Finalmente el rectángulo rosa nos indica la fase en la que estamos. El rectangulo amarillo indica el arma seleccionada y el rectangulo morado las diferentos opciones.
 HU1: 
 La asociación del armamento, dinero y radar se realiza a los jugadores tanto humano como IA. Las flotas de ambos jugadores se almacenan y componen el tablero, estas flotas inicialmente contienen todos los barcos del juego inicializados pero sin posición, por defecto (-1,-1).
 
@@ -109,6 +112,8 @@ La interfaz gráfica, concretamente el tablero adversario (por consola es igual)
 
 Importante para pruebas:
 * La flota ordenador se coloca automáticamente, este método es aplicable a la flota humano, útil para pruebas, cambiando unas lineas que están especificadas en la clase Battleship. 
+![logo_preview](http://i.imgur.com/tJcMO48.png)
+Para la colocación, pinchamos en una casilla (cuadrado negro) de nuestro tablero (representado en color azul). Una vez clickado observamos que se nos despliega una nueva ventana. Ahí escogemos el barco (rectángulo negro) y su orientación (rectángulo rojo) y añadimos la información (rectángulo cyan).
 ##
 
 ##
@@ -116,12 +121,20 @@ HU2 y HU3:
 Los escudos son atributos de los barcos y no se almacenan en ningún sitio, se instancian en el momento que se requiera colocarselo a algún barco. Aquellos barcos que no tienen escudo lo tendrán a nulo y recibiran directamente el impacto según el arma usada. Los escudos  son capaces de recibir dos impactos de bomba o uno de misil y protegen todas las posiciones de barco por igual.
 
 El modo de interacción para la generación de escudos es igual para el jugador y la IA, se selecciona una posición a la que colocar el escudo y se resuelve el barco deseado en función de dicha posición. Si no existe el barco no actúa y lo avisará.
+![logo_preview](http://i.imgur.com/TYXnNjV.png)
+![logo_preview](http://i.imgur.com/Hicj3vv.png)
+
+En la fase escudo pincharemos en una casilla donde tengamos un barco (rectángulo rosa) y se nos restara el dinero(rectámmgulo marron) de coste 75 (color azul cielo). Veremos como cambio de color el barco a azul cyan.
+- La fase de escudo como ya sabemos está enlazada con la fase de comprar por lo que repetiremos la imagen.
+ 
 ##
 
 ##
 H4 y H5:
 La clase radar tiene un número de usos limitado a tres, cuando se desea utilizar, se le asigna una nueva posición que revelar y este revela las colindantes y reduce el uso. El método es igual para la IA y el humano, posteriormente la información recogida se guardara en el caso de la IA y se mostrará en el caso de usuario.
 Actualmente el radar muestra las posiciones de alrededor y de la posición deseada, esto podría modificarse por el uso de Listas de posiciones cuya formación corre a cargo de la posición (es capaz de saber sus colindantes), posteriormente se realiza un filtrado del Tablero mostrando unicamente aquellas posiciones que pertenezcan a la lista dada.
+![logo_preview](http://i.imgur.com/Ihhqusl.png)
+Para el correcto uso del radar clickamos una casilla (rectángulo rojo) del tablero enemigo (rectámgulo en blanco). Este nos despliega la información de la casilla y de sus alrededores (rectángulo negro), como podemos observar se nos reducen los usos del radar (rectángulo color mostaza).
 ##
 
 ##
@@ -131,11 +144,16 @@ La clase Arma cuenta con un método abstracto disparar que se redefine para actu
 La IA usa la misma idea del radar para las armas. Para ello reutiliza la lista de posiciones y verificara el lugar ideoneo para disparar, luego el arma actúa de la misma manera, ataca la posición y según que arma seleccionase, destruira más posiciones.
 
 Cabe destacar que el disparo se realiza posición a posición y que existen método diferentes de comportamiento de impacto para bombas y misiles, la cadena de ejecución de este método termina en el estado de los barcos (en caso de acierto) aplicandose aquí el patrón State , en caso de fallar saltará un mensaje (solo por consola, era muy engorroso en interfaz y estaria sacando advertencias tanto para el turno de humano como para el turno de la IA).
+![logo_preview](http://i.imgur.com/IXxWblB.png)
+Para disparar al campo contrario, debemos seleccinar el arma (rectángulo amarillo) y seleccionar una posicion del tablero derecho (cuadrado negro), como se puede ver en este ejemplo, hemos usado un misil Boom que se nos ha restado de la lista (rectángulo rojo) y nos ha tocado las casillas (cuadrado negro y lineas negras). Cada tipo de arma tiene una función diferente.
+
 ##
 
 ##
 H8 y H9:
 El método de reparación se realiza en la IA y el humano por igual, se reparan barcos posición a posición, y en caso de fallar se devuelve el dinero que se le ha retirado al jugador, solo se podrá reparar un barco en cada fase reparación y el fallo contará como reparación. En el caso de la IA reparará el primer barco dañado que tenga ya que solo se puede realizar uno por turno (en caso de realizarse).
+![logo_preview](http://i.imgur.com/LSm5cUc.png)
+En la reparación debes seleccionar una casilla en rojo de un barco no hundido (cuadrado amarillo, no rectangulo verde), y si tienes mas dineró que el coste (
 ##
 
 ##
@@ -143,6 +161,11 @@ H10 y H11:
 El método de comprar es equivalente en ambos jugadores humano e IA, es posible comprar varios articulos en la misma fase, en esta fase tambien se colocar escudos a modo de producto. Para la IA lo tenemos diferenciado en 2 pasos: comprar arma y colocar Escudo. De nuevo  usará  la lista de posiciones revisadas para decidir que tipo de arma le conviene utilizar en cada momento ,por otro lado colocará un escudo.
 
 Los métodos de compra solo comprueban el dinero del usuario y lo decrementan, posteriormente al alcanzar el producto a comprar (arma o escudo) se devolvera el dinero en caso que no existiera o los parámetros no coincidieran con un barco, esta transición no la verá el usuario por nuestra política de refresco (ver al final), todos los fallos contemplados en la compra de armas y escudos avisarán al usuario que la operación no se ha realizado con éxito (falta de dinero, no existe arma, ya existía escudo, la posción seleccionada no es barco), existen otros impedimentos de interfaz (ver final).
+![logo_preview](http://i.imgur.com/TYXnNjV.png)
+Para comprar un arma, debemoso seleccionar la deseada (rectángulo negro) y darle a comprar (rectángulo a rojo). Podemos ver como el almacen (rectángulo amarillo) reduce sus existencias y nuestras armas aumentan (rectángulo verde) y como disminuye nuestro dinero (rectángulo naranja).
+
+![logo_preview]()
+Al perder nuestro último barco podremos reiniciar el juego o salir (rectángulo negro). 
 ##
 
 ##
@@ -163,7 +186,7 @@ Existen fases para distinguir cada momento del turno, esto sirve para gestionar 
 ##
 
 ##
-Política de refresco :
+Política de refresco:
 El juego solo mostrará los cambios en el juego en ciertos puntos, al final de cada fase concretamente. El refresco solo afecta a la visión del usuario sobre la información que tiene al alcance su análogo jugador-humano en el modelo.
 ##
 
@@ -175,18 +198,20 @@ Estos impedimentos evitan que se pueda realizar cualquier acción en la interfaz
 ##
 Recursos anexos:
 - IDE:
-	-Hemos realizado el proyecto en el IDE IntelliJ de JetBrains por su facilidad y comodida a la hora de codificar, además cuenta con un depurador de código sofisticado que nos permite simplificar el código.
+	- Hemos realizado el proyecto en el IDE IntelliJ de JetBrains por su facilidad y comodida a la hora de codificar, además cuenta con un depurador de código sofisticado que nos permite simplificar el código.
 
 - TEST:
 	- Para realizar las pruebas unitarias hemos decidido utilizar el Framework TestNG por su versatilidad de métodos de prueba y overrides funcionales.
-
+![logo_preview](http://i.imgur.com/Il8rU37.png)
+	
 - GUI:
 	- Para realizar la interfaz hemos utilizado las librerias  javax.swing de java.
 
 - Versión de java:
 	- Hemos utilizado la octava versión de Java para aprovechar las expresiones lambda y la genericidad.
 
-- Control versiones: para realizar el control de versiones del proyecto hemos utilizado GitHub, además nos ayuda a mantener el proyecto en su última versión compartido entre todos los integrantes del grupo.
+- Control versiones: 
+	- Para realizar el control de versiones del proyecto hemos utilizado GitHub, además nos ayuda a mantener el proyecto en su última versión compartido entre todos los integrantes del grupo.
 
 - Readme: 
 	- Hemos utilizado un archivo de tipo MD para guardar la información referente al proyecto.
