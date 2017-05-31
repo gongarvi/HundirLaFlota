@@ -22,13 +22,13 @@ pueden estar juntos, es decir, cada barco debe estar totalmente rodeado de agua.
 Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metodología SCRUM, en el que se establecerán tres sprint. Antes de comenzar a realizar el proyecto, los miembros del grupo deben leer detenidamente este enunciado general y establecer los valores que desean asignar a cada propiedad para la que se indica que tiene un valor inicial predeterminado. Como valor añadido, en este proyecto hay que implementar la estrategia que utiliza ordenador para determinar la posición del tablero “flota jugador” sobre la que quiere disparar, así como para elegir el armamento con el que desea hacerlo.
 
 # Diagrama de clases:
-![logo_preview](http://i.imgur.com/7RNyrxc.jpg)
+![logo_preview](http://i.imgur.com/LHWsc6W.jpg)
 ##
 # Primer Sprint
-![logo_preview](http://i.imgur.com/um4R87V.jpg)
-![logo_preview](http://i.imgur.com/KU0wKAr.jpg)
-![logo_preview](http://i.imgur.com/sWSurdy.jpg)
-![logo_preview](http://i.imgur.com/3sBqzMD.jpg)
+![logo_preview](http://i.imgur.com/L7nGfNV.jpg)
+![logo_preview](http://i.imgur.com/J6rhHIg.jpg)
+![logo_preview](http://i.imgur.com/tPQhppU.jpg)
+![logo_preview](http://i.imgur.com/TAhOyyd.jpg)
 ##
 	# HU1: Inicializar el juego
 		- Colocar los barcos de “flota jugador” solicitando al jugador las posiciones en las que desea situar 
@@ -49,10 +49,10 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ##
 	
 # Segundo Sprint
-![logo_preview](http://i.imgur.com/1W0NH4J.jpg)
-![logo_preview](http://i.imgur.com/7DB66El.jpg)
-![logo_preview](http://i.imgur.com/Fcus4RS.jpg)
-![logo_preview](http://i.imgur.com/HGShmwC.jpg)
+![logo_preview](http://i.imgur.com/FO2NGv8.jpg)
+![logo_preview](http://i.imgur.com/oomtIXb.jpg)
+![logo_preview](http://i.imgur.com/BPrCt32.jpg)
+![logo_preview](http://i.imgur.com/cu4S8Ii.jpg)
 ##
 	# HU4: Consultar radar jugador
 		- El jugador consulta su radar para comprobar si hay algún barco de la “flota ordenador” en las posiciones
@@ -75,10 +75,10 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ##
 	
 # Tercer Sprint 
-![logo_preview](http://i.imgur.com/WdwiCAn.jpg)
-![logo_preview](http://i.imgur.com/uZ6oDlb.jpg)
-![logo_preview](http://i.imgur.com/SrA9zpB.jpg)
-![logo_preview](http://i.imgur.com/YcxG7EN.jpg)
+![logo_preview](http://i.imgur.com/bIoyFzU.jpg)
+![logo_preview](http://i.imgur.com/H6f2kDY.jpg)
+![logo_preview](http://i.imgur.com/mu2ZqSb.jpg)
+![logo_preview](http://i.imgur.com/NgPGmSv.jpg)
 ##
 	# HU8: Reparar barco jugador
 		- Si el jugador dispone de dinero suficiente, se realiza la reparación del barco que indique, disminuyendo
