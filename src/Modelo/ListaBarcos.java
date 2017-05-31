@@ -173,11 +173,16 @@ public class ListaBarcos {
      */
     public void reparar( Posicion pPosicion){
         Barco aImpactar=buscarPorPos(pPosicion);
-        if(aImpactar!=null){
+        if(aImpactar!=null) {
             aImpactar.reparar(pPosicion);
-        }else{
-            System.out.println("fallaste al elegir barco");
-            Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioReparacion());
+        }else if(Battleship.getMyBattleship().turnoAct()==0) {
+                if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                    System.out.println("fallaste al elegir barco");
+                    Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+                } else {
+                    ControladorTablero.getController().error("fallaste al elegir barco");
+                    Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+                }
         }
     }
 

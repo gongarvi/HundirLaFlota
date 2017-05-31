@@ -1,5 +1,7 @@
 package Modelo;
 
+import Controlador.ControladorTablero;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -33,7 +35,17 @@ public class Posicion {
      * reparar posicion
      */
     public void reparar(){
-        setState(estado.reparar());
+        if(estado instanceof STocado) {
+            setState(estado.reparar());
+        }else if(Battleship.getMyBattleship().turnoAct()==0) {
+            if (Battleship.getMyBattleship().getTipoVista().equals("consola")) {
+                System.out.println("no está tocado");
+                Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+            } else {
+                ControladorTablero.getController().error("no está tocado");
+                Battleship.getMyBattleship().cancelarCompra(Battleship.getMyBattleship().getPrecioEscudo());
+            }
+        }
     }
 
     /**
