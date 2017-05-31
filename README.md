@@ -75,8 +75,8 @@ Este proyecto se realizará en grupo, siguiendo un proceso inspirado en la metod
 ##
 	
 # Tercer Sprint 
-![logo_preview](http://i.imgur.com/bIoyFzU.jpg)
-![logo_preview](http://i.imgur.com/H6f2kDY.jpg)
+![logo_preview](http://i.imgur.com/VMTXdNa.jpg)
+![logo_preview](http://i.imgur.com/wokQgPN.jpg)
 ![logo_preview](http://i.imgur.com/mu2ZqSb.jpg)
 ![logo_preview](http://i.imgur.com/NgPGmSv.jpg)
 ##
